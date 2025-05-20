@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { IoMdMenu } from "react-icons/io";
 import { IoMdClose } from "react-icons/io";
-import { motion } from "framer-motion";
 import Logo from "../assets/logo.png";
 
 const NavbarMenu = [
@@ -32,7 +31,7 @@ const NavbarMenu = [
     // path: "/gallery",
   },
   {
-    id: 5,
+    id: 6,
     title: "Contact Us",
     link: "#contact",
   },
