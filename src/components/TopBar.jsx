@@ -9,7 +9,7 @@ import Navbar from "./Navbar";
 
 const TopBar = () => {
   return (
-    <div className="max-w-screen h-34">
+    <div className="max-w-screen h-34 bg-white fixed top-0 left-0 right-0 z-40">
       {/* Top of the nav bar */}
       <div className="w-full h-1/3 bg-blue-400 ">
         {/* Dot grid background */}
