@@ -1,8 +1,6 @@
 // This component is a simple carousel that displays slides and has navigation buttons.
 import React, { useEffect, useState } from "react";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
-import Link from "./LinkComponent";
-import Reveal from "./Reveal";
 // import SendRequestForm from "./SendRequestForm";
 
 const Carousel = ({

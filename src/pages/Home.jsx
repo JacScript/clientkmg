@@ -9,6 +9,7 @@ import Hero from "../components/home/hero/Hero";
 import SmallWord from "../components/home/smallTalk/SmallTalk";
 import SmallTalk from "../components/home/smallTalk/SmallTalk";
 import Why from "../components/home/why/Why";
+import About from "../components/home/about/About";
 
 const Home = () => {
   return (
@@ -32,6 +33,10 @@ const Home = () => {
 
       {/* Why section */}
       <Why/>
+
+      {/* About */}
+
+      <About/>
     </main>
   );
 };

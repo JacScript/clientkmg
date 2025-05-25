@@ -1,6 +1,7 @@
 import React from 'react'
 import Reveal from '../../Reveal'
 import pic1 from '../../../assets/images/img5.jpeg';
+import FadeInImage from '../../FadeInImage';
 
 function Discover() {
   return (
@@ -22,8 +23,8 @@ function Discover() {
            <p className='text-lg'>Journey across continents, cultures, and landscapes – because every path leads to a new discovery.</p>
             </Reveal>
         </div>
-        <div className='h-full w-1/2 bg-amber-600'>
-           <img src={pic1} alt="pic1" className='h-full w-full object-cover' />
+        <div className='h-full w-1/2'>
+           <FadeInImage src={pic1} alt="pic1" className='h-full w-full object-cover' />
         </div>
         </div>
     </main>
