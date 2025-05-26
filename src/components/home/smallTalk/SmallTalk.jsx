@@ -1,42 +1,98 @@
-// import React from 'react';
-// import pic1 from '../../../assets/images/img5.jpeg';
-
-// const SmallTalk = () => {
-//   return (
-//     <div
-//       className="w-full max-h-[900px] bg-cover bg-center bg-no-repeat bg-fixed relative flex items-center justify-center text-white"
-//       style={{
-//         backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url(${pic1})`,
-//       }}
-//     >
-//       <div className="text-4xl h-[900px] font-bold">Explore the charming streets and museums of France. Whether you're chasing history or adventure, we've got you covered. Let’s make memories together!</div>
-//     </div>
-//   );
-// };
-
-// export default SmallTalk;
-
-
-
 import React from 'react';
+import { motion } from 'framer-motion';
 import pic1 from '../../../assets/images/img5.jpeg';
 import Reveal from '../../Reveal';
+import { GiModernCity } from "react-icons/gi";
+import { MdOutlineMuseum } from "react-icons/md";
+import { TbBeach } from "react-icons/tb";
+import Link from '../../LinkComponent';
+
+const iconVariants = {
+  initial: { opacity: 0, y: 50 },
+  animate: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
+  hover: { backgroundColor: "#000080", transition: { duration: 0.4 } },
+};
+
+const textVariants = {
+  hover: { color: "#ffffff" },
+};
 
 const SmallTalk = () => {
+  const data = [
+    {
+      icon: <GiModernCity size={80} />,
+      text: "City Visiting",
+    },
+    {
+      icon: <MdOutlineMuseum size={80} />,
+      text: "Museum Tours",
+    },
+    {
+      icon: <TbBeach size={80} />,
+      text: "Beach Trips",
+      className: "col-start-2"
+    }
+  ];
+
   return (
     <div
-      className="w-full h-[600px] bg-cover bg-center bg-no-repeat bg-fixed relative flex items-center justify-center text-white"
+      className="w-full h-[700px] bg-cover bg-center bg-no-repeat bg-fixed relative flex items-center justify-center text-white"
       style={{
         backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url(${pic1})`,
       }}
     >
-      <div className="text-6xl font-bold text-center w-3/4">
-        <Reveal delay={0.5}>
+      <div className="w-3/4 h-full flex flex-col lg:flex-row justify-between items-center">
+        {/* Left text content */}
+        <div className="text-2xl font-bold lg:w-1/2 h-full flex flex-col mt-70 mr-12">
+          <Reveal delay={0.5}>
+            <p className="flex justify-center mb-12">
+              Explore the charming streets and museums of France. Whether you're chasing history or adventure, we've got you covered. Let's make memories together!
+            </p>
+          </Reveal>
+          <div>
+            <Link 
+              href="#"
+              className="px-[20px] py-[10px] border-2 border-[#000080] rounded-lg shadow-lg text-[20px] font-extrabold text-white bg-[#000080] hover:bg-[#000080d2] transition-all ease-in-out duration-500"
+              title="Contact Us"
+            />
+          </div>
+        </div>
 
-       <p>
-       Explore the charming streets and museums of France. Whether you're chasing history or adventure, we've got you covered. Let's make memories together!
-        </p> 
-        </Reveal>
+        {/* Animated icons */}
+        <div className="lg:w-1/2 grid grid-cols-2 gap-6">
+          {data.map((item, idx) => (
+            <motion.div
+              key={idx}
+              initial="initial"
+              whileInView="animate"
+              whileHover="hover"
+              viewport={{ once: true }}
+              variants={iconVariants}
+              className={`relative overflow-hidden rounded-lg border-2 py-10 px-6 flex flex-col items-center text-center transition-colors duration-300 cursor-pointer ${item.className || ''}`}
+            >
+              {/* Background hover fill */}
+              <motion.div
+                variants={{
+                  hover: { y: 0, opacity: 1 },
+                  initial: { y: "100%", opacity: 0 },
+                }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
+                className="absolute inset-0 bg-[#000080] z-0"
+              />
+
+              {/* Icon and Text */}
+              <div className="relative z-10">
+                {item.icon}
+                <motion.p
+                  className="mt-2 font-semibold text-[#000080]"
+                  variants={textVariants}
+                >
+                  {item.text}
+                </motion.p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
       </div>
     </div>
   );

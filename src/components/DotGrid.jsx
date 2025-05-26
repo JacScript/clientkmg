@@ -47,7 +47,7 @@
 import React from 'react';
 
 const GRID_HEIGHT = 4;
-const GRID_WIDTH = 116;
+const GRID_WIDTH = 114;
 
 const DotGrid = () => {
   const dots = [];

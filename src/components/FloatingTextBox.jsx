@@ -15,7 +15,7 @@ const FloatingTextBox = ({ number, text, delay = 0.6 }) => {
 
   return (
     <motion.div
-      className="bg-white w-90 h-30 absolute -right-30 -bottom-10 opacity-100 flex items-center justify-center rounded-lg shadow"
+      className="bg-white w-90 h-30 absolute -right-20 bottom-16 opacity-100 flex items-center justify-center rounded-lg shadow"
       variants={variants}
       initial="hidden"
       whileInView="visible"

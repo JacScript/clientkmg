@@ -36,7 +36,7 @@ const slides = [
 
 const Hero = () => {
   return (
-    <div className="relative mt-34 "
+    <div className="relative mt-34 z-50"
      
     >
         <Carousel className="" autoSlide={true} component={IntroText}>

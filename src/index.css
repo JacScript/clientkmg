@@ -3,7 +3,34 @@
 @source "../.flowbite-react/class-list.json";
 
 
-.slick-slide > div  {
-    margin : 0 20px;
+
+  
+
+  /* Give space between slides */
+.slick-slide > div {
+    margin: 0 20px;
     padding: 20px 0;
-}
+    box-sizing: border-box; /* ensure padding doesn't break layout */
+  }
+  
+  /* Dot styles */
+  .slick-dots li button:before {
+    font-size: 12px; /* optional: control dot size */
+    color: #8B2614 !important;  /* default dot color */
+    opacity: 0.75; /* optional for a softer look */
+  }
+  
+  /* Active dot color */
+  .slick-dots li.slick-active button:before {
+    color: #000080 !important;  /* active dot color */
+    opacity: 1;
+  }
+  
+  /* Arrow styles */
+  .slick-prev:before,
+  .slick-next:before {
+    color: #8B2614 !important;
+    font-size: 100px; /* optional: size of the arrows */
+    opacity: 0.9;
+  }
+  

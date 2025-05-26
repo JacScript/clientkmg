@@ -16,7 +16,7 @@ import Footer from "../components/Footer";
 
 const Home = () => {
   return (
-    <main className="max-w-screen">
+    <main className="max-w-screen scrollbar-hide">
       {/* Hero Section */}
 
       <Hero />
