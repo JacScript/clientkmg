@@ -171,11 +171,11 @@ const About = () => {
 
   return (
     <div className="h-[700px] max-w-screen bg-blue-100 py-10">
-      <Reveal>
+      {/* <Reveal> */}
         <h1 className="text-5xl text-[#000080] font-extrabold text-center mb-12">
           About Us
         </h1>
-      </Reveal>
+      {/* </Reveal> */}
       <div className="w-3/4 h-full flex items-center justify-center mx-auto">
         {/* LEFT IMAGE SIDE */}
         <div className="w-1/2 h-full relative mx-8">

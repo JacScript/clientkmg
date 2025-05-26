@@ -1,3 +1,9 @@
 @import "tailwindcss";
 @plugin "flowbite-react/plugin/tailwindcss";
 @source "../.flowbite-react/class-list.json";
+
+
+.slick-slide > div  {
+    margin : 0 20px;
+    padding: 20px 0;
+}

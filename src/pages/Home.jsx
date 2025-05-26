@@ -10,6 +10,9 @@ import SmallWord from "../components/home/smallTalk/SmallTalk";
 import SmallTalk from "../components/home/smallTalk/SmallTalk";
 import Why from "../components/home/why/Why";
 import About from "../components/home/about/About";
+import Testimonial from "../components/home/testimonial/Testimonial";
+import ContactUs from "../components/contact/Contact";
+import Footer from "../components/Footer";
 
 const Home = () => {
   return (
@@ -37,6 +40,15 @@ const Home = () => {
       {/* About */}
 
       <About/>
+
+      {/* Testimonial */}
+
+      <Testimonial/>
+
+      {/* contact */}
+    <ContactUs/>
+
+<Footer/>
     </main>
   );
 };
