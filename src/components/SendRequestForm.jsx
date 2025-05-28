@@ -21,7 +21,7 @@ const SendRequestForm = () => {
             </label>
             <select
               id="activities"
-              className="w-64 border border-[#000080a4] text-[#000080] text-sm font-medium rounded-lg focus:ring-blue-500 focus:border-blue-500 block py-2.5 px-2.5 dark:bg-[#000080] dark:border-gray-100 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              className="w-64 border border-[#000080a4] text-[#000080] text-sm font-medium rounded-lg focus:ring-blue-500 focus:border-blue-500 block py-2.5 px-2.5 focus:outline-none  dark:bg-[#000080] dark:border-gray-100 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             >
               <option value="">Select an activity</option>
               <option value="hiking">Hiking</option>
@@ -48,7 +48,7 @@ const SendRequestForm = () => {
             </label>
             <select
               id="activities"
-              className="w-64 border border-[#000080a4] text-[#000080] text-sm font-medium rounded-lg focus:ring-blue-500 focus:border-blue-500 block py-2.5 px-2.5 dark:bg-[#000080] dark:border-gray-100 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              className="w-64 border border-[#000080a4] text-[#000080] text-sm font-medium rounded-lg focus:ring-blue-500 focus:border-blue-500 block py-2.5 px-2.5 dark:bg-[#000080] focus:outline-none  dark:border-gray-100 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             >
               <option value="">Select an activity</option>
               <option value="hiking">Hiking</option>
@@ -68,14 +68,14 @@ const SendRequestForm = () => {
           <div className="flex flex-col ml-4">
             <label
               for="email"
-              class="block mb-1 text-sm font-medium text-gray-900 dark:text-white"
+              class="block mb-1 pl-1 text-sm font-extrabold text-[#000080]"
             >
-              Email address
+              Email 
             </label>
             <input
               type="email"
               id="email"
-              className="bg-gray-50  w-64 border border-[#000080a4] text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              className="bg-gray-50  w-64 border border-[#000080a4] text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 focus:outline-none  dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="john.doe@company.com"
               required
             />

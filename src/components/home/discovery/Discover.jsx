@@ -1,6 +1,6 @@
 import React from 'react'
 import Reveal from '../../Reveal'
-import pic1 from '../../../assets/images/img5.jpeg';
+import pic1 from '../../../assets/images/img19.jpg';
 import FadeInImage from '../../FadeInImage';
 import Link from '../../LinkComponent';
 
@@ -12,16 +12,16 @@ function Discover() {
         <div className='h-[90%] w-1/2 text-[#000080] flex flex-col px-12'>
             <Reveal>
 
-           <p className='font-bold text-lg'>TIMELESS ADVENTURE</p>
+           <p className='font-bold text-lg font-serif'>TIMELESS ADVENTURE</p>
             </Reveal>
 
             <Reveal delay={0.5}>
-           <p className='font-black text-[70px]'>DISCOVER THE CITIES WITH KM TRAVEL & TOUR</p>
+           <p className='font-black text-[70px] font-roboto'>DISCOVER THE CITIES WITH KM TRAVEL & TOUR</p>
             </Reveal>
 
             <Reveal delay={1.3}>
 
-           <p className='text-lg'>Journey across continents, cultures, and landscapes – because every path leads to a new discovery.</p>
+           <p className='text-lg font-serif'>Journey across continents, cultures, and landscapes – because every path leads to a new discovery.</p>
             </Reveal>
 
             <div className="flex justify-start mt-4">

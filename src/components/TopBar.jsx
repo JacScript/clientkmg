@@ -9,7 +9,7 @@ import Navbar from "./Navbar";
 
 const TopBar = () => {
   return (
-    <header className="w-full h-34 fixed top-0 left-0 right-0 z-90 bg-white">
+    <header className="w-full h-40 fixed top-0 left-0 right-0 z-90 bg-white">
       {/* Top of the nav bar */}
       <div className="w-full h-1/3 bg-blue-400 ">
         {/* Dot grid background */}
@@ -21,7 +21,7 @@ const TopBar = () => {
           <div className="flex text-white items-center">
             <div className="flex mr-2 items-center">
               <MdLocationOn className="mr-2" size={18} />
-              <h1>MailiMoja, 320 Ali hassan Road</h1>
+              <h1>14 Nakwamba Street, Bahari Beach, Dar Es Salaam</h1>
             </div>
             <div className="flex ml-4 items-center">
               <CiMail className="mr-2" size={18} />
@@ -29,7 +29,7 @@ const TopBar = () => {
                 href="mailto:jacksonsylas59@gmail.com"
                 className="cursor-pointer"
               >
-                jacksonsylas59@gmail.com
+                kai@kaimaembe.com
               </a>
             </div>
           </div>

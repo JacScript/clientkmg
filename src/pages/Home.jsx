@@ -13,6 +13,7 @@ import About from "../components/home/about/About";
 import Testimonial from "../components/home/testimonial/Testimonial";
 import ContactUs from "../components/contact/Contact";
 import Footer from "../components/Footer";
+import FeatureTour from "../components/home/featureTour/FeatureTour";
 
 const Home = () => {
   return (
@@ -22,7 +23,7 @@ const Home = () => {
       <Hero />
 
       {/* WhatsApp button */}
-      <div className="fixed z-10 bottom-[20px] right-0 mr-10 mb-10 bg-[#25D366] w-16 h-16 flex justify-center items-center rounded-full">
+      <div className="fixed z-60 bottom-[20px] right-0 mr-10 mb-10 bg-[#25D366] w-16 h-16 flex justify-center items-center rounded-full">
         <IoLogoWhatsapp className="text-white" size={40} />
       </div>
 
@@ -40,6 +41,8 @@ const Home = () => {
       {/* About */}
 
       <About/>
+
+      <FeatureTour/>
 
       {/* Testimonial */}
 

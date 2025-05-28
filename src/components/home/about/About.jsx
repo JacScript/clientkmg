@@ -1,6 +1,7 @@
 import { BsPatchCheckFill } from "react-icons/bs";
 import React from "react";
-import pic from "../../../assets/images/img2.jpg";
+import pic from "../../../assets/images/img17.jpg";
+import pic0 from "../../../assets/images/img16.jpg";
 import Reveal from "../../Reveal";
 import FadeInImage from "../../FadeInImage";
 import FloatingTextBox from "../../FloatingTextBox";
@@ -49,7 +50,7 @@ const About = () => {
             {/* Floating Image */}
             <div className="absolute -left-20 -bottom-5 w-70 h-70 opacity-100">
               <FadeInImage
-                src={pic}
+                src={pic0}
                 alt="Floating Decoration"
                 className="w-full h-full object-cover hover:scale-[1.05] transition-transform duration-300"
                 delay={0.3}

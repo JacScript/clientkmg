@@ -1,9 +1,10 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import pic1 from '../../../assets/images/img5.jpeg';
+import pic1 from '../../../assets/images/img12.jpg';
 import Reveal from '../../Reveal';
 import { GiModernCity } from "react-icons/gi";
 import { MdOutlineMuseum } from "react-icons/md";
+import { GiWineBottle } from "react-icons/gi";
 import { TbBeach } from "react-icons/tb";
 import Link from '../../LinkComponent';
 
@@ -28,9 +29,9 @@ const SmallTalk = () => {
       text: "Museum Tours",
     },
     {
-      icon: <TbBeach size={80} />,
-      text: "Beach Trips",
-      className: "col-start-2"
+      icon: <GiWineBottle size={80} />,
+      text: "Champagne Tasting",
+      className: "col-start-2",
     }
   ];
 
@@ -43,7 +44,7 @@ const SmallTalk = () => {
     >
       <div className="w-3/4 h-full flex flex-col lg:flex-row justify-between items-center">
         {/* Left text content */}
-        <div className="text-2xl font-bold lg:w-1/2 h-full flex flex-col mt-70 mr-12">
+        <div className="text-2xl font-bold font-serif  lg:w-1/2 h-full flex flex-col mt-70 mr-12">
           <Reveal delay={0.5}>
             <p className="flex justify-center mb-12">
               Explore the charming streets and museums of France. Whether you're chasing history or adventure, we've got you covered. Let's make memories together!
@@ -81,10 +82,10 @@ const SmallTalk = () => {
               />
 
               {/* Icon and Text */}
-              <div className="relative z-10">
+              <div className="relative z-10 flex justify-center items-center flex-col h-full">
                 {item.icon}
                 <motion.p
-                  className="mt-2 font-semibold text-[#000080]"
+                  className="mt-2 font-semibold text-[#000080] text-serif"
                   variants={textVariants}
                 >
                   {item.text}

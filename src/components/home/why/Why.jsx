@@ -1,27 +1,27 @@
 import React from 'react'
 import Reveal from '../../Reveal'
-import pic1 from '../../../assets/images/img5.jpeg';
+import pic1 from '../../../assets/images/img11.JPG';
 import FadeInImage from '../../FadeInImage';
 import Link from '../../LinkComponent';
 
 function Why() {
   return (
     <main className='h-dvh w-screen  pt-20'>
-        <div className='w-3/4 mx-auto h-full px-6 flex items-center justify-between '>
+        <div className='w-3/4 mx-auto h-full px-6  space-x-2 flex items-center justify-between '>
 
         
-        <div className='h-[90%] w-1/2'>
+        <div className='h-[80%] w-1/2'>
            <FadeInImage src={pic1} alt="pic1" className='h-[90%] w-full object-cover' />
         </div>
 
-        <div className='h-full w-1/2 text-[#000080] flex flex-col px-12'>
+        <div className='h-[80%] w-1/2 text-[#000080] flex flex-col px-12 pt-8'>
             <Reveal>
 
-           <p className='font-bold text-lg'>TIMELESS ADVENTURE</p>
+           <p className='font-bold text-lg font-serif'>TIMELESS ADVENTURE</p>
             </Reveal>
 
             <Reveal delay={0.5}>
-           <p className='font-black text-[70px]'>WHY 
+           <p className='font-black text-[70px] text-roboto'>WHY 
            CHOOSE   KM TRAVEL & TOUR </p>
             </Reveal>
 

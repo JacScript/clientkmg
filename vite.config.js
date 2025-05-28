@@ -11,4 +11,12 @@ export default defineConfig({
      flowbiteReact(),
     require['tailwind-scrollbar-hide']
     ],
+    theme: {
+      extend: {
+        fontFamily: {
+          serif: ["'DM Serif Text'", "serif"],
+          roboto: ["'Roboto'", "sans-serif"],
+        },
+      },
+    },
 })

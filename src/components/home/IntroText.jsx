@@ -9,16 +9,16 @@ const IntroText = () => {
  
          <div className="flex justify-center">
            <Reveal delay={0.3}>
-             <p className="text-center text-xl font-extrabold text-white">
-               YOUR OFFICIAL TRAVEL AND TOUR GUIDE
+             <p className="text-center text-xl font-serif font-extrabold text-white">
+               YOUR OFFICIAL FRANCE TRAVEL AND TOUR GUIDE
              </p>
            </Reveal>
          </div>
  
          <div className="flex justify-center">
            <Reveal delay={1.3}>
-             <p className="uppercase text-[#000080] text-center text-[200px] font-medium p-0">
-               explore
+             <p className="uppercase text-[#000080] text-center text-[120px] font-roboto font-medium p-0">
+               explore france
              </p>
            </Reveal>
          </div>
