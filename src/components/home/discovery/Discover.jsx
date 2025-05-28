@@ -6,17 +6,17 @@ import Link from '../../LinkComponent';
 
 function Discover() {
   return (
-    <main className='h-dvh w-screen  pt-20 '>
-        <div className='w-3/4 mx-auto h-full px-6 flex items-center justify-between '>
+    <main className='h-dvh w-screen pt-20 '>
+        <div className='xl:w-3/4 w-full  xl:mx-auto h-full px-6 flex max-lg:flex-col items-center'>
 
-        <div className='h-[90%] w-1/2 text-[#000080] flex flex-col px-12'>
+        <div className='max-lg:h-[90%] lg:w-1/2 w-screen text-[#000080]  max-lg:px-12  items-center'>
             <Reveal>
 
-           <p className='font-bold text-lg font-serif'>TIMELESS ADVENTURE</p>
+           <p className='font-bold text-lg font-serif max-lg:py-5 w-full'>TIMELESS ADVENTURE</p>
             </Reveal>
 
             <Reveal delay={0.5}>
-           <p className='font-black text-[70px] font-roboto'>DISCOVER THE CITIES WITH KM TRAVEL & TOUR</p>
+           <p className='font-black max-lg:text-2xl text-[60px] font-roboto max-md:mb-6'>DISCOVER THE CITIES WITH KM TRAVEL & TOUR</p>
             </Reveal>
 
             <Reveal delay={1.3}>
@@ -32,8 +32,8 @@ function Discover() {
            />
          </div>
         </div>
-        <div className='h-[90%] w-1/2'>
-           <FadeInImage src={pic1} alt="pic1" className='w-full h-[90%] object-cover' />
+        <div className='h-[90%] flex items-center lg:w-1/2 w-screen  max-md:mt-6 mt-8 '>
+           <FadeInImage src={pic1} alt="pic1" className='w-full h-[80%] object-cover' />
         </div>
         </div>
     </main>

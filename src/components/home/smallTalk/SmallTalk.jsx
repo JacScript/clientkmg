@@ -31,22 +31,22 @@ const SmallTalk = () => {
     {
       icon: <GiWineBottle size={80} />,
       text: "Champagne Tasting",
-      className: "col-start-2",
+      className: "md:col-start-2",
     }
   ];
 
   return (
     <div
-      className="w-full h-[700px] bg-cover bg-center bg-no-repeat bg-fixed relative flex items-center justify-center text-white"
+      className="w-full h-dvh md:h-[700px] bg-cover bg-center bg-no-repeat bg-fixed relative flex items-center justify-center text-white"
       style={{
         backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url(${pic1})`,
       }}
     >
-      <div className="w-3/4 h-full flex flex-col lg:flex-row justify-between items-center">
+      <div className="w-full lg:w-3/4 h-full flex flex-col lg:flex-row justify-between items-center">
         {/* Left text content */}
-        <div className="text-2xl font-bold font-serif  lg:w-1/2 h-full flex flex-col mt-70 mr-12">
+        <div className=" text-2xl font-bold font-serif  lg:w-1/2 h-full flex flex-col mt-2 lg:mt-70 lg:mr-12 max-lg:px-12">
           <Reveal delay={0.5}>
-            <p className="flex justify-center mb-12">
+            <p className="flex justify-center mb-2">
               Explore the charming streets and museums of France. Whether you're chasing history or adventure, we've got you covered. Let's make memories together!
             </p>
           </Reveal>
@@ -60,7 +60,7 @@ const SmallTalk = () => {
         </div>
 
         {/* Animated icons */}
-        <div className="lg:w-1/2 grid grid-cols-2 gap-6">
+        <div className="w-full max-lg:pb-5 lg:w-1/2 grid grid-cols-1 max-md:px-12 max-md:space-y-4 max-md:mt-8 md:grid-cols-2 gap-2 lg:gap-6">
           {data.map((item, idx) => (
             <motion.div
               key={idx}

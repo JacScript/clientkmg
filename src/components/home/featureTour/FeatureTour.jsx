@@ -28,8 +28,8 @@ const FeatureTour = () => {
 
 
   return (
-    <div className='h-dvh w-screen pt-20 flex items-center justify-center'>
-        <div className='w-3/4 h-full flex flex-col items-center justify-center p-6'>
+    <div className='xl:h-dvh w-screen pt-20 flex items-center justify-center'>
+        <div className='xl:w-3/4 w-[95%] h-full flex flex-col items-center justify-center xl:p-6'>
         <div className='w-full h-full '>
 
             <div className='w-full mb-4  flex flex-col items-center'>
@@ -37,11 +37,15 @@ const FeatureTour = () => {
                 <h1 className='text-5xl text-[#000080] font-extrabold text-center mb-10'>Amazing Tour Places</h1>
             </div>
  
-            <div className="mt-4 mb-6 flex items-center justify-center space-x-4 px-2 py-4">
+            {/* <div className="mt-4 max-md:w-full mb-6 grid grid-cols-1 md:grid-cols-2 md:px-2 py-4 space-y-4 items-center"> */}
+            <div className="mt-4 max-xl:w-full mb-6 grid grid-cols-1 md:grid-cols-2 md:px-2 py-4 space-y-4 place-items-center md:place-items-start xl:grid-cols-4">
+
+
+                {/* < className="mt-4 mb-6 flex items-center justify-center space-x-4 px-2 py-4"> */}
                 { items.map((item, idx) => {
                     return (
                         <div
-                        className="relative h-[400px] w-[300px] rounded-xl shadow-lg overflow-hidden bg-cover bg-center group"
+                        className="relative  sm:h-[400px] sm:w-[300px] lg:h-[220px] lg:w-[320px] xl:h-[400px] xl:w-[300px] rounded-xl shadow-lg overflow-hidden bg-cover bg-center group"
                         style={{ backgroundImage: `url(${item.pic})` }}
                       >
                         {/* Overlay to dim background on hover (optional) */}

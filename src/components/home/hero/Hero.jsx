@@ -44,7 +44,7 @@ const Hero = () => {
             return <img className="" key={s.id} src={s.image} />;
           })}
         </Carousel>
-        <div className="absolute bottom-[-40px] left-0 right-0 mx-auto">
+        <div className="md:absolute bottom-[-40px] bottom- left-0 right-0 mx-auto">
           <SendRequestForm />
         </div>
       </div>

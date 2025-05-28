@@ -16,10 +16,10 @@ const TopBar = () => {
         <div className="absolute w-full h-full">
           <DotGrid />
         </div>
-        <div className="w-3/4 mx-auto opacity-100 h-full px-6 flex items-center justify-between">
+        <div className="lg:w-full xl:w-3/4 mx-auto opacity-100 h-full px-6 flex items-center   justify-end md:justify-between">
           {/* left side of the top of the nav bar*/}
-          <div className="flex text-white items-center">
-            <div className="flex mr-2 items-center">
+          <div className="hidden md:flex text-white items-center">
+            <div className="mr-2 items-center hidden lg:flex">
               <MdLocationOn className="mr-2" size={18} />
               <h1>14 Nakwamba Street, Bahari Beach, Dar Es Salaam</h1>
             </div>
@@ -35,10 +35,19 @@ const TopBar = () => {
           </div>
 
           {/* Right side of the top of the nav bar */}
-          <div className="flex text-white items-center justify-center gap-4">
-            <a href="#" className="cursor-pointer">
-              <h1>Book Now</h1>
-            </a>
+          <div className="flex text-white items-center justify-center gap-4 z-40 ">
+            {/* <a href="#" className="cursor-pointer hover:text-[#000080] transition-colors  px-2 py-1 lg:px-4 lg:py-2 rounded-lg flex items-center">
+              <p className="text-medium lg:text-base cursor-pointer">Book Now</p>
+            </a> */}
+            <a
+  href="#"
+  className="cursor-pointer hover:text-[#000080] transition-colors duration-300 ease-in-out px-2 py-1 lg:px-4 lg:py-2 rounded-lg flex items-center"
+>
+  <p className="text-medium lg:text-base cursor-pointer transition-colors duration-300 ease-in-out">
+    Book Now
+  </p>
+</a>
+
             <div className="flex  space-x-4 text-white ">
                 <IconComponent href="#" icon={FaWhatsapp}/>
                 <IconComponent href="#" icon={FaXTwitter}/>
@@ -49,7 +58,7 @@ const TopBar = () => {
         </div>
       </div>
       <div className="w-full h-2/3  ">
-        <div className="lg:w-3/4 lg:mx-auto h-full lg:px-6">
+        <div className="lg-w-full xl:w-3/4 lg:mx-auto h-full lg:px-6">
         <Navbar/>
               {/* <div> 
                 <a href="#" className="w-full"> 

@@ -31,7 +31,7 @@ import Logistics from "./pages/Logistics";
 const App = () => {
   return (
     <Router>
-      <div className="max-w-screen overflow-x-hidden scrollbar-hide">
+      <div className="max-w-screen overflow-x-hidden scrollbar-hide debug-screens">
         <TopBar />
         <Switch>
           <Route exact path="/" component={Home} />

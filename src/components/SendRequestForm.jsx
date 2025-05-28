@@ -4,26 +4,26 @@ import { IoMdMail } from "react-icons/io";
 
 const SendRequestForm = () => {
   return (
-    <div className="h-24 w-2/3 mx-auto bg-white shadow rounded-lg flex justify-center items-center">
+    <div className="md:h-24 md:w-2/3 w-[90%] max-md:py-2 mx-auto bg-white md:shadow rounded-lg flex md:flex-row flex-col justify-center items-center">
       {/* Destination */}
-      <div className="h-full flex-2 flex items-center">
-        <div className="flex items-center w-full  border-r border-[#000080]">
-          <div className="ml-4">
-            <FaLocationDot className="text-[#000080]" size={40} />
+      <div className="md:h-full  w-full flex-2 flex items-center justify-center">
+        <div className="flex items-center md:w-full w-[80%] mx-auto my-2 pr-2 md:border-r border-[#00008050]">
+          <div className="w-1/12 md:w-1/4 h-full flex items-center justify-center max-md:mr-2">
+            <FaLocationDot className="text-[#000080]" size={24} />
           </div>
 
-          <div className="flex flex-col ml-4">
+          <div className="flex flex-col md:w-3/4 w-11/12">
             <label
               for="activities"
-              class="block mb-1 text-sm font-extrabold  text-[#000080] dark:text-white pl-1"
+              className="block mb-[2px] md:text-xs text-xs lg:text-sm font-extrabold  text-[#000080] dark:text-white pl-1"
             >
               Destination
             </label>
             <select
-              id="activities"
-              className="w-64 border border-[#000080a4] text-[#000080] text-sm font-medium rounded-lg focus:ring-blue-500 focus:border-blue-500 block py-2.5 px-2.5 focus:outline-none  dark:bg-[#000080] dark:border-gray-100 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              id="destination"
+              className="w-full border border-[#000080a4] text-[#000080] text-sm font-medium rounded-lg focus:ring-[#000080] focus:border-[#0000080] block lg:py-2.5 p-2 lg:px-2.5 focus:outline-none  dark:bg-[#000080] dark:border-gray-100 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             >
-              <option value="">Select an activity</option>
+              <option value="">Select an Destination</option>
               <option value="hiking">Hiking</option>
               <option value="safari">Safari</option>
               <option value="city-tour">City Tour</option>
@@ -33,22 +33,22 @@ const SendRequestForm = () => {
       </div>
 
       {/* Location */}
-      <div className="h-full flex-2 flex items-center">
-        <div className="flex items-center w-full  border-r border-[#000080]">
-          <div className="ml-4">
-            <FaPersonHiking className="text-[#000080]" size={40} />
+      <div className="md:h-full  w-full flex-2 flex items-center justify-center">
+        <div className="flex items-center md:w-full w-[80%] mx-auto my-2 pr-2 md:border-r border-[#00008050]">
+          <div className="w-1/12 md:w-1/4 h-full flex items-center justify-center max-md:mr-2">
+            <FaPersonHiking className="text-[#000080]" size={24}/>
           </div>
 
-          <div className="flex flex-col ml-4">
+          <div className="flex flex-col md:w-3/4 w-11/12">
             <label
               for="activities"
-              class="block mb-1 text-sm font-extrabold  text-[#000080] dark:text-white pl-1"
+              class="block mb-[2px] md:text-xs text-xs lg:text-sm font-extrabold  text-[#000080] dark:text-white pl-1"
             >
               Activity
             </label>
             <select
               id="activities"
-              className="w-64 border border-[#000080a4] text-[#000080] text-sm font-medium rounded-lg focus:ring-blue-500 focus:border-blue-500 block py-2.5 px-2.5 dark:bg-[#000080] focus:outline-none  dark:border-gray-100 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              className="w-full border border-[#000080a4] text-[#000080] text-sm font-medium rounded-lg focus:ring-[#000080] focus:border-[#0000080] block lg:py-2.5 p-2 lg:px-2.5 focus:outline-none  dark:bg-[#000080] dark:border-gray-100 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 "
             >
               <option value="">Select an activity</option>
               <option value="hiking">Hiking</option>
@@ -59,32 +59,33 @@ const SendRequestForm = () => {
         </div>
       </div>
 
-      <div className="h-full flex-2 flex items-center">
-        <div className="flex items-center w-full  border-r border-[#000080]">
-          <div className="ml-4">
-            <IoMdMail className="text-[#000080]" size={40} />
+{/* email */}
+      <div className="md:h-full  w-full flex-2 flex items-center justify-center">
+        <div className="flex items-center md:w-full w-[80%] mx-auto my-2 pr-2 md:border-r border-[#00008050]">
+          <div className="w-1/12 md:w-1/4 h-full flex items-center justify-center max-md:mr-2">
+            <IoMdMail className="text-[#000080]" size={20} />
           </div>
 
-          <div className="flex flex-col ml-4">
+          <div className="flex flex-col md:w-3/4 w-11/12">
             <label
               for="email"
-              class="block mb-1 pl-1 text-sm font-extrabold text-[#000080]"
+              className="block mb-[2px] w-full pl-1 text-sm font-extrabold text-[#000080]"
             >
               Email 
             </label>
             <input
               type="email"
               id="email"
-              className="bg-gray-50  w-64 border border-[#000080a4] text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 focus:outline-none  dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="john.doe@company.com"
+              className="w-full border border-[#000080a4] text-[#000080] text-sm font-medium rounded-lg focus:ring-[#000080] focus:border-[#0000080] block lg:py-2.5 p-2 lg:px-2.5 focus:outline-none  dark:bg-[#000080] dark:border-gray-100 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Email"
               required
             />
           </div>
         </div>
       </div>
 
-      <div className="h-full flex-1 pl-4">
-        <button className="bg-[#000080] text-white font-bold py-2 px-4 h-full w-full rounded-r-lg cursor-pointer">
+      <div className="md:h-full w-[80%] flex-1 pl-4">
+        <button className="bg-[#000080] text-white font-bold py-2 px-4 h-full w-full rounded-lg md:rounded-r-lg text-[12px] md:text-sm cursor-pointer">
           Send Request
         </button>
       </div>

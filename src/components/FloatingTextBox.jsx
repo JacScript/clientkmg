@@ -15,15 +15,15 @@ const FloatingTextBox = ({ number, text, delay = 0.6 }) => {
 
   return (
     <motion.div
-      className="bg-white w-90 h-30 absolute -right-20 bottom-16 opacity-100 flex items-center justify-center rounded-lg shadow"
+      className="bg-white w-60 h-15 md:w-90 md:h-30 absolute -right-5 md:-right-20 bottom-16 opacity-100 flex items-center justify-center rounded-lg shadow"
       variants={variants}
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount: 0.5 }}
     >
-      <div className="h-[80%] w-[90%] border-2 border-[#000080] mx-auto rounded-lg flex justify-center items-center">
+      <div className="h-[80%] w-[90%] border-2 border-[#000080] mx-auto rounded-lg flex justify-center items-center max-md:py-2">
         <motion.h1
-          className="text-[#000080] ml-9 mr-5 text-7xl font-extrabold"
+          className="text-[#000080] ml-9 mr-5 text-2xl md:text-7xl font-extrabold"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.7 }}
@@ -31,7 +31,7 @@ const FloatingTextBox = ({ number, text, delay = 0.6 }) => {
           {number}
         </motion.h1>
         <motion.p
-          className="text-2xl font-bold text-slate-600 z-40"
+          className="text-sm md:text-2xl font-bold text-slate-600 z-40"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.9 }}

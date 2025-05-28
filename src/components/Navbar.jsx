@@ -143,7 +143,6 @@ const NavbarMenu = [
   { id: 3, title: "Linguistics", path: "/linguistics" },
   { id: 4, title: "Gallery", path: "/gallery" },
   { id: 5, title: "AirBnB", path: "/airbnb" },
-  { id: 6, title: "Contact Us", path: "/contact" },
 ];
 
 const Navbar = () => {
@@ -151,7 +150,7 @@ const Navbar = () => {
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
   return (
-    <nav className="z-20 text-white sticky">
+    <nav className="z-20  text-white sticky">
       <div className="container mx-auto flex justify-between items-center px-4 py-2">
         {/* Logo */}
         <div className="flex justify-center items-center">
@@ -162,14 +161,14 @@ const Navbar = () => {
 
         {/* Desktop Menu */}
         <div className="hidden lg:block">
-          <ul className="flex items-center text-[#000080] font-bold gap-6">
+          <ul className="flex items-center text-[#000080]  font-bold gap-6">
             {NavbarMenu.map((menu) => (
               <li key={menu.id}>
                 <NavLink
                   to={menu.path}
                   exact
-                  className="inline-block py-2 relative px-3 group"
-                  activeClassName="after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-full after:h-0.5 after:bg-[#000080]"
+                  className="inline-block py-2 relative px-3 group md:text-lg lg:text-sm xl:text-lg "
+                  activeClassName="after:content-[''] after:absolute after:top-0 after:left-1/2 after:-translate-x-1/2 after:w-full after:h-0.5 after:bg-[#000080]"
                 >
                   <span className="relative z-10">{menu.title}</span>
                   <div className="absolute left-1/2 w-0 h-0.5 bg-[#000080] transform -translate-x-1/2 group-hover:w-full transition-all duration-300 ease-in-out"></div>
@@ -199,7 +198,7 @@ const Navbar = () => {
                   to={menu.path}
                   exact
                   activeClassName="underline text-[#000080]"
-                  className="block py-2 px-3"
+                  className=" py-2 px-3  flex items-center justify-center"
                   onClick={toggleMenu}
                 >
                   {menu.title}
