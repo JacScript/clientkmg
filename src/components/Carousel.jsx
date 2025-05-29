@@ -65,7 +65,7 @@ const Carousel = ({
       </div>
 
       {/* Slide indicators */}
-      <div className="absolute bottom-20 left-0 right-0 z-10">
+      <div className="absolute bottom-20 left-0 right-0 z-10 hidden">
         <div className="flex items-center justify-center">
           {slides.map((_, index) => (
             <div
