@@ -122,12 +122,142 @@ const slides = [
 
 
 
+// import { useState, useEffect } from 'react';
+// import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
+// import Link from "../../LinkComponent";
+// import Reveal from "../../Reveal";
+// import SendRequestForm from '../../SendRequestForm';
+
+//   const data = [
+//   {
+//     id: 1,
+//     image: pic2,
+//     title: "Slide 1",
+//     description: "Description for Slide 1",
+//   },
+//   {
+//     id: 2,
+//     image: pic1,
+//     title: "Slide 2",
+//     description: "Description for Slide 2",
+//   },
+//   {
+//     id: 3,
+//     image: pic3,
+//     title: "Slide 3",
+//     description: "Description for Slide 3",
+//   },
+//   {
+//     id: 4,
+//     image: pic4,
+//     title: "Slide 4",
+//     description: "Description for Slide 4",
+//   },
+// ];
+
+
+// export default function Hero() {
+//  console.log(data)
+
+//   const [currentIndex, setCurrentIndex] = useState(0);
+
+//   const prevSlide = () =>
+//     setCurrentIndex((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
+//   const nextSlide = () =>
+//     setCurrentIndex((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
+
+//   useEffect(() => {
+//     const interval = setInterval(nextSlide, 5000); // autoSlide every 5s
+//     return () => clearInterval(interval);
+//   }, []);
+
+//   return (
+//     <section className="relative w-full h-dvh overflow-hidden bg-white">
+//       {/* Carousel Images */}
+//       <div className="absolute inset-0 z-0 flex transition-transform duration-700 ease-out"
+//            style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
+//         {slides.map((slide, idx) => (
+//           <div key={idx} className="flex-shrink-0 w-full h-full">
+//             <img
+//               src={slide.image}
+//               alt={`Slide ${idx}`}
+//               className="w-full h-[500px] lg:h-full object-cover"
+//             />
+//           </div>
+//         ))}
+//       </div>
+
+//       {/* Gradient Overlay */}
+//       <div className="absolute h-[500px] lg:h-full  inset-0 bg-gradient-to-b from-black/50 via-black/20 to-black/60 z-10" />
+
+//       {/* Hero Content */}
+//       <div className="relative z-20 px-6 pt-14  lg:px-8 max-md:mt-40 lg:h-full max-lg:mt-44 flex items-center justify-center">
+//         <div className="text-center max-w-4xl mx-auto max-lg:flex max-lg:flex-col" >
+//           <Reveal>
+//  <p className="text-lg max-sm:text-xs font-bold text-gray-100 uppercase font-serif text-center mx-auto">
+//           {/* <p className="text-lg font-bold text-gray-100 uppercase font-serif text-center whitespace-nowrap"> */}
+//             Your Official France Travel and Tour Guide
+//           </p>
+//           </Reveal>
+//           <Reveal delay={0.2}>
+// <h1 className="mt-4 text-4xl sm:text-5xl lg:text-[100px] uppercase text-center font-semibold font-roboto text-[#000080] whitespace-nowrap">
+//           {/* <h1 className="mt-4 text-4xl sm:text-5xl lg:text-[180px] uppercase text-center font-semibold font-roboto text-[#000080]"> */}
+//             Explore France
+//           </h1>
+//           </Reveal>
+//           <div className="mt-8 flex justify-center cursor-pointer">
+//             <Link
+//               href="#"
+//               className="rounded-md hover:bg-[#000080] px-5 py-3 text-lg font-semibold text-white shadow-lg lg:py-4  bg-transparent border-2 border-[#000080] transition ease-in duration-150"
+             
+//             >
+//               Find out more
+//             </Link>
+              
+            
+//           </div>
+//         </div>
+//       </div>
+
+//       {/* Navigation Arrows */}
+//       <div className="absolute inset-0 z-80 flex items-center justify-between px-4">
+//         <button
+//           onClick={prevSlide}
+//           className="text-white bg-[#00008094] hover:bg-[#000080] p-2 rounded-full transition-opacity opacity-0 group-hover:opacity-100"
+//         >
+//           <IoIosArrowBack size={30} />
+//         </button>
+//         <button
+//           onClick={nextSlide}
+//           className="text-white bg-[#00008094] hover:bg-[#000080] p-2 rounded-full transition-opacity opacity-0 group-hover:opacity-100"
+//         >
+//           <IoIosArrowForward size={30} />
+//         </button>
+//       </div>
+
+
+// <div className="absolute  sm:bottom-0 w-full px-2 sm:px-4 flex justify-center z-20 pointer-events-none">
+//   <div className="pointer-events-auto w-full max-w-6xl">
+//     <SendRequestForm />
+//   </div>
+// </div>
+
+//       {/* <div className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 z-90 w-full max-w-7xl bg-amber-400 px-4">
+//   <SendRequestForm />
+// </div> */}
+
+//     </section>
+//   );
+// }
+
+
 import { useState, useEffect } from 'react';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import Link from "../../LinkComponent";
 import Reveal from "../../Reveal";
+import SendRequestForm from '../../SendRequestForm';
 
-  const data = [
+const data = [
   {
     id: 1,
     image: pic2,
@@ -154,16 +284,13 @@ import Reveal from "../../Reveal";
   },
 ];
 
-
 export default function Hero() {
- console.log(data)
-
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const prevSlide = () =>
-    setCurrentIndex((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
+    setCurrentIndex((prev) => (prev === 0 ? data.length - 1 : prev - 1));
   const nextSlide = () =>
-    setCurrentIndex((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
+    setCurrentIndex((prev) => (prev === data.length - 1 ? 0 : prev + 1));
 
   useEffect(() => {
     const interval = setInterval(nextSlide, 5000); // autoSlide every 5s
@@ -171,55 +298,52 @@ export default function Hero() {
   }, []);
 
   return (
-    <div className="relative w-full h-dvh overflow-hidden bg-white">
+    <section className="relative w-full h-dvh overflow-hidden bg-white group">
       {/* Carousel Images */}
-      <div className="absolute inset-0 z-0 flex transition-transform duration-700 ease-out"
-           style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
-        {slides.map((slide, idx) => (
+      <div 
+        className="absolute inset-0 z-0 flex transition-transform duration-700 ease-out"
+        style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+      >
+        {data.map((slide, idx) => (
           <div key={idx} className="flex-shrink-0 w-full h-full">
             <img
               src={slide.image}
               alt={`Slide ${idx}`}
-              className="w-full h-full object-cover"
+              className="w-full h-[500px] lg:h-full object-cover"
             />
           </div>
         ))}
       </div>
 
       {/* Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/20 to-black/60 z-10" />
+      <div className="absolute h-[500px] lg:h-full inset-0 bg-gradient-to-b from-black/50 via-black/20 to-black/60 z-10" />
 
       {/* Hero Content */}
-      <div className="relative z-20 px-6 pt-14 lg:px-8 h-full flex items-center justify-center">
-        <div className="text-center max-w-4xl mx-auto " >
+      <div className="relative z-20 px-6 pt-14 lg:px-8 max-md:mt-40 lg:h-full max-lg:mt-44 flex items-center justify-center">
+        <div className="text-center max-w-4xl mx-auto max-lg:flex max-lg:flex-col z-30">
           <Reveal>
- <p className="text-lg max-sm:text-xs font-bold text-gray-100 uppercase font-serif text-center mx-auto">
-          {/* <p className="text-lg font-bold text-gray-100 uppercase font-serif text-center whitespace-nowrap"> */}
-            Your Official France Travel and Tour Guide
-          </p>
+            <p className="text-lg max-sm:text-xs font-bold text-gray-100 uppercase font-serif text-center mx-auto">
+              Your Official France Travel and Tour Guide
+            </p>
           </Reveal>
           <Reveal delay={0.2}>
-<h1 className="mt-4 text-4xl sm:text-5xl lg:text-[100px] uppercase text-center font-semibold font-roboto text-[#000080] whitespace-nowrap">
-          {/* <h1 className="mt-4 text-4xl sm:text-5xl lg:text-[180px] uppercase text-center font-semibold font-roboto text-[#000080]"> */}
-            Explore France
-          </h1>
+            <h1 className="mt-4 text-4xl sm:text-5xl lg:text-[100px] uppercase text-center font-semibold font-roboto text-[#000080] whitespace-nowrap">
+              Explore France
+            </h1>
           </Reveal>
-          <div className="mt-8 flex justify-center">
+          <div className="mt-8 flex justify-center z-40">
             <Link
               href="#"
-              className="rounded-md hover:bg-[#000080] z-90 px-5 py-3 text-lg font-semibold text-white shadow-lg lg:py-4  bg-transparent border-2 border-[#000080] transition ease-in duration-150"
-             
+              className="rounded-md hover:bg-[#000080] z-50 px-5 py-3 text-lg font-semibold text-white shadow-lg lg:py-4 bg-transparent border-2 border-[#000080] transition ease-in duration-150 cursor-pointer"
             >
               Find out more
             </Link>
-              
-            
           </div>
         </div>
       </div>
 
       {/* Navigation Arrows */}
-      <div className="absolute inset-0 z-30 flex items-center justify-between px-4">
+      <div className="absolute inset-0 z-30 flex max-lg:hidden items-center justify-between px-4">
         <button
           onClick={prevSlide}
           className="text-white bg-[#00008094] hover:bg-[#000080] p-2 rounded-full transition-opacity opacity-0 group-hover:opacity-100"
@@ -233,6 +357,13 @@ export default function Hero() {
           <IoIosArrowForward size={30} />
         </button>
       </div>
-    </div>
+
+      {/* Floating Form */}
+      <div className="absolute bottom-0 w-full px-2 sm:px-4 flex justify-center z-60">
+        <div className="w-full max-w-6xl">
+          <SendRequestForm />
+        </div>
+      </div>
+    </section>
   );
 }

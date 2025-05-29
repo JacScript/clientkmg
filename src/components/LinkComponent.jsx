@@ -80,13 +80,12 @@
           </div> */}
 
 
-
-
+import React from 'react';
 import { motion } from 'framer-motion';
 
 const Link = ({
   href = "#",
-  className = "bg-[#000080] text-white px-6 py-3 rounded-md z-50",
+  className = "bg-[#000080] text-white px-6 py-3 rounded-md",
   title = "",
   children = "Click Here", // fallback text
 }) => {

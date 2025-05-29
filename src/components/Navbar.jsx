@@ -135,7 +135,7 @@
 import React, { useState } from "react";
 import { IoMdMenu, IoMdClose } from "react-icons/io";
 import { NavLink } from "react-router-dom";
-import Logo from "../assets/logo.png";
+import Logo from "../assets/kmlogo.png";
 
 const NavbarMenu = [
   { id: 1, title: "Travel & Tours", path: "/" },
