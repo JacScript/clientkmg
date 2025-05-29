@@ -65,7 +65,7 @@ const Carousel = ({
       </div>
 
       {/* Slide indicators */}
-      <div className="absolute bottom-20 left-0 right-0 z-10 hidden">
+      {/* <div className="absolute bottom-20 left-0 right-0 z-10 hidden">
         <div className="flex items-center justify-center">
           {slides.map((_, index) => (
             <div
@@ -77,7 +77,7 @@ const Carousel = ({
             ></div>
           ))}
         </div>
-      </div>
+      </div> */}
 
       {/* Component overlay */}
       <div className="absolute w-3/4 inset-0 mx-auto h-80 mt-30 z-10">
