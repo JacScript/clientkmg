@@ -6,7 +6,7 @@ import Link from '../../LinkComponent';
 
 function Why() {
   return (
-    <main className='h-dvh w-screen md:pt-20'>
+    <section className='h-dvh w-screen md:pt-20'>
         <div className='xl:w-3/4 w-screen mx-auto h-full px-6  space-x-2 flex max-md:flex-col items-center justify-between '>
 
         
@@ -38,7 +38,7 @@ function Why() {
          </div>
         </div>
         </div>
-    </main>
+    </section>
   )
 }
 

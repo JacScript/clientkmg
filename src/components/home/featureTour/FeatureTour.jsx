@@ -28,7 +28,7 @@ const FeatureTour = () => {
 
 
   return (
-    <div className='xl:h-dvh w-screen pt-20 flex items-center justify-center'>
+    <section className='xl:h-dvh w-screen pt-20 flex items-center justify-center'>
         <div className='xl:w-3/4 w-[95%] h-full flex flex-col items-center justify-center xl:p-6'>
         <div className='w-full h-full '>
 
@@ -71,7 +71,7 @@ const FeatureTour = () => {
     </div>
         </div>
         </div>
-    </div>
+    </section>
   )
 }
 

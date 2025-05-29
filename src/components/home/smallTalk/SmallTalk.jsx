@@ -36,7 +36,7 @@ const SmallTalk = () => {
   ];
 
   return (
-    <div
+    <section
       className="w-full h-dvh md:h-[700px] bg-cover bg-center bg-no-repeat bg-fixed relative flex items-center justify-center text-white"
       style={{
         backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url(${pic1})`,
@@ -95,7 +95,7 @@ const SmallTalk = () => {
           ))}
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

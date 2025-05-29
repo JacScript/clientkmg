@@ -17,7 +17,7 @@ import FeatureTour from "../components/home/featureTour/FeatureTour";
 
 const Home = () => {
   return (
-    <main className="max-w-screen scrollbar-hide">
+    <container className="max-w-screen scrollbar-hide">
       {/* Hero Section */}
 
       <Hero />
@@ -52,7 +52,7 @@ const Home = () => {
     <ContactUs/>
 
 <Footer/>
-    </main>
+    </container>
   );
 };
 

@@ -94,12 +94,12 @@ const Testimonial = () => {
   ];
 
   return (
-    <div className="w-screen-lg mx-auto px-4 py-8 h-[550px]">
+    <section className="w-screen-lg mx-auto px-4 py-8 h-[550px]">
       <p className="text-center text-5xl text-[#000080] font-extrabold mb-12">
         What Our Clients Say
       </p>
       <TestimonialCarousel component={TestimonialCard} items={data} />
-    </div>
+    </section>
   );
 };
 

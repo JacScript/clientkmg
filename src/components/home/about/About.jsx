@@ -28,7 +28,7 @@ const About = () => {
   ];
 
   return (
-    <div className="lg:h-dvh max-w-screen bg-blue-100 py-10">
+    <section className="lg:h-dvh max-w-screen bg-blue-100 py-10">
       {/* <Reveal> */}
         <h1 className=" text-2xl xl:text-5xl text-[#000080] font-extrabold text-center mb-10">
           About Us
@@ -91,7 +91,7 @@ const About = () => {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

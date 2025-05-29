@@ -6,7 +6,7 @@ import Link from '../../LinkComponent';
 
 function Discover() {
   return (
-    <main className='h-dvh w-screen pt-20 '>
+    <section className='h-dvh w-screen pt-20 '>
         <div className='xl:w-3/4 w-full  xl:mx-auto h-full px-6 flex max-lg:flex-col items-center'>
 
         <div className='max-lg:h-[90%] lg:w-1/2 w-screen text-[#000080]  max-lg:px-12  items-center'>
@@ -36,7 +36,7 @@ function Discover() {
            <FadeInImage src={pic1} alt="pic1" className='w-full h-[80%] object-cover' />
         </div>
         </div>
-    </main>
+    </section>
   )
 }
 
