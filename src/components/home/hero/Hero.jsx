@@ -36,7 +36,7 @@ const slides = [
 
 const Hero = () => {
   return (
-    <div className="relative mt-34 z-50"
+    <section className="relative mt-34 z-50"
      
     >
         <Carousel className="" autoSlide={true} component={IntroText}>
@@ -47,7 +47,7 @@ const Hero = () => {
         <div className="md:absolute bottom-[-40px] bottom- left-0 right-0 mx-auto">
           <SendRequestForm />
         </div>
-      </div>
+      </section>
   )
 }
 
