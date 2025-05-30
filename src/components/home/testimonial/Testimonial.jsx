@@ -1,61 +1,5 @@
-// import React from 'react'
-// import TestimonialCarousel from '../../TestimonialCarousel'
-// import TestimonialCard from '../../TestimonialCard';
 
-
-
-// const Testimonial = () => {
-
-//     const data = [
-//       {
-//         name: "John Doe",
-//         image: pic1,
-//         testimonial:
-//           "Traveling was an unforgettable experience—every place I visited opened my eyes to new cultures, stunning landscapes, and amazing people.Traveling was an unforgettable experience—every place I visited opened my eyes to new cultures, stunning landscapes, and amazing people.",
-//         rating: 5,
-//         country: "USA",
-//       },
-//       {
-//         name: "Jane Smith",
-//         image: pic1,
-//         testimonial:
-//           "Traveling was an unforgettable experience—every place I visited opened my eyes to new cultures, stunning landscapes, and amazing people.Traveling was an unforgettable experience—every place I visited opened my eyes to new cultures, stunning landscapes, and amazing people.",
-//         rating: 4,
-//         country: "Tanzania",
-//       },
-//       {
-//         name: "Michael Brown",
-//         image: pic1,
-//         testimonial:
-//           "Traveling was an unforgettable experience—every place I visited opened my eyes to new cultures, stunning landscapes, and amazing people.        Traveling was an unforgettable experience—every place I visited opened my eyes to new cultures, stunning landscapes, and amazing people.",
-//         rating: 5,
-//         country: "Kenya",
-//       },
-//       {
-//         name: "Alice Green",
-//         image: pic1,
-//         testimonial:
-//           "Traveling was an unforgettable experience—every place I visited opened my eyes to new cultures, stunning landscapes, and amazing people.Traveling was an unforgettable experience—every place I visited opened my eyes to new cultures, stunning landscapes, and amazing people.",
-//         rating: 5,
-//         country: "Uganda",
-//       },
-//     ];
-
-//   return (
-//     <div className="w-screen-lg mx-auto px-4 py-8 h-[550px]">
-//         {/* <p className='text-center'>Our Client Reviews</p> */}
-//         <p className="text-center text-5xl text-[#000080] font-extrabold  mb-12">What Our Clients Say</p>
-//         <>
-
-//         <TestimonialCarousel component={TestimonialCard} items={data}/>
-//         </>
-//     </div>
-//   )
-// }
-
-// export default Testimonial
-
-
+// Testimonial.jsx
 import React from 'react';
 import pic1 from "../../../assets/images/img5.jpeg"
 import TestimonialCarousel from '../../TestimonialCarousel';
@@ -66,38 +10,38 @@ const Testimonial = () => {
     {
       name: "John Doe",
       image: pic1,
-      testimonial: "Traveling was an unforgettable experience—every place I visited opened my eyes to new cultures, stunning landscapes, and amazing people.Traveling was an unforgettable experience—every place I visited opened my eyes to new cultures, stunning landscapes, and amazing people.",
+      testimonial: "Traveling was an unforgettable experience—every place I visited opened my eyes to new cultures, stunning landscapes, and amazing people. Traveling was an unforgettable experience—every place I visited opened my eyes to new cultures, stunning landscapes, and amazing people.",
       rating: 5,
       country: "USA",
     },
     {
       name: "Jane Smith",
       image: pic1,
-      testimonial: "Traveling was an unforgettable experience—every place I visited opened my eyes to new cultures, stunning landscapes, and amazing people.Traveling was an unforgettable experience—every place I visited opened my eyes to new cultures, stunning landscapes, and amazing people.",
+      testimonial: "Traveling was an unforgettable experience—every place I visited opened my eyes to new cultures, stunning landscapes, and amazing people. Traveling was an unforgettable experience—every place I visited opened my eyes to new cultures, stunning landscapes, and amazing people.",
       rating: 4,
       country: "Tanzania",
     },
     {
       name: "Michael Brown",
       image: pic1,
-      testimonial: "Traveling was an unforgettable experience—every place I visited opened my eyes to new cultures, stunning landscapes, and amazing people.Traveling was an unforgettable experience—every place I visited opened my eyes to new cultures, stunning landscapes, and amazing people.",
+      testimonial: "Traveling was an unforgettable experience—every place I visited opened my eyes to new cultures, stunning landscapes, and amazing people. Traveling was an unforgettable experience—every place I visited opened my eyes to new cultures, stunning landscapes, and amazing people.",
       rating: 5,
       country: "Kenya",
     },
     {
       name: "Alice Green",
       image: pic1,
-      testimonial: "Traveling was an unforgettable experience—every place I visited opened my eyes to new cultures, stunning landscapes, and amazing people.Traveling was an unforgettable experience—every place I visited opened my eyes to new cultures, stunning landscapes, and amazing people.",
+      testimonial: "Traveling was an unforgettable experience—every place I visited opened my eyes to new cultures, stunning landscapes, and amazing people. Traveling was an unforgettable experience—every place I visited opened my eyes to new cultures, stunning landscapes, and amazing people.",
       rating: 5,
       country: "Uganda",
     },
   ];
 
   return (
-    <section className="w-screen-lg mx-auto px-4 py-8 h-[550px]">
-      <p className="text-center text-5xl text-[#000080] font-extrabold mb-12">
+    <section className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16 min-h-[400px] sm:min-h-[500px] lg:min-h-[550px]">
+      <h2 className="text-center text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-[#000080] font-extrabold mb-8 sm:mb-10 lg:mb-12 px-4">
         What Our Clients Say
-      </p>
+      </h2>
       <TestimonialCarousel component={TestimonialCard} items={data} />
     </section>
   );

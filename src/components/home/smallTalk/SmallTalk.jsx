@@ -2,10 +2,8 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import pic1 from '../../../assets/images/img12.jpg';
 import Reveal from '../../Reveal';
-import { GiModernCity } from "react-icons/gi";
+import { GiModernCity, GiWineBottle } from "react-icons/gi";
 import { MdOutlineMuseum } from "react-icons/md";
-import { GiWineBottle } from "react-icons/gi";
-import { TbBeach } from "react-icons/tb";
 import Link from '../../LinkComponent';
 
 const iconVariants = {
@@ -21,15 +19,15 @@ const textVariants = {
 const SmallTalk = () => {
   const data = [
     {
-      icon: <GiModernCity size={80} />,
+      icon: <GiModernCity className="text-4xl sm:text-5xl md:text-6xl" />,
       text: "City Visiting",
     },
     {
-      icon: <MdOutlineMuseum size={80} />,
+      icon: <MdOutlineMuseum className="text-4xl sm:text-5xl md:text-6xl" />,
       text: "Museum Tours",
     },
     {
-      icon: <GiWineBottle size={80} />,
+      icon: <GiWineBottle className="text-4xl sm:text-5xl md:text-6xl" />,
       text: "Champagne Tasting",
       className: "md:col-start-2",
     }
@@ -37,30 +35,33 @@ const SmallTalk = () => {
 
   return (
     <section
-      className="w-full h-dvh md:h-[700px] bg-cover bg-center bg-no-repeat bg-fixed relative flex items-center justify-center text-white"
+      className="w-full min-h-screen bg-cover bg-center bg-no-repeat bg-fixed relative flex items-center text-serif justify-center text-white px-4 sm:px-6 lg:px-8"
       style={{
         backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url(${pic1})`,
       }}
     >
-      <div className="w-full lg:w-3/4 h-full flex flex-col lg:flex-row justify-between items-center">
+      <div className="max-w-7xl w-full flex flex-col lg:flex-row justify-between items-center gap-12 py-12 lg:py-0">
+        
         {/* Left text content */}
-        <div className=" text-2xl font-bold font-serif  lg:w-1/2 h-full flex flex-col mt-2 lg:mt-70 lg:mr-12 max-lg:px-12">
+        <div className="w-full lg:w-1/2 text-center lg:text-left space-y-6">
           <Reveal delay={0.5}>
-            <p className="flex justify-center mb-2">
+            <p className="text-lg  sm:text-xl md:text-4xl font-medium leading-relaxed">
               Explore the charming streets and museums of France. Whether you're chasing history or adventure, we've got you covered. Let's make memories together!
             </p>
           </Reveal>
-          <div>
+          <div className="flex justify-center lg:justify-start">
             <Link 
               href="#"
-              className="px-[20px] py-[10px] border-2 border-[#000080] rounded-lg shadow-lg text-[20px] font-extrabold text-white bg-[#000080] hover:bg-[#000080d2] transition-all ease-in-out duration-500"
+              className="px-6 py-3 border-2 border-[#000080] rounded-lg shadow-lg text-base sm:text-lg font-bold text-white bg-[#000080] hover:bg-[#000080d2] transition-all duration-500"
               title="Contact Us"
-            />
+            >
+              Contact Us
+            </Link>
           </div>
         </div>
 
-        {/* Animated icons */}
-        <div className="w-full max-lg:pb-5 lg:w-1/2 grid grid-cols-1 max-md:px-12 max-md:space-y-4 max-md:mt-8 md:grid-cols-2 gap-2 lg:gap-6">
+        {/* Icon Grid */}
+        <div className="w-full lg:w-1/2 grid grid-cols-1 sm:grid-cols-2 gap-6">
           {data.map((item, idx) => (
             <motion.div
               key={idx}
@@ -69,9 +70,9 @@ const SmallTalk = () => {
               whileHover="hover"
               viewport={{ once: true }}
               variants={iconVariants}
-              className={`relative overflow-hidden rounded-lg border-2 py-10 px-6 flex flex-col items-center text-center transition-colors duration-300 cursor-pointer ${item.className || ''}`}
+              className={`relative overflow-hidden rounded-lg border-2 border-white py-8 px-4 flex flex-col items-center text-center transition-colors duration-300 cursor-pointer bg-white/10 hover:bg-white/20 ${item.className || ''}`}
             >
-              {/* Background hover fill */}
+              {/* Hover overlay */}
               <motion.div
                 variants={{
                   hover: { y: 0, opacity: 1 },
@@ -81,11 +82,11 @@ const SmallTalk = () => {
                 className="absolute inset-0 bg-[#000080] z-0"
               />
 
-              {/* Icon and Text */}
-              <div className="relative z-10 flex justify-center items-center flex-col h-full">
+              {/* Icon + Text */}
+              <div className="relative z-10 flex flex-col items-center justify-center text-white lg:w-40 lg:h-40">
                 {item.icon}
                 <motion.p
-                  className="mt-2 font-semibold text-[#000080] text-serif"
+                  className="mt-3 text-base sm:text-lg md:text-xl font-semibold text-white"
                   variants={textVariants}
                 >
                   {item.text}

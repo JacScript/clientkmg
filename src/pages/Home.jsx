@@ -14,22 +14,23 @@ import Testimonial from "../components/home/testimonial/Testimonial";
 import ContactUs from "../components/contact/Contact";
 import Footer from "../components/Footer";
 import FeatureTour from "../components/home/featureTour/FeatureTour";
+import CombineHomeAndDiscovery from "../components/CombinedHomeAndDiscoveryComponent"
 
 const Home = () => {
   return (
     <container className="max-w-screen scrollbar-hide">
       {/* Hero Section */}
 
-      <Hero />
+      {/* <Hero /> */}
       {/* <HeroWithCarousel/> */}
+<CombineHomeAndDiscovery/>
 
+      {/*Discovery section  */}
+      {/* <Discover /> */}
       {/* WhatsApp button */}
       <div className="fixed z-60 bottom-[20px] right-0 mr-10 mb-10 bg-[#25D366] w-16 h-16 flex justify-center items-center rounded-full">
         <IoLogoWhatsapp className="text-white" size={40} />
       </div>
-
-      {/*Discovery section  */}
-      <Discover />
 
       {/* Small Talk */}
       <SmallTalk />

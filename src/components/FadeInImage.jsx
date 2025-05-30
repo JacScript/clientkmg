@@ -33,7 +33,7 @@ const FadeInImage = ({
     <motion.img
       src={src}
       alt={alt}
-      className={`${className} ${rounded ? 'rounded-lg' : ''} ${shadow ? 'shadow-lg' : ''}`}
+      className={`${className} ${rounded ? 'lg:rounded-lg' : ''} ${shadow ? 'shadow-lg' : ''}`}
       variants={variants}
       initial="hidden"
       whileInView="visible"

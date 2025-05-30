@@ -20,7 +20,6 @@ export default defineConfig({
           serif: ["'DM Serif Text'", "serif"],
           roboto: ["'Roboto'", "sans-serif"],
         },
-
          debugScreens: {
         position: ['bottom', 'left'],
         prefix: 'screen: ',
