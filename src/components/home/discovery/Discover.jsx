@@ -127,8 +127,8 @@ function Discover() {
             <Link
               href="#"
               className="px-6 py-3 border-2 border-[#000080] rounded-lg shadow-lg text-base sm:text-lg font-bold text-white bg-[#000080] hover:bg-[#000080d2] transition-all duration-300"
-              title="Contact Us"
-            />
+              // title="Contact Us"
+            >Contact Us</Link>
           </div>
         </div>
 
