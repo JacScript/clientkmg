@@ -18,7 +18,7 @@ import CombineHomeAndDiscovery from "../components/CombinedHomeAndDiscoveryCompo
 
 const Home = () => {
   return (
-    <container className="max-w-screen scrollbar-hide">
+    <main className="max-w-screen scrollbar-hide">
       {/* Hero Section */}
 
       {/* <Hero /> */}
@@ -53,8 +53,8 @@ const Home = () => {
       {/* contact */}
     <ContactUs/>
 
-<Footer/>
-    </container>
+{/* <Footer/> */}
+    </main>
   );
 };
 

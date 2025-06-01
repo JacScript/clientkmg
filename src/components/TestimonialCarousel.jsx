@@ -93,45 +93,7 @@ const TestimonialCarousel = ({ component: Component, items }) => {
       
       {/* Custom CSS for better carousel styling */}
       <style jsx>{`
-        .testimonial-carousel .slick-dots {
-          bottom: -40px;
-        }
         
-        .testimonial-carousel .slick-dots li button:before {
-          font-size: 12px;
-          color: #000080;
-          opacity: 0.5;
-        }
-        
-        .testimonial-carousel .slick-dots li.slick-active button:before {
-          opacity: 1;
-          color: #000080;
-        }
-        
-        .testimonial-carousel .slick-arrow {
-          z-index: 1;
-        }
-        
-        .testimonial-carousel .slick-prev {
-          left: -25px;
-        }
-        
-        .testimonial-carousel .slick-next {
-          right: -25px;
-        }
-        
-        .testimonial-carousel .slick-prev:before,
-        .testimonial-carousel .slick-next:before {
-          color: #000080;
-          font-size: 20px;
-        }
-        
-        @media (max-width: 768px) {
-          .testimonial-carousel .slick-prev,
-          .testimonial-carousel .slick-next {
-            display: none !important;
-          }
-        }
       `}</style>
     </motion.div>
   );

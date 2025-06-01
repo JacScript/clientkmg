@@ -1,5 +1,12 @@
 import React from 'react';
 import { FaTruck, FaWarehouse, FaShippingFast, FaBoxes, FaGlobe } from 'react-icons/fa';
+import img1 from "../../assets/images/freighttransport.jpg"
+import img2 from "../../assets/images/express.jpg"
+import img3 from "../../assets/images/Globalshippingnetwork.jpeg"
+import img4 from "../../assets/images/warehouse.jpeg"
+import img5 from "../../assets/images/package.jpeg"
+import img6 from "../../assets/images/solu.jpeg"
+import Link from '../LinkComponent';
 
 const Solution = () => {
   const solutions = [
@@ -7,35 +14,35 @@ const Solution = () => {
       id: 1,
       title: "Freight Transport",
       description: "Reliable freight transportation solutions across land, sea, and air",
-      image: "https://images.unsplash.com/photo-1566576912321-d58ddd7a6088?w=600&h=400&fit=crop",
+      image: img1,
       icon: FaTruck,
     },
     {
       id: 2,
       title: "Warehouse Management",
       description: "State-of-the-art warehouse solutions for optimal storage",
-      image: "https://images.unsplash.com/photo-1553413077-190dd305871c?w=600&h=400&fit=crop",
+      image: img4,
       icon: FaWarehouse,
     },
     {
       id: 3,
       title: "Global Shipping Network",
       description: "Comprehensive global shipping solutions connecting continents",
-      image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=1200&h=400&fit=crop",
+      image: img3,
       icon: FaGlobe,
     },
     {
       id: 4,
       title: "Express Delivery",
       description: "Fast and secure express delivery services worldwide",
-      image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=400&fit=crop",
+      image: img2,
       icon: FaShippingFast,
     },
     {
       id: 5,
       title: "Package Handling",
       description: "Professional package handling and distribution services",
-      image: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=600&h=400&fit=crop",
+      image: img5,
       icon: FaBoxes,
     }
   ];
@@ -46,7 +53,7 @@ const Solution = () => {
     <div 
       className='w-screen min-h-screen py-16 bg-cover bg-center bg-fixed relative'
       style={{ 
-        backgroundImage: `url('https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=1920&h=1080&fit=crop')` 
+        backgroundImage: `url(${img6})` 
       }}
     >
       {/* Background Overlay */}
@@ -88,7 +95,7 @@ const Solution = () => {
               <div className="relative h-full flex flex-col justify-between p-6">
                 {/* Icon */}
                 <div className="flex justify-start">
-                  <div className="bg-blue-600 rounded-full p-3 shadow-lg">
+                  <div className="bg-[#000080] rounded-full p-3 shadow-lg">
                     <solution.icon className="w-6 h-6 text-white" />
                   </div>
                 </div>
@@ -101,9 +108,11 @@ const Solution = () => {
                 
                 {/* Center Button */}
                 <div className="flex justify-center">
-                  <button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
-                    Learn More
-                  </button>
+                  <Link 
+                   href='#'
+                  className="bg-[#000080] hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
+                    Contact Us
+                  </Link>
                 </div>
               </div>
             </div>
@@ -138,9 +147,11 @@ const Solution = () => {
               </div>
               
               {/* Center Button */}
-              <button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
+              <Link
+               href='#'
+              className="bg-[#000080] hover:bg-blue-700 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
                 Explore Services
-              </button>
+              </Link>
             </div>
           </div>
         </div>

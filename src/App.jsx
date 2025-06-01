@@ -27,6 +27,8 @@ import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-d
 import TopBar from "./components/TopBar";
 import Home from "./pages/Home";
 import Logistics from "./pages/Logistics";
+import Footer from "./components/Footer";
+import Linguistics from "./pages/Linguistics";
 
 const App = () => {
   return (
@@ -36,8 +38,10 @@ const App = () => {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route path="/logistics" component={Logistics} />
+          <Route path="/kiswahili" component={Linguistics} />
           <Redirect to="/" />
         </Switch>
+        <Footer/>
       </div>
     </Router>
   );
