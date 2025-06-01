@@ -105,15 +105,15 @@ function Discover() {
         
         {/* Text Section */}
         <div className="w-full lg:w-1/2 text-center lg:text-left">
-          <Reveal>
+          {/* <Reveal>
             <p className="text-base md:text-lg font-bold font-serif mb-3 tracking-wide">
               TIMELESS ADVENTURE
             </p>
-          </Reveal>
+          </Reveal> */}
 
           <Reveal delay={0.5}>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl xl:text-6xl font-black font-roboto leading-tight mb-6">
-              DISCOVER THE CITIES WITH KM TRAVEL & TOUR
+            <h2 className="text-3xl sm:text-4xl md:text-5xl xl:text-5xl font-black font-roboto leading-tight mb-6">
+              Explore Paris, and the neighbouring EU cities with Kai and KM travel and tours
             </h2>
           </Reveal>
 

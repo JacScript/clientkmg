@@ -140,9 +140,10 @@ import Logo from "../assets/kmlogo.png";
 const NavbarMenu = [
   { id: 1, title: "Travel & Tours", path: "/" },
   { id: 2, title: "Logistics", path: "/logistics" },
-  { id: 3, title: "Linguistics", path: "/linguistics" },
+  { id: 3, title: "Kiswahili", path: "/linguistics" },
+  { id: 5, title: "Bahari Beach BnB", path: "/airbnb" },
   { id: 4, title: "Gallery", path: "/gallery" },
-  { id: 5, title: "AirBnB", path: "/airbnb" },
+  { id: 6, title: "About Us", path: "/gallery" },
 ];
 
 const Navbar = () => {
@@ -161,13 +162,13 @@ const Navbar = () => {
 
         {/* Desktop Menu */}
         <div className="hidden lg:block">
-          <ul className="flex items-center text-[#000080]  font-bold gap-6">
+          <ul className="flex items-center text-[#000080]  font-bold gap-2">
             {NavbarMenu.map((menu) => (
               <li key={menu.id}>
                 <NavLink
                   to={menu.path}
                   exact
-                  className="inline-block py-2 relative px-3 group md:text-lg lg:text-sm xl:text-lg "
+                  className="inline-block py-2 relative px-3 group md:text-lg lg:text-sm xl:text-base "
                   activeClassName="after:content-[''] after:absolute after:top-0 after:left-1/2 after:-translate-x-1/2 after:w-full after:h-0.5 after:bg-[#000080]"
                 >
                   <span className="relative z-10">{menu.title}</span>

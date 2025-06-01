@@ -55,6 +55,15 @@ function Why() {
     <section className="w-full py-12 md:py-20 bg-white text-[#000080]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col-reverse md:flex-row items-center gap-10">
         
+ {/* Image */}
+        <div className="w-full md:w-1/2">
+          <FadeInImage
+            src={pic1}
+            alt="Travel Experience"
+            className="w-full h-auto max-h-[500px] object-cover rounded-lg shadow-md"
+          />
+        </div>
+
         {/* Text Content */}
         <div className="w-full md:w-1/2 space-y-6 md:pr-8 text-center md:text-left">
           <Reveal>
@@ -84,14 +93,7 @@ function Why() {
           </div>
         </div>
 
-        {/* Image */}
-        <div className="w-full md:w-1/2">
-          <FadeInImage
-            src={pic1}
-            alt="Travel Experience"
-            className="w-full h-auto max-h-[500px] object-cover rounded-lg shadow-md"
-          />
-        </div>
+       
       </div>
     </section>
   );

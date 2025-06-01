@@ -52,12 +52,12 @@ export default function Hero() {
         <div className="text-center max-w-4xl mx-auto flex flex-col items-center justify-center">
           <Reveal>
             <p className="text-sm sm:text-base lg:text-lg font-bold text-gray-100 uppercase font-serif">
-              Your Official France Travel and Tour Guide
+              your personalized holiday from Tanzania to France organized by Kai’
             </p>
           </Reveal>
           <Reveal delay={0.2}>
-            <h1 className="mt-4 text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl uppercase font-semibold font-roboto text-[#000080] leading-tight break-words">
-              Explore France
+            <h1 className="mt-4 text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-8xl uppercase font-semibold font-roboto text-[#000080] leading-tight break-words">
+               from Tanzania to France 
             </h1>
           </Reveal>
           <div className="mt-6 sm:mt-8 flex justify-center">

@@ -33,7 +33,7 @@ const Home = () => {
       </div>
 
       {/* Small Talk */}
-      <SmallTalk />
+      {/* <SmallTalk /> */}
 
      
 
@@ -42,7 +42,7 @@ const Home = () => {
 
       {/* About */}
 
-      <About/>
+      {/* <About/> */}
 
       <FeatureTour/>
 
