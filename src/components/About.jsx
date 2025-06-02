@@ -191,11 +191,11 @@
 // export default About;
 import { BsPatchCheckFill } from "react-icons/bs";
 import React from "react";
-import pic from "../../../assets/images/img17.jpg";
-import pic0 from "../../../assets/images/img16.jpg";
-import Reveal from "../../Reveal";
-import FadeInImage from "../../FadeInImage";
-import FloatingTextBox from "../../FloatingTextBox";
+import pic from "../assets/images/img17.jpg";
+import pic0 from "../assets/images/img16.jpg";
+import Reveal from "./Reveal";
+import FadeInImage from "./FadeInImage";
+import FloatingTextBox from "./FloatingTextBox";
 
 const About = () => {
   const infos = [

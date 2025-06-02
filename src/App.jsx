@@ -29,6 +29,7 @@ import Home from "./pages/Home";
 import Logistics from "./pages/Logistics";
 import Footer from "./components/Footer";
 import Linguistics from "./pages/Linguistics";
+import AboutUs from "./pages/AboutUs";
 
 const App = () => {
   return (
@@ -39,6 +40,7 @@ const App = () => {
           <Route exact path="/" component={Home} />
           <Route path="/logistics" component={Logistics} />
           <Route path="/kiswahili" component={Linguistics} />
+          <Route path="/aboutUs" component={AboutUs} />
           <Redirect to="/" />
         </Switch>
         <Footer/>
