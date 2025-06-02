@@ -20,6 +20,9 @@ export default defineConfig({
           serif: ["'DM Serif Text'", "serif"],
           roboto: ["'Roboto'", "sans-serif"],
         },
+         gridTemplateRows: {
+          '[auto,auto,1fr]': 'auto auto 1fr',
+        },
          debugScreens: {
         position: ['bottom', 'left'],
         prefix: 'screen: ',

@@ -84,12 +84,14 @@ function Why() {
             </p>
           </Reveal>
 
-          <div className="mt-4 flex justify-center md:justify-start">
-            <Link
-              href="#"
-              className="px-6 py-3 border-2 border-[#000080] rounded-lg shadow-lg text-base sm:text-lg font-bold text-white bg-[#000080] hover:bg-[#000080d2] transition-all duration-500"
-              title="Contact Us"
-            >Contact Us</Link>
+          <div className="flex justify-center lg:justify-start">
+            <Link 
+  isWhatsApp={true} 
+  className="bg-[#000080] hover:bg-[#000080] text-white px-6 py-3 rounded-md shadow-lg"
+>
+  Contact Us
+</Link>
+            
           </div>
         </div>
 

@@ -28,9 +28,9 @@ const Home = () => {
       {/*Discovery section  */}
       {/* <Discover /> */}
       {/* WhatsApp button */}
-      <div className="fixed z-60 bottom-[20px] right-0 mr-10 mb-10 bg-[#25D366] w-16 h-16 flex justify-center items-center rounded-full">
+      {/* <div className="fixed z-60 bottom-[20px] right-0 mr-10 mb-10 bg-[#25D366] w-16 h-16 flex justify-center items-center rounded-full">
         <IoLogoWhatsapp className="text-white" size={40} />
-      </div>
+      </div> */}
 
       {/* Small Talk */}
       {/* <SmallTalk /> */}

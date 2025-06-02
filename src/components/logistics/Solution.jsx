@@ -108,11 +108,13 @@ const Solution = () => {
                 
                 {/* Center Button */}
                 <div className="flex justify-center">
-                  <Link 
-                   href='#'
-                  className="bg-[#000080] hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
-                    Contact Us
-                  </Link>
+                   <Link 
+            message="Hello, I would like to inquire about your logistics services."
+  isWhatsApp={true} 
+  className="bg-[#000080] hover:bg-[#000080] text-white px-6 py-3 rounded-md shadow-lg"
+>
+  Contact Us
+</Link>
                 </div>
               </div>
             </div>
@@ -147,11 +149,13 @@ const Solution = () => {
               </div>
               
               {/* Center Button */}
-              <Link
-               href='#'
-              className="bg-[#000080] hover:bg-blue-700 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
-                Explore Services
-              </Link>
+               <Link 
+            message="Hello, I would like to inquire about your logistics services."
+  isWhatsApp={true} 
+  className="bg-[#000080] hover:bg-[#000080] text-white px-6 py-3 rounded-md shadow-lg"
+>
+  Explore More
+</Link>
             </div>
           </div>
         </div>

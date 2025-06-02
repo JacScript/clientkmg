@@ -260,7 +260,7 @@ export default function ContactUs() {
                 required
               ></textarea>
               <button
-                className="bg-blue-500 text-white px-6 py-3 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="bg-[#000080] text-white px-6 py-3 rounded-md hover:bg-[#000080a4] focus:outline-none focus:ring-2 focus:ring-blue-500"
                 type="submit"
               >
                 Send

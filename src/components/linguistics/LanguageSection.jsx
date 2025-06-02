@@ -249,7 +249,14 @@ export default function LanguageHeroSection() {
 
                   {/* Button Container */}
           <div className="mt-10 flex items-center justify-center gap-x-6">
-            <Link
+               <Link 
+            message="Hello, I would like to inquire about your linguistics services."
+  isWhatsApp={true} 
+  className="bg-[#000080] hover:bg-[#000080] text-white px-6 py-3 rounded-md shadow-lg"
+>
+  Get Started
+</Link>
+            {/* <Link
               href="#"
               className="rounded-md hover:bg-[#000080] px-4 sm:px-6 md:px-8 py-2 sm:py-3 md:py-2 
                          text-sm sm:text-base md:text-lg font-semibold text-[#000080] 
@@ -257,7 +264,7 @@ export default function LanguageHeroSection() {
                          transition ease-in duration-150 transform hover:scale-105 cursor-pointer"
             >
               Get started
-            </Link>
+            </Link> */}
           </div>
 
             {/* Social Proof */}

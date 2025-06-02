@@ -45,21 +45,15 @@ export default function Learning() {
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4">
-                 <Link
-              href="#"
-              className="rounded-md hover:bg-[#000080] px-4 sm:px-6 md:px-8 py-2 sm:py-3 md:py-2 
-                         text-sm sm:text-base md:text-lg font-semibold text-[#000080] 
-                         hover:text-white shadow-lg bg-transparent border-2 border-[#000080] 
-                         transition ease-in duration-150 transform hover:scale-105 cursor-pointer"
-            >
-               Enroll Now
-            </Link>
-              {/* <button className="bg-blue-900 hover:bg-blue-800 text-white px-8 py-4 rounded-lg font-semibold transition-colors duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
-                Enroll Now
-              </button>
-              <button className="border-2 border-gray-300 hover:border-gray-400 text-gray-700 px-8 py-4 rounded-lg font-semibold transition-all duration-300 bg-white hover:bg-gray-50">
-                Try Demo Class
-              </button> */}
+                <Link 
+            message="Hello, I would like to inquire about your linguistics services."
+  isWhatsApp={true} 
+  className="bg-[#000080] hover:bg-[#000080] text-white px-6 py-3 rounded-md shadow-lg"
+>
+  Enroll Now
+</Link>
+               
+              
             </div>
           </div>
 

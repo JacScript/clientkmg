@@ -220,11 +220,7 @@ const About = () => {
 
   return (
     <section className="min-h-screen lg:h-dvh w-full bg-blue-100 py-8 sm:py-12 lg:py-16">
-      {/* <Reveal> */}
-        <h1 className="text-2xl sm:text-3xl md:text-4xl xl:text-5xl text-[#000080] font-extrabold text-center mb-8 sm:mb-10 lg:mb-12 px-4">
-          About Us
-        </h1>
-      {/* </Reveal> */}
+    
       
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-12 xl:gap-16">

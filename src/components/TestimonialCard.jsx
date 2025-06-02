@@ -19,7 +19,7 @@ const TestimonialCard = ({ data }) => {
           />
           <div className="ml-3 sm:ml-4 space-y-1 sm:space-y-2 min-w-0 flex-1">
             <p className="text-lg sm:text-xl font-bold truncate">{data.name}</p>
-            <p className="text-sm font-bold text-gray-200 truncate">{data.country}</p>
+            <p className="text-sm font-bold text-gray-200 truncate">{data.flag}</p>
           </div>
         </div>
 

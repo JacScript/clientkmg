@@ -59,15 +59,16 @@ export default function HeroLogistics() {
             </Reveal>
           {/* Button Container */}
           <div className="mt-10 flex items-center justify-center gap-x-6">
-            <Link
-              href="#"
-              className="rounded-md hover:bg-[#000080] px-4 sm:px-6 md:px-8 py-2 sm:py-3 md:py-4 
-                         text-sm sm:text-base md:text-lg font-semibold text-[#000080] 
-                         hover:text-white shadow-lg bg-transparent border-2 border-[#000080] 
-                         transition ease-in duration-150 transform hover:scale-105 cursor-pointer" // Added transform and hover:scale-105 for subtle interactive effect
-            >
-              Get started
-            </Link>
+           <div className="flex justify-center lg:justify-start">
+            <Link 
+            message="Hello, I would like to inquire about your logistics services."
+  isWhatsApp={true} 
+  className="bg-[#000080] hover:bg-[#000080] text-white px-6 py-3 rounded-md shadow-lg"
+>
+  Get Started
+</Link>
+            
+          </div>
           </div>
         </div>
 

@@ -554,16 +554,18 @@ const HeroKiswahili = () => {
           
           {/* Button Container */}
           <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-x-6">
-            <Link
-              href="#courses"
-              className="w-full sm:w-auto rounded-lg bg-gradient-to-r from-orange-500 to-yellow-500 
+              <Link 
+            message="Hello, I would like to inquire about your Kiswahili services."
+  isWhatsApp={true} 
+  className="w-full sm:w-auto rounded-lg bg-gradient-to-r from-orange-500 to-yellow-500 
                          px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg font-bold text-white 
                          shadow-xl hover:shadow-2xl transition-all duration-300 ease-out
                          transform hover:scale-105 hover:from-orange-600 hover:to-yellow-600
                          border-2 border-transparent hover:border-white/20"
-            >
-              Anza Kusoma - Start Learning
-            </Link>
+>
+  Anza Kusoma - Start Learning
+</Link>
+            
           </div>
 
          

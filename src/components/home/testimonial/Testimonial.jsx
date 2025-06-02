@@ -12,28 +12,28 @@ const Testimonial = () => {
       image: pic1,
       testimonial: "Traveling was an unforgettable experience—every place I visited opened my eyes to new cultures, stunning landscapes, and amazing people. Traveling was an unforgettable experience—every place I visited opened my eyes to new cultures, stunning landscapes, and amazing people.",
       rating: 5,
-      country: "USA",
+      flag: '🇹🇿'
     },
     {
       name: "Jane Smith",
       image: pic1,
       testimonial: "Traveling was an unforgettable experience—every place I visited opened my eyes to new cultures, stunning landscapes, and amazing people. Traveling was an unforgettable experience—every place I visited opened my eyes to new cultures, stunning landscapes, and amazing people.",
       rating: 4,
-      country: "Tanzania",
+     flag: '🇹🇿'
     },
     {
       name: "Michael Brown",
       image: pic1,
       testimonial: "Traveling was an unforgettable experience—every place I visited opened my eyes to new cultures, stunning landscapes, and amazing people. Traveling was an unforgettable experience—every place I visited opened my eyes to new cultures, stunning landscapes, and amazing people.",
       rating: 5,
-      country: "Kenya",
+     flag: '🇹🇿'
     },
     {
       name: "Alice Green",
       image: pic1,
       testimonial: "Traveling was an unforgettable experience—every place I visited opened my eyes to new cultures, stunning landscapes, and amazing people. Traveling was an unforgettable experience—every place I visited opened my eyes to new cultures, stunning landscapes, and amazing people.",
       rating: 5,
-      country: "Uganda",
+      flag: '🇹🇿'
     },
   ];
 

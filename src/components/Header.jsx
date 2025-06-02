@@ -1,6 +1,6 @@
 import React from 'react';
 
-const AboutUsHeader = () => {
+const Header = ({title,link}) => {
   return (
     <div className="relative w-full h-64 bg-gradient-to-r from-[#000080c5] to-[#000080] overflow-hidden mt-34">
       {/* Background Pattern/Overlay */}
@@ -26,7 +26,7 @@ const AboutUsHeader = () => {
       <div className="relative z-10 flex flex-col items-center justify-center h-full px-6">
         {/* Main Heading */}
         <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 text-center drop-shadow-lg">
-          About Us
+          {title}
         </h1>
         
         {/* Breadcrumb Navigation */}
@@ -46,7 +46,7 @@ const AboutUsHeader = () => {
           </a>
           <span className="text-white/60 mx-2">/</span>
           <span className="text-orange-400 font-semibold">
-            About
+            {link}
           </span>
         </nav>
       </div>
@@ -68,4 +68,4 @@ const AboutUsHeader = () => {
   );
 };
 
-export default AboutUsHeader;
+export default Header;

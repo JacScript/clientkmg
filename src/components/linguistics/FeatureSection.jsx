@@ -62,7 +62,17 @@ export default function FeaturesSection() {
 
                {/* Button Container */}
           <div className="mt-10 flex items-center justify-center gap-x-6">
-            <Link
+            <Link 
+            message="Hello, I would like to inquire about your Kiswahili services."
+  isWhatsApp={true} 
+  className="rounded-md hover:bg-[#000080] px-4 sm:px-6 md:px-8 py-2 sm:py-3 md:py-2 
+                         text-sm sm:text-base md:text-lg font-semibold text-[#000080] 
+                         hover:text-white shadow-lg bg-transparent border-2 border-[#000080] 
+                         transition ease-in duration-150 transform hover:scale-105 cursor-pointer"
+>
+   Get started
+</Link>
+            {/* <Link
               href="#"
               className="rounded-md hover:bg-[#000080] px-4 sm:px-6 md:px-8 py-2 sm:py-3 md:py-2 
                          text-sm sm:text-base md:text-lg font-semibold text-[#000080] 
@@ -70,7 +80,7 @@ export default function FeaturesSection() {
                          transition ease-in duration-150 transform hover:scale-105 cursor-pointer"
             >
               Get started
-            </Link>
+            </Link> */}
           </div>
             </div>
           ))}

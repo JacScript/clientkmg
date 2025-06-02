@@ -80,7 +80,37 @@
           </div> */}
 
 
-import React from 'react';
+// import React from 'react';
+// import { motion } from 'framer-motion';
+
+// const Link = ({
+//   href = "#",
+//   className = "bg-[#000080] text-white px-6 py-3 rounded-md",
+//   title = "",
+//   children = "Click Here", // fallback text
+// }) => {
+//   return (
+//     <motion.a
+//       href={href}
+//       title={title}
+//       className={className}
+//       initial={{ opacity: 0, y: 40 }}
+//       whileInView={{ opacity: 1, y: 0 }}
+//       viewport={{ once: true }}
+//       transition={{ duration: 1, ease: 'easeOut' }}
+//       whileHover={{
+//         scale: 1.05,
+//         boxShadow: "0px 4px 15px rgba(0, 0, 0, 0.2)",
+//       }}
+//     >
+//       {children}
+//     </motion.a>
+//   );
+// };
+
+// export default Link;
+
+
 import { motion } from 'framer-motion';
 
 const Link = ({
@@ -88,12 +118,29 @@ const Link = ({
   className = "bg-[#000080] text-white px-6 py-3 rounded-md",
   title = "",
   children = "Click Here", // fallback text
+  isWhatsApp = false, // New prop to indicate if it's a WhatsApp link
+  phoneNumber = '255764437845', // Default WhatsApp number (Tanzania context)
+  message = 'Hello, I would like to inquire about your services.', // Default WhatsApp message
 }) => {
+  let finalHref = href;
+  let target = undefined; // Default target
+  let rel = undefined;    // Default rel
+
+  if (isWhatsApp) {
+    // Construct the WhatsApp URL
+    // phoneNumber should be in international format without '+' or leading zeros
+    finalHref = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+    target = "_blank"; // Always open WhatsApp links in a new tab
+    rel = "noopener noreferrer"; // Security best practice for target="_blank"
+  }
+
   return (
     <motion.a
-      href={href}
-      title={title}
+      href={finalHref}
+      title={title || (isWhatsApp ? "Chat with us on WhatsApp" : "")} // Set a default title for WhatsApp links
       className={className}
+      target={target}
+      rel={rel}
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}

@@ -144,10 +144,10 @@ const FeatureTour = () => {
           {/* View All Tours Button */}
           <div className="mt-8 sm:mt-12 lg:mt-16">
             <Link
-              href="#"
+              href="/gallery"
               className="inline-flex items-center px-6 py-3 sm:px-8 sm:py-4 text-[#000080] font-bold border-2 border-[#000080] rounded-lg hover:bg-[#000080] hover:text-white transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-lg"
               // title="View All Tours →"
-            >Book Now</Link>
+            >View More</Link>
           </div>
         </div>
       </div>

@@ -1,9 +1,9 @@
-import React from 'react';
-import Reveal from '../Reveal';
-import Link from '../LinkComponent';
+import React from "react";
+import Reveal from "../Reveal";
+import Link from "../LinkComponent";
 import img from "../../assets/images/container.png";
-import TestimonialCarousel from '../TestimonialCarousel';
-import LogisticsCard from '../LogisticsCard';
+import TestimonialCarousel from "../TestimonialCarousel";
+import LogisticsCard from "../LogisticsCard";
 import { MdOutlineMuseum } from "react-icons/md";
 import { GiModernCity, GiWineBottle } from "react-icons/gi";
 
@@ -12,38 +12,43 @@ const WhyLogistics = () => {
     {
       id: 1,
       name: "Retail & E-commerce",
-      description: "We specialize in streamlined, end-to-end logistics solutions tailored specifically for the fast-paced demands of modern retail and online stores.",
+      description:
+        "We specialize in streamlined, end-to-end logistics solutions tailored specifically for the fast-paced demands of modern retail and online stores.",
       image: img,
-      icon: GiModernCity
+      icon: GiModernCity,
     },
     {
       id: 2,
       name: "Manufacturing & Distribution",
-      description: "Our logistics services are designed to optimize your supply chain, ensuring timely delivery of raw materials and finished goods.",
+      description:
+        "Our logistics services are designed to optimize your supply chain, ensuring timely delivery of raw materials and finished goods.",
       image: img,
-        icon: MdOutlineMuseum 
+      icon: MdOutlineMuseum,
     },
     {
       id: 3,
       name: "Healthcare & Pharmaceuticals",
-      description: "We provide specialized logistics solutions for the healthcare sector, ensuring the safe and timely delivery of critical medical supplies.",
+      description:
+        "We provide specialized logistics solutions for the healthcare sector, ensuring the safe and timely delivery of critical medical supplies.",
       image: img,
-        icon: GiWineBottle
+      icon: GiWineBottle,
     },
     {
       id: 4,
       name: "Food & Beverage",
-      description: "Our logistics services ensure the safe and efficient transportation of perishable goods, maintaining quality and freshness.",
+      description:
+        "Our logistics services ensure the safe and efficient transportation of perishable goods, maintaining quality and freshness.",
       image: img,
-        icon: GiModernCity
+      icon: GiModernCity,
     },
     {
       id: 4,
       name: "Food & Beverage",
-      description: "Our logistics services ensure the safe and efficient transportation of perishable goods, maintaining quality and freshness.",
+      description:
+        "Our logistics services ensure the safe and efficient transportation of perishable goods, maintaining quality and freshness.",
       image: img,
-        icon: GiModernCity 
-    }
+      icon: GiModernCity,
+    },
   ];
 
   return (
@@ -68,10 +73,12 @@ const WhyLogistics = () => {
             </p>
           </Reveal>
           <Link
-            href="#"
-            className="px-[20px] py-[10px] border-2 border-[#000080] rounded-lg shadow-lg text-[20px] font-extrabold text-white bg-[#000080] hover:bg-[#000080d2] transition-all ease-in-out duration-500"
-            title="Contact Us"
-          />
+            message="Hello, I would like to inquire about your logistics services."
+            isWhatsApp={true}
+            className="bg-[#000080] hover:bg-[#0000808f] text-white px-6 py-3 rounded-md shadow-lg"
+          >
+            Contact Us
+          </Link>
         </div>
       </div>
 
