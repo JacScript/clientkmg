@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { IoMdMenu, IoMdClose } from "react-icons/io";
 import { NavLink } from "react-router-dom";
-import Logo from "../assets/kmlogo.png";
+import Logo from "../assets/logo2.png";
 
 const NavbarMenu = [
   { id: 1, title: "Travel & Tours", path: "/" },
@@ -22,7 +22,7 @@ const Navbar = () => {
         {/* Logo */}
         <div className="flex justify-center items-center h-full">
           <NavLink to="/">
-            <img src={Logo} className="w-60 h-full  object-cover" alt="logo" />
+            <img src={Logo} className="w-70 h-[106px]   object-contain" alt="logo" />
           </NavLink>
         </div>
 
