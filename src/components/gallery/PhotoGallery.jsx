@@ -3,6 +3,9 @@ import PhotoCard from './PhotoCard';
 // import { Camera, Filter, Grid, Layers } from 'lucide-react';
 import { FaCamera , FaFilter} from "react-icons/fa";
 import { IoGridOutline, IoLayersOutline } from "react-icons/io5";
+import img1 from "../../assets/images/rome1.jpeg"
+import img2 from "../../assets/images/rome2.jpeg"
+import img3 from "../../assets/images/rome3.jpeg"
 
 const PhotoGallery = () => {
   const [activeFilter, setActiveFilter] = useState('all');
@@ -10,7 +13,7 @@ const PhotoGallery = () => {
   const photos = [
     {
       id: 1,
-      src: "https://images.unsplash.com/photo-1649972904349-6e44c42644a7?w=600&h=800&fit=crop",
+      src: img1,
       alt: "Woman with laptop",
       title: "Creative Workspace",
       description: "Modern workspace photography",
@@ -19,7 +22,7 @@ const PhotoGallery = () => {
     },
     {
       id: 2,
-      src: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=500&h=500&fit=crop",
+      src: img2,
       alt: "Gray laptop computer",
       title: "Technology Focus",
       description: "Clean tech aesthetics",
@@ -28,7 +31,7 @@ const PhotoGallery = () => {
     },
     {
       id: 3,
-      src: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=500&h=700&fit=crop",
+      src: img3,
       alt: "Circuit board macro",
       title: "Digital Circuits",
       description: "Abstract technology patterns",
@@ -37,7 +40,7 @@ const PhotoGallery = () => {
     },
     {
       id: 4,
-      src: "https://images.unsplash.com/photo-1500673922987-e212871fec22?w=600&h=400&fit=crop",
+      src: img1,
       alt: "Yellow lights between trees",
       title: "Night Ambiance",
       description: "Atmospheric lighting",
@@ -46,7 +49,7 @@ const PhotoGallery = () => {
     },
     {
       id: 5,
-      src: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=500&h=600&fit=crop",
+      src: img2,
       alt: "Water surrounded by trees",
       title: "Natural Beauty",
       description: "Landscape photography",
@@ -55,7 +58,7 @@ const PhotoGallery = () => {
     },
     {
       id: 6,
-      src: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=600&h=500&fit=crop",
+      src: img3,
       alt: "Java programming monitor",
       title: "Code in Action",
       description: "Software development",
@@ -64,7 +67,7 @@ const PhotoGallery = () => {
     },
     {
       id: 7,
-      src: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=500&h=700&fit=crop",
+      src: img2,
       alt: "White robot near wall",
       title: "Future Vision",
       description: "AI and robotics",
@@ -73,7 +76,7 @@ const PhotoGallery = () => {
     },
     {
       id: 8,
-      src: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=500&h=500&fit=crop",
+      src: img1,
       alt: "Woman using laptop",
       title: "Remote Work",
       description: "Modern lifestyle",
@@ -82,7 +85,7 @@ const PhotoGallery = () => {
     },
      {
       id: 9,
-      src: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=500&h=700&fit=crop",
+      src: img2,
       alt: "White robot near wall",
       title: "Future Vision",
       description: "AI and robotics",
@@ -91,7 +94,7 @@ const PhotoGallery = () => {
     },
     {
       id: 10,
-      src: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=500&h=500&fit=crop",
+      src: img1,
       alt: "Woman using laptop",
       title: "Remote Work",
       description: "Modern lifestyle",
@@ -100,7 +103,7 @@ const PhotoGallery = () => {
     },
      {
       id: 11,
-      src: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=500&h=700&fit=crop",
+      src: img3,
       alt: "White robot near wall",
       title: "Future Vision",
       description: "AI and robotics",
@@ -109,7 +112,7 @@ const PhotoGallery = () => {
     },
     {
       id: 12,
-      src: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=500&h=500&fit=crop",
+      src: img2,
       alt: "Woman using laptop",
       title: "Remote Work",
       description: "Modern lifestyle",
@@ -120,9 +123,9 @@ const PhotoGallery = () => {
 
   const categories = [
     { id: 'all', label: 'All Photos', icon: IoGridOutline },
-    { id: 'tech', label: 'Technology', icon: IoLayersOutline },
-    { id: 'nature', label: 'Nature', icon: FaCamera },
-    { id: 'lifestyle', label: 'Lifestyle', icon: FaFilter }
+    { id: 'tech', label: 'Rome', icon: IoLayersOutline },
+    { id: 'nature', label: 'German', icon: FaCamera },
+    { id: 'lifestyle', label: 'Vatican', icon: FaFilter }
   ];
 
   const filteredPhotos = activeFilter === 'all' 
