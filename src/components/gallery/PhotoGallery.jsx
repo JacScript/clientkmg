@@ -6,6 +6,15 @@ import { IoGridOutline, IoLayersOutline } from "react-icons/io5";
 import img1 from "../../assets/images/rome1.jpeg"
 import img2 from "../../assets/images/rome2.jpeg"
 import img3 from "../../assets/images/rome3.jpeg"
+import img4 from "../../assets/images/eiffel2.jpg"
+import img5 from "../../assets/images/barcelona.jpeg"
+import img6 from "../../assets/images/Berlin.jpg"
+import img7 from "../../assets/images/brussels.jpg"
+import img8 from "../../assets/images/france.jpeg"
+import img9 from "../../assets/images/img12.jpg"
+import img10 from "../../assets/images/img13.jpg"
+import img11 from "../../assets/images/img15.jpg"
+import img12 from "../../assets/images/img16.jpg"
 
 const PhotoGallery = () => {
   const [activeFilter, setActiveFilter] = useState('all');
@@ -14,118 +23,118 @@ const PhotoGallery = () => {
     {
       id: 1,
       src: img1,
-      alt: "Woman with laptop",
-      title: "Creative Workspace",
-      description: "Modern workspace photography",
-      category: "lifestyle",
+      alt: "Two elegant ladies are enjoying their journey.",
+      title: "Rome",
+      description: "Two elegant ladies are enjoying their journey.",
+      category: "rome",
       size: "large"
     },
     {
       id: 2,
       src: img2,
       alt: "Gray laptop computer",
-      title: "Technology Focus",
-      description: "Clean tech aesthetics",
-      category: "tech",
+      title: "Monument aux Morts",
+      description: "The lady appears to be observing the monument with a contemplative and respectful demeanor",
+      category: "paris",
       size: "medium"
     },
     {
       id: 3,
       src: img3,
-      alt: "Circuit board macro",
-      title: "Digital Circuits",
-      description: "Abstract technology patterns",
-      category: "tech",
-      size: "medium"
+      alt: "I love Rouen",
+      title: "I love Rouen",
+      description: 'The two ladies are captured in a joyful moment, posing playfully with the "I love Rouen" sign, indicating their appreciation for the city',
+      category: "paris",
+      size: "large"
     },
     {
       id: 4,
-      src: img1,
-      alt: "Yellow lights between trees",
-      title: "Night Ambiance",
-      description: "Atmospheric lighting",
-      category: "nature",
+      src: img4,
+      alt: "Street Of Paris",
+      title: "Streets Of Paris",
+      description: "Street Of Paris",
+      category: "paris",
       size: "wide"
     },
     {
       id: 5,
-      src: img2,
-      alt: "Water surrounded by trees",
-      title: "Natural Beauty",
-      description: "Landscape photography",
-      category: "nature",
+      src: img5,
+      alt: "At trip at the UNI of Barcelona",
+      title: "University of Barcelona",
+      description: "Two beautiful ladies are seen enjoying their trip at the University of Barcelona, likely appreciating the stunning architecture and vibrant academic atmosphere.",
+      category: "barcelona",
       size: "medium"
     },
     {
       id: 6,
-      src: img3,
-      alt: "Java programming monitor",
-      title: "Code in Action",
-      description: "Software development",
-      category: "tech",
+      src: img6,
+      alt: "Brandenburg Gate ",
+      title: "Brandenburg Gate",
+      description: "Brandenburg Gate at Night",
+      category: "german",
       size: "wide"
     },
     {
       id: 7,
-      src: img2,
-      alt: "White robot near wall",
-      title: "Future Vision",
+      src: img7,
+      alt: "Mont des Arts",
+      title: "Mont des Arts",
       description: "AI and robotics",
-      category: "tech",
+      category: "brussels",
       size: "medium"
     },
     {
       id: 8,
-      src: img1,
-      alt: "Woman using laptop",
-      title: "Remote Work",
-      description: "Modern lifestyle",
-      category: "lifestyle",
+      src: img8,
+      alt: "Arc de Triomphe",
+      title: "Arc de Triomphe",
+      description: "The two ladies are clearly enjoying their vacation, evident in their relaxed postures and radiant smiles captured in front of the iconic Arc de Triomphe.",
+      category: "paris",
       size: "small"
     },
      {
       id: 9,
-      src: img2,
-      alt: "White robot near wall",
-      title: "Future Vision",
-      description: "AI and robotics",
-      category: "tech",
+      src: img9,
+      alt: " Mont Saint-Michel",
+      title: "Mont Saint-Michel, France.",
+      description: "The individuals in the picture appear to be enjoying their visit to Mont Saint-Michel, as they are seen exploring the area around the famous abbey.",
+      category: "paris",
       size: "medium"
     },
     {
       id: 10,
-      src: img1,
-      alt: "Woman using laptop",
-      title: "Remote Work",
-      description: "Modern lifestyle",
-      category: "lifestyle",
+      src: img10,
+      alt: "Kiosque Tour Eiffel",
+      title: "Kiosque Tour Eiffel, France",
+      description: "The lady is clearly enjoying her moment at the Eiffel Tower, as evidenced by her bright smile and expressive pose in front of the iconic landmark.",
+      category: "paris",
       size: "small"
     },
      {
       id: 11,
-      src: img3,
-      alt: "White robot near wall",
-      title: "Future Vision",
-      description: "AI and robotics",
-      category: "tech",
+      src: img11,
+      alt: "famous vineyards at Bordeaux",
+      title: "Vineyards at Bordeaux",
+      description: "The individual in the picture appears to be thoroughly enjoying the moment at the vineyard, taking in the serene beauty of the expansive rows of grapevines under the clear sky.",
+      category: "paris",
       size: "medium"
     },
     {
       id: 12,
-      src: img2,
-      alt: "Woman using laptop",
-      title: "Remote Work",
-      description: "Modern lifestyle",
-      category: "lifestyle",
+      src: img12,
+      alt: "famous vineyards at Bordeaux",
+      title: "Vineyards at Bordeaux",
+      description: "The individual in the picture appears to be thoroughly enjoying the moment at the vineyard, taking in the serene beauty of the expansive rows of grapevines under the clear sky.",
+      category: "paris",
       size: "small"
     }
   ];
 
   const categories = [
     { id: 'all', label: 'All Photos', icon: IoGridOutline },
-    { id: 'tech', label: 'Rome', icon: IoLayersOutline },
-    { id: 'nature', label: 'German', icon: FaCamera },
-    { id: 'lifestyle', label: 'Vatican', icon: FaFilter }
+    { id: 'rome', label: 'Rome', icon: IoLayersOutline },
+    { id: 'german', label: 'German', icon: IoLayersOutline },
+    { id: 'paris', label: 'France', icon: IoLayersOutline }
   ];
 
   const filteredPhotos = activeFilter === 'all' 
@@ -196,7 +205,7 @@ const PhotoGallery = () => {
       </div>
 
       {/* Call to Action */}
-      <div className="text-center mt-16">
+      {/* <div className="text-center mt-16">
         <div className="max-w-2xl mx-auto mb-8">
           <h3 className="text-2xl font-bold text-gray-900 mb-4">
             Want to see more of my work?
@@ -213,7 +222,7 @@ const PhotoGallery = () => {
             Contact Me
           </button>
         </div>
-      </div>
+      </div> */}
     </section>
   );
 };
