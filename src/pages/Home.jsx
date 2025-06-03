@@ -15,16 +15,15 @@ import ContactUs from "../components/contact/Contact";
 import Footer from "../components/Footer";
 import FeatureTour from "../components/home/featureTour/FeatureTour";
 import CombineHomeAndDiscovery from "../components/CombinedHomeAndDiscoveryComponent"
-import { Helmet } from "react-helmet";
+import UseTitle from "../components/useTitle";
 
 
 const Home = () => {
+   UseTitle('Home')
+
   return (
-    <main className="max-w-screen scrollbar-hide">
-      {/* Hero Section */}
-       <Helmet>
-        <title>KM - Home</title>
-      </Helmet>
+    <div className="max-w-screen scrollbar-hide">
+     
 
       {/* <Hero /> */}
       {/* <HeroWithCarousel/> */}
@@ -59,7 +58,7 @@ const Home = () => {
     <ContactUs/>
 
 {/* <Footer/> */}
-    </main>
+    </div>
   );
 };
 

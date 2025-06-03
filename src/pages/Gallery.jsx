@@ -1,14 +1,13 @@
 import React from 'react'
 import Header from '../components/Header'
 import PhotoGallery from '../components/gallery/PhotoGallery'
-import { Helmet } from 'react-helmet'
+import useTitle from '../components/useTitle'
 
 const Gallery = () => {
+  useTitle('Gallery')
   return (
     <div>
-       <Helmet>
-        <title>KM - Home</title>
-      </Helmet>
+      
         <Header title="Our Gallery" link="gallery"/>
         <PhotoGallery/>
     </div>
