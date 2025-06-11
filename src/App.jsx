@@ -31,7 +31,9 @@ import Footer from "./components/Footer";
 import Linguistics from "./pages/Linguistics";
 import AboutUs from "./pages/AboutUs";
 import Gallery from "./pages/Gallery";
-import Visa from "./pages/Visa";
+import Packages from "./pages/Packages";
+
+// import Visa from "./pages/Visa";
 import AirBnB from "./pages/AirBnB";
 import { IoLogoWhatsapp } from "react-icons/io";
 import WhatsAppLink from "./components/WhatsAppLink";
@@ -51,7 +53,8 @@ const App = () => {
           <Route path="/kiswahili" component={Linguistics} />
           <Route path="/aboutUs" component={AboutUs} />
           <Route path="/gallery" component={Gallery} />
-          <Route path="/visa" component={Visa} />
+          <Route path="/packages" component={Packages} />
+          {/* <Route path="/visa" component={Visa} /> */}
           <Route path="/airbnb" component={AirBnB} />
           <Redirect to="/" />
         </Switch>

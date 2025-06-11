@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { IoMdMenu, IoMdClose } from "react-icons/io";
 import { NavLink } from "react-router-dom";
-import Logo from "../assets/logo2.png";
+import Logo from "../assets/logo3.png";
 
 const NavbarMenu = [
+  { id: 6, title: "About Us", path: "/aboutUs" },
   { id: 1, title: "Travel & Tours", path: "/" },
   { id: 2, title: "Logistics", path: "/logistics" },
   { id: 3, title: "Kiswahili", path: "/Kiswahili" },
-  { id: 5, title: "Bahari Beach BnB", path: "/airbnb" },
-  { id: 4, title: "Visa", path: "/visa" },
-  { id: 6, title: "About Us", path: "/aboutUs" },
+  { id: 5, title: "Holiday Home", path: "/airbnb" },
+  // { id: 4, title: "Visa", path: "/visa" },
 ];
 
 const Navbar = () => {
@@ -35,7 +35,7 @@ const Navbar = () => {
                   to={menu.path}
                   exact
                   className="inline-block py-2 relative px-3 group md:text-lg lg:text-sm xl:text-base "
-                  activeClassName="after:content-[''] after:absolute after:top-0 after:left-1/2 after:-translate-x-1/2 after:w-full after:h-0.5 after:bg-[#000080]"
+                  // activeClassName="after:content-[''] after:absolute after:top-0 after:left-1/2 after:-translate-x-1/2 after:w-full after:h-0.5 after:bg-[#000080]"
                 >
                   <span className="relative z-10">{menu.title}</span>
                   <div className="absolute left-1/2 w-0 h-0.5 bg-[#000080] transform -translate-x-1/2 group-hover:w-full transition-all duration-300 ease-in-out"></div>

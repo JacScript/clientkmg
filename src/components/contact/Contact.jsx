@@ -197,15 +197,15 @@ export default function ContactUs() {
             >
               <h1 className="text-xl font-semibold">Contact Us</h1>
             </motion.div>
-            <h3 className="text-4xl font-extrabold mb-4 text-[#000080]">
+            {/* <h3 className="text-4xl font-extrabold mb-4 text-[#000080]">
               Have questions? Feel free to write us
-            </h3>
-            <div className="flex space-x-4 text-[#000080]">
+            </h3> */}
+            {/* <div className="flex space-x-4 text-[#000080]">
               <IconComponent href="#" icon={FaWhatsapp} size={30} />
               <IconComponent href="#" icon={FaXTwitter} />
               <IconComponent href="#" icon={FaInstagram} />
               <IconComponent href="#" icon={FaFacebook} />
-            </div>
+            </div> */}
           </div>
 
           {/* Right Form Section */}

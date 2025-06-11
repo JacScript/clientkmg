@@ -4,12 +4,12 @@ const TestimonialCard = ({ data }) => {
   return (
     <div className="relative w-full max-w-sm mx-auto h-auto min-h-[320px] sm:min-h-[350px] lg:min-h-[380px]">
       {/* Floating comma - responsive positioning */}
-      <div className="absolute -top-3 sm:-top-4 lg:-top-5 -right-2 sm:-right-3 lg:-right-4 text-[#000080] text-4xl sm:text-5xl lg:text-6xl z-20">
+      <div className="absolute -top-3 sm:-top-4 lg:-top-1 -right-2 sm:-right-3 lg:-right-4 text-[#000080] text-4xl sm:text-5xl lg:text-6xl z-20">
         ❞
       </div>
 
       {/* Card Content - responsive padding and spacing */}
-      <div className="relative bg-[#8B2614] text-white h-full w-full rounded-lg p-4 sm:p-5 lg:p-6 overflow-hidden shadow-lg">
+      <div className="relative bg-blue-400 text-white h-full w-full rounded-lg p-4 sm:p-5 lg:p-6 overflow-hidden shadow-lg pt-40">
         {/* Header section with image and name */}
         <div className="flex items-center mb-4">
           <img

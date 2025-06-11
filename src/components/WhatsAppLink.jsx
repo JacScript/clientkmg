@@ -1,7 +1,7 @@
 import React from 'react';
 import { IoLogoWhatsapp } from 'react-icons/io5'; // Make sure you have react-icons installed
 
-const WhatsAppLink = ({ phoneNumber='255764437845', message }) => {
+const WhatsAppLink = ({ phoneNumber='33771948786', message }) => {
   // Construct the WhatsApp URL.
   // 'phoneNumber' should be in international format without '+' or leading zeros (e.g., 255787083558 for Tanzania)
   // 'message' is optional and will pre-fill the chat input.

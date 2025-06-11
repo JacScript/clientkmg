@@ -91,10 +91,6 @@ const TestimonialCarousel = ({ component: Component, items }) => {
         </Slider>
       </div>
       
-      {/* Custom CSS for better carousel styling */}
-      <style jsx>{`
-        
-      `}</style>
     </motion.div>
   );
 };
