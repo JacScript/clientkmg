@@ -8,7 +8,7 @@ const AirBnB = () => {
   return (
     <div>
      
-      <Header title="Beach Bahari BnB" link="airbnb" />
+      <Header title="Holiday Home" link="holiday home" />
         <div className="min-h-screen bg-gray-100">
       <RentalListingsGrid />
     </div>

@@ -25,7 +25,7 @@ function Discover() {
 
           <Reveal delay={1.3}>
             <p className="text-sm sm:text-base md:text-lg font-serif leading-relaxed mb-6 max-w-prose mx-auto lg:mx-0">
-              Journey across continents, cultures, and landscapes – because every path leads to a new discovery.
+              Kai specialises in guiding Tanzanians through unforgettable journeys across France and neighboring EU cities, offering full support from visa application to local experiences that feel like home never missing a spot.
             </p>
           </Reveal>
 

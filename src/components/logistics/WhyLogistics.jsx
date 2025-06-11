@@ -1,7 +1,10 @@
 import React from "react";
 import Reveal from "../Reveal";
 import Link from "../LinkComponent";
-import img from "../../assets/images/container.png";
+import img from "../../assets/images/Retail.jpg";
+import img2 from "../../assets/images/warehouse.jpeg";
+import img3 from "../../assets/images/pharmaceuticals.jpg";
+
 import TestimonialCarousel from "../TestimonialCarousel";
 import LogisticsCard from "../LogisticsCard";
 import { MdOutlineMuseum } from "react-icons/md";
@@ -22,7 +25,7 @@ const WhyLogistics = () => {
       name: "Manufacturing & Distribution",
       description:
         "Our logistics services are designed to optimize your supply chain, ensuring timely delivery of raw materials and finished goods.",
-      image: img,
+      image: img2,
       icon: MdOutlineMuseum,
     },
     {
@@ -30,7 +33,7 @@ const WhyLogistics = () => {
       name: "Healthcare & Pharmaceuticals",
       description:
         "We provide specialized logistics solutions for the healthcare sector, ensuring the safe and timely delivery of critical medical supplies.",
-      image: img,
+      image: img3,
       icon: GiWineBottle,
     },
     {
@@ -38,8 +41,8 @@ const WhyLogistics = () => {
       name: "Food & Beverage",
       description:
         "Our logistics services ensure the safe and efficient transportation of perishable goods, maintaining quality and freshness.",
-      image: img,
-      icon: GiModernCity,
+      image: img2,
+      icon: GiWineBottle,
     },
     {
       id: 4,

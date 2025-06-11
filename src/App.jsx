@@ -55,7 +55,7 @@ const App = () => {
           <Route path="/gallery" component={Gallery} />
           <Route path="/packages" component={Packages} />
           {/* <Route path="/visa" component={Visa} /> */}
-          <Route path="/airbnb" component={AirBnB} />
+          <Route path="/holidayHome" component={AirBnB} />
           <Redirect to="/" />
         </Switch>
         <Footer/>

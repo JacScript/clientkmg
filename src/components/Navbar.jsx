@@ -8,7 +8,7 @@ const NavbarMenu = [
   { id: 1, title: "Travel & Tours", path: "/" },
   { id: 2, title: "Logistics", path: "/logistics" },
   { id: 3, title: "Kiswahili", path: "/Kiswahili" },
-  { id: 5, title: "Holiday Home", path: "/airbnb" },
+  { id: 5, title: "Holiday Home", path: "/holidayHome" },
   // { id: 4, title: "Visa", path: "/visa" },
 ];
 

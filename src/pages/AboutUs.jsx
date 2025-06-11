@@ -6,6 +6,8 @@ import SafariExperts from '../components/about/SafariExpert'
 import UnchartedBoundlessSection from '../components/about/Uncharted'
 import FeatureTour from '../components/home/featureTour/FeatureTour'
 import useTitle from '../components/useTitle'
+import Testimonial from '../components/home/testimonial/Testimonial'
+import ContactUs from '../components/contact/Contact'
 
 const AboutUs = () => {
   useTitle('About Us')
@@ -13,10 +15,12 @@ const AboutUs = () => {
     <div>
      
         <Header title="About Us" link="about"/>
-        <SafariExperts/>
         <UnchartedBoundlessSection/>
-        <About/>
+        <SafariExperts/>
+        {/* <About/> */}
+        <Testimonial/>
         <FeatureTour/>
+        <ContactUs/>
     </div>
   )
 }
