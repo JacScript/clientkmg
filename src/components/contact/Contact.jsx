@@ -154,7 +154,7 @@ import IconComponent from "../IconComponent.jsx";
 // import emailjs from "@emailjs/browser";
 // import { toast } from "react-toastify";
 
-export default function ContactUs() {
+export default function ContactUs({id}) {
   // const form = useRef();
 
   // const sendEmail = async (e) => {
@@ -177,7 +177,7 @@ export default function ContactUs() {
   // };
 
   return (
-    <section id="contact" className="py-12 bg-blue-100">
+    <section id={id} className="py-12 bg-blue-100">
       <div className="container w-3/4 mx-auto px-4">
         <motion.div
           className="flex flex-col lg:flex-row gap-8 my-12"

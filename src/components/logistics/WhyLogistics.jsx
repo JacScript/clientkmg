@@ -77,7 +77,8 @@ const WhyLogistics = () => {
           </Reveal>
           <Link
             message="Hello, I would like to inquire about your logistics services."
-            isWhatsApp={true}
+            isWhatsApp={false}
+            href="#logisticsContact"
             className="bg-[#000080] hover:bg-[#0000808f] text-white px-6 py-3 rounded-md shadow-lg"
           >
             Contact Us

@@ -13,7 +13,7 @@ const Logistics = () => {
       <HeroLogistics />
       <WhyLogistics />
       <Solution/>
-      <Contact />
+      <Contact id='logisticsContact' />
     </main>
   );
 };

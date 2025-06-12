@@ -31,7 +31,8 @@ function Discover() {
 
           <div className="flex justify-center lg:justify-start">
             <Link 
-  isWhatsApp={true} 
+            href='#homecontact'
+  isWhatsApp={false} 
   className="bg-[#000080] hover:bg-[#000080] text-white px-6 py-3 rounded-md shadow-lg"
 >
   Contact Us

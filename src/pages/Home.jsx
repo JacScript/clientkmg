@@ -55,7 +55,7 @@ const Home = () => {
       <Testimonial/>
 
       {/* contact */}
-    <ContactUs/>
+    <ContactUs id='homecontact'/>
 
 {/* <Footer/> */}
     </div>
