@@ -145,7 +145,7 @@ const App = () => {
               <Route path="/kiswahili" component={Linguistics} />
               <Route path="/about-us" component={AboutUs} />
               <Route path="/gallery" component={Gallery} />
-              <Route path="/packages" component={Packages} />
+              <Route path="/package" component={Packages} />
               <Route path="/holiday-home" component={AirBnB} />
               <Redirect to="/" />
             </Switch>
