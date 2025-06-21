@@ -244,10 +244,10 @@ const TravelPackages = () => {
       price: "2,900",
       priceNote: "/person",
       images: [
-        "https://images.unsplash.com/photo-1502602898536-47ad22581b52?w=800&h=600&fit=crop",
-        "https://images.unsplash.com/photo-1549144511-f099e773c147?w=800&h=600&fit=crop",
-        "https://images.unsplash.com/photo-1520986606214-8b456906c813?w=800&h=600&fit=crop",
-        "https://images.unsplash.com/photo-1508388945742-76c4d7642b5c?w=800&h=600&fit=crop"
+        "https://res.cloudinary.com/dwkivuqts/image/upload/v1750398579/img12_kaclmj.jpg",        
+        "https://res.cloudinary.com/dwkivuqts/image/upload/v1750398579/img12_kaclmj.jpg",        
+        "https://res.cloudinary.com/dwkivuqts/image/upload/v1750398579/img12_kaclmj.jpg",        
+        "https://res.cloudinary.com/dwkivuqts/image/upload/v1750398579/img12_kaclmj.jpg",        
       ],
       description: "Jiunge nasi katika safari ya kipekee ya hija ya kidini, ambapo tutatembelea maeneo matakatifu na kuimarisha imani yetu.",
       longDescription: "Safari hii itahusisha kutembelea maeneo muhimu ya kidini, kujifunza kuhusu historia na tamaduni za dini mbalimbali, na kushiriki katika ibada maalum.",
@@ -269,10 +269,10 @@ const TravelPackages = () => {
       price: "4,000",
       priceNote: "/person",
       images: [
-        "https://images.unsplash.com/photo-1502602898536-47ad22581b52?w=800&h=600&fit=crop",
-        "https://images.unsplash.com/photo-1549144511-f099e773c147?w=800&h=600&fit=crop",
-        "https://images.unsplash.com/photo-1520986606214-8b456906c813?w=800&h=600&fit=crop",
-        "https://images.unsplash.com/photo-1508388945742-76c4d7642b5c?w=800&h=600&fit=crop"
+      "https://res.cloudinary.com/dwkivuqts/image/upload/v1750421429/barcelona_ncfpxj.jpg",
+        "https://res.cloudinary.com/dwkivuqts/image/upload/v1750390239/brussels_nhf7b5.jpg",
+        "https://res.cloudinary.com/dwkivuqts/image/upload/v1750389829/Rome_dxqkym.jpg",
+        "https://res.cloudinary.com/dwkivuqts/image/upload/v1750389829/Rome_dxqkym.jpg"
       ],
       description: "The enchanting City of Light and Love, no matter the season—whether you're strolling vibrant streets during the bustling summer holidays or soaking in the magical charm of a Parisian Christmas will warm your spirits.",
       longDescription: "This package includes the journey through Paris' most iconic landmarks such as the grandeur of the Eiffel Tower, the artistic treasures of the Musée du Louvre, and the breathtaking beauty of Notre Dame and Montmartre's sacred basilica.",
@@ -296,10 +296,11 @@ const TravelPackages = () => {
       price: "2,800",
       priceNote: "/person",
       images: [
-        "https://images.unsplash.com/photo-1502602898536-47ad22581b52?w=800&h=600&fit=crop",
-        "https://images.unsplash.com/photo-1549144511-f099e773c147?w=800&h=600&fit=crop",
-        "https://images.unsplash.com/photo-1520986606214-8b456906c813?w=800&h=600&fit=crop",
-        "https://images.unsplash.com/photo-1508388945742-76c4d7642b5c?w=800&h=600&fit=crop"
+        "https://res.cloudinary.com/dwkivuqts/image/upload/v1750421121/rome2_st2ixd.jpg",
+        "https://res.cloudinary.com/dwkivuqts/image/upload/v1750398576/img16_hzvqos.jpg",
+        "https://res.cloudinary.com/dwkivuqts/image/upload/v1750398576/img16_hzvqos.jpg",
+        "https://res.cloudinary.com/dwkivuqts/image/upload/v1750398576/img16_hzvqos.jpg",
+        
       ],
       description: "The enchanting City of Light and Love, no matter the season—whether you're strolling vibrant streets during the bustling summer holidays or soaking in the magical charm of a Parisian Christmas will warm your spirits.",
       longDescription: "This package includes the journey through Paris' most iconic landmarks such as the grandeur of the Eiffel Tower, the artistic treasures of the Musée du Louvre, and the breathtaking beauty of Notre Dame and Montmartre's sacred basilica.",
@@ -322,10 +323,11 @@ const TravelPackages = () => {
       price: "4,500",
       priceNote: "/person",
       images: [
-        "https://images.unsplash.com/photo-1539650116574-75c0c6d24e29?w=800&h=600&fit=crop",
-        "https://images.unsplash.com/photo-1586115399019-a1b1ffd63f0a?w=800&h=600&fit=crop",
-        "https://images.unsplash.com/photo-1608717628026-3c4fdff9ad3b?w=800&h=600&fit=crop",
-        "https://images.unsplash.com/photo-1580928012688-fb0b4b78a700?w=800&h=600&fit=crop"
+        "https://res.cloudinary.com/dwkivuqts/image/upload/v1750421313/eiffel2_jhfnxk.jpg",
+        "https://res.cloudinary.com/dwkivuqts/image/upload/v1750421313/eiffel2_jhfnxk.jpg",
+        "https://res.cloudinary.com/dwkivuqts/image/upload/v1750421313/eiffel2_jhfnxk.jpg",
+        "https://res.cloudinary.com/dwkivuqts/image/upload/v1750421313/eiffel2_jhfnxk.jpg",
+        
       ],
       description: "Paris - Rome - Barcelona OR",
       longDescription: "Paris - Brussels - Amsterdam",
@@ -348,10 +350,11 @@ const TravelPackages = () => {
       price: "2,500",
       priceNote: "/person",
       images: [
-        "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop",
-        "https://images.unsplash.com/photo-1551538827-9c037cb4f32a?w=800&h=600&fit=crop",
-        "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=600&fit=crop",
-        "https://images.unsplash.com/photo-1474628350345-1de8bbbc2c38?w=800&h=600&fit=crop"
+     "https://res.cloudinary.com/dwkivuqts/image/upload/v1750423439/img15_drg7n7.jpg",
+     "https://res.cloudinary.com/dwkivuqts/image/upload/v1750423042/img13_trquev.jpg",
+     "https://res.cloudinary.com/dwkivuqts/image/upload/v1750422197/france_c9vgbb.jpg",
+     "https://res.cloudinary.com/dwkivuqts/image/upload/v1750388539/img19_peizvu.jpg",
+       
       ],
       description: "There is more to France than Paris and the Eiffel Tower! Step off the beaten path and discover the enchanting Champagne region, the only place in the world where true Champagne is crafted.",
       longDescription: "Wander through lush vineyards, where the grapes that create this legendary drink are grown, and visit prestigious Champagne houses to learn the intricate process of production—from grape to glass.",
@@ -376,10 +379,11 @@ const TravelPackages = () => {
       price: "100",
       priceNote: "/person",
       images: [
-        "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop",
-        "https://images.unsplash.com/photo-1551538827-9c037cb4f32a?w=800&h=600&fit=crop",
-        "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=600&fit=crop",
-        "https://images.unsplash.com/photo-1474628350345-1de8bbbc2c38?w=800&h=600&fit=crop"
+     "https://res.cloudinary.com/dwkivuqts/image/upload/v1750388539/img19_peizvu.jpg",
+     "https://res.cloudinary.com/dwkivuqts/image/upload/v1750389279/img11_rlgher.jpg",
+     "https://res.cloudinary.com/dwkivuqts/image/upload/v1750513807/vatican_jeto1w.jpg",
+     "https://res.cloudinary.com/dwkivuqts/image/upload/v1750424896/img17_rurknc.jpg",
+       
       ],
      description: "There is more to France than Paris and the Eiffel Tower! Step off the beaten path and discover the enchanting Champagne region, the only place in the world where true Champagne is crafted.",
       longDescription: "Wander through lush vineyards, where the grapes that create this legendary drink are grown, and visit prestigious Champagne houses to learn the intricate process of production—from grape to glass.",
@@ -399,10 +403,11 @@ const TravelPackages = () => {
       price: "2,500",
       priceNote: "/person",
       images: [
-        "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop",
-        "https://images.unsplash.com/photo-1551538827-9c037cb4f32a?w=800&h=600&fit=crop",
-        "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=600&fit=crop",
-        "https://images.unsplash.com/photo-1474628350345-1de8bbbc2c38?w=800&h=600&fit=crop"
+     "https://res.cloudinary.com/dwkivuqts/image/upload/v1750423439/img15_drg7n7.jpg",
+     "https://res.cloudinary.com/dwkivuqts/image/upload/v1750423042/img13_trquev.jpg",
+     "https://res.cloudinary.com/dwkivuqts/image/upload/v1750513941/img18_gpl0c5.jpg",
+     "https://res.cloudinary.com/dwkivuqts/image/upload/v1750513941/img18_gpl0c5.jpg"
+        
       ],
       description: "There is more to France than Paris and the Eiffel Tower! Step off the beaten path and discover the enchanting Champagne region, the only place in the world where true Champagne is crafted.",
       longDescription: "Wander through lush vineyards, where the grapes that create this legendary drink are grown, and visit prestigious Champagne houses to learn the intricate process of production—from grape to glass.",
@@ -529,10 +534,19 @@ const TravelPackages = () => {
                         </span>
                         <span className="text-gray-500 ml-2">{pkg.priceNote}</span>
                       </div>
-                      <button className={`bg-gradient-to-r ${pkg.color} text-white px-8 py-4 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 flex items-center gap-2`}>
+                       <a
+                        href={`https://wa.me/33771948786?text=Hi! I'm interested in booking the ${pkg.title} - ${pkg.subtitle} (${pkg.duration}) for ${pkg.price}${pkg.priceNote}. Can you please provide more details?`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={`bg-gradient-to-r ${pkg.color} text-white px-8 py-4 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 flex items-center gap-2 text-center`}
+                      >
                         Book Now
                         <FaAngleRight className="w-5 h-5" />
-                      </button>
+                      </a>
+                      {/* <button className={`bg-gradient-to-r ${pkg.color} text-white px-8 py-4 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 flex items-center gap-2`}>
+                        Book Now
+                        <FaAngleRight className="w-5 h-5" />
+                      </button> */}
                     </div>
                   </div>
 
