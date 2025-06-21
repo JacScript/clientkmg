@@ -42,6 +42,76 @@ export default defineConfig({
         // },
       },
     },
+     build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          // React core stuff
+          'react-core': ['react', 'react-dom'],
+          
+          // Router if you're using it
+          'react-router': ['react-router-dom'],
+          
+          // UI libraries (if you're using any)
+          'ui-libs': [
+            // Add your UI libraries here, for example:
+            // '@headlessui/react',
+            // '@heroicons/react',
+            // 'framer-motion'
+          ],
+          
+          // Utility libraries
+          'utils': [
+            // Add utility libraries you might be using:
+            // 'lodash',
+            // 'date-fns',
+            // 'axios',
+            // 'clsx'
+          ]
+        },
+        
+        // Alternative: Function-based chunking for more control
+        /*
+        manualChunks(id) {
+          // Vendor chunks
+          if (id.includes('node_modules')) {
+            // React ecosystem
+            if (id.includes('react') || id.includes('react-dom')) {
+              return 'react-vendor'
+            }
+            
+            // Router
+            if (id.includes('react-router')) {
+              return 'router'
+            }
+            
+            // Large libraries
+            if (id.includes('framer-motion')) {
+              return 'animations'
+            }
+            
+            // Everything else from node_modules
+            return 'vendor'
+          }
+          
+          // Your app code chunks by directory
+          if (id.includes('/src/components/')) {
+            return 'components'
+          }
+          if (id.includes('/src/pages/')) {
+            return 'pages'
+          }
+          if (id.includes('/src/utils/')) {
+            return 'utils'
+          }
+        }
+        */
+      }
+    },
+    
+    // Increase chunk size warning limit if needed
+    chunkSizeWarningLimit: 600
+  }
 })
 
 // // vite.config.js

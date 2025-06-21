@@ -52,7 +52,7 @@ const Home = () => {
 
       {/* Testimonial */}
 
-      <Testimonial/>
+      {/* <Testimonial/> */}
 
       {/* contact */}
     <ContactUs id='homecontact'/>

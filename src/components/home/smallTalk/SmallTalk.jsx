@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import pic1 from '../../../assets/images/img12.jpg';
+// import pic1 from '../../../assets/images/img12.jpg';
 import Reveal from '../../Reveal';
 import { GiModernCity, GiWineBottle } from "react-icons/gi";
 import { MdOutlineMuseum } from "react-icons/md";
@@ -37,7 +37,7 @@ const SmallTalk = () => {
     <section
       className="w-full min-h-screen bg-cover bg-center bg-no-repeat bg-fixed relative flex items-center text-serif justify-center text-white px-4 sm:px-6 lg:px-8"
       style={{
-        backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url(${pic1})`,
+        backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url("https://res.cloudinary.com/dwkivuqts/image/upload/v1750398579/img12_kaclmj.jpg")`,
       }}
     >
       <div className="max-w-7xl w-full flex flex-col lg:flex-row justify-between items-center gap-12 py-12 lg:py-0">

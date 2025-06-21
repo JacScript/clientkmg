@@ -116,17 +116,20 @@
 // }
 
 
-import pic1 from "../../../assets/images/img1.jpg";
-import pic2 from "../../../assets/images/img2.jpg";
-import pic3 from "../../../assets/images/img3.jpg";
-import pic4 from "../../../assets/images/img4.jpg";
+// import pic1 from "../../../assets/images/img1.jpg";
+// import pic2 from "../../../assets/images/img2.jpg";
+// import pic3 from "../../../assets/images/img3.jpg";
+// import pic4 from "../../../assets/images/img4.jpg";
 import { useState, useEffect } from 'react';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import Link from "../../LinkComponent";
 import Reveal from "../../Reveal";
 
 const data = [
-  { id: 1, image: pic4, title: "Slide 1", description: "Description for Slide 1" },
+  { id: 1,
+     image: "https://res.cloudinary.com/dwkivuqts/image/upload/v1750387303/img4_qxdha0.jpg", 
+     title: "Slide 1", 
+     description: "Description for Slide 1" },
 ];
 
 export default function Hero() {

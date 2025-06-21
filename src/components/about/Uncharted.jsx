@@ -1,6 +1,6 @@
 import React from 'react';
 // Assuming your image path for the safari scene
-import safariImage from '../../assets/images/about.jpeg'; // Adjust this path to your actual image
+// import safariImage from '../../assets/images/about.jpeg'; // Adjust this path to your actual image
 
 export default function UnchartedBoundlessSection() {
   return (
@@ -12,7 +12,7 @@ export default function UnchartedBoundlessSection() {
           <div className="relative mb-12 lg:mb-0 lg:order-1"> {/* order-1 to place it on left on lg screens */}
             <div className="relative w-full overflow-hidden rounded-tl-[100px] rounded-br-[100px] sm:rounded-tl-[150px] sm:rounded-br-[150px] aspect-[4/3] lg:aspect-[3/4] xl:aspect-[4/3] shadow-xl">
               <img 
-                src={safariImage} //
+                src="https://res.cloudinary.com/dwkivuqts/image/upload/v1750398324/about_n1mhi4.jpg" //
                 alt="Safari vehicle with elephants in the distance"
                 className="absolute inset-0 w-full h-full object-cover" 
               />

@@ -81,39 +81,39 @@
 
 import React from 'react'
 import Link from '../../LinkComponent'
-import pic1 from '../../../assets/images/brussels.jpg'; // Example image, replace with your own
-import pic2 from '../../../assets/images/Barcelona.jpg';
-import pic3 from '../../../assets/images/Amsterdam.jpg';
-import pic4 from '../../../assets/images/Rome.jpg';
-import pic5 from '../../../assets/images/greece.jpg';
-import pic6 from '../../../assets/images/Berlin.jpg';
+// import pic1 from '../../../assets/images/brussels.jpg'; // Example image, replace with your own
+// import pic2 from '../../../assets/images/Barcelona.jpg';
+// import pic3 from '../../../assets/images/Amsterdam.jpg';
+// import pic4 from '../../../assets/images/Rome.jpg';
+// import pic5 from '../../../assets/images/greece.jpg';
+// import pic6 from '../../../assets/images/Berlin.jpg';
 import TestimonialCarousel from '../../TestimonialCarousel';
 import FeatureCard from './FeatureCard';
 
 const FeatureTour = () => {
   const data = [
     {
-      pic: pic1,
+      pic: "https://res.cloudinary.com/dwkivuqts/image/upload/v1750390239/brussels_nhf7b5.jpg",
       title: "Brussels"
     },
     {
-      pic: pic2,
+      pic: "https://res.cloudinary.com/dwkivuqts/image/upload/v1750390258/Barcelona_iatvqy.jpg",
       title: "Barcelona"
     },
     {
-      pic: pic3,
+      pic: "https://res.cloudinary.com/dwkivuqts/image/upload/v1750390302/Amsterdam_wmh0so.jpg",
       title: "Amsterdam"
     },
     {
-      pic: pic4,
+      pic: "https://res.cloudinary.com/dwkivuqts/image/upload/v1750389829/Rome_dxqkym.jpg",
       title:"Rome"
     },
     {
-      pic: pic5,
+      pic: "https://res.cloudinary.com/dwkivuqts/image/upload/v1750391426/greece_gnihsm.jpg",
       title: "greece"
     },
     {
-      pic: pic6,
+      pic: "https://res.cloudinary.com/dwkivuqts/image/upload/v1750389808/Berlin_bu6hcd.jpg",
       title:"Berlin"
     },
     

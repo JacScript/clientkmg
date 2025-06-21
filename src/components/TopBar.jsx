@@ -84,9 +84,17 @@ const TopBar = () => {
               href="#"
               className="cursor-pointer hover:text-[#000080] transition-colors duration-300 ease-in-out px-2 py-1 lg:px-4 lg:py-2 rounded-lg flex items-center"
             >
-              <p className="text-medium lg:text-base cursor-pointer transition-colors duration-300 ease-in-out">
+              <a 
+  href="https://wa.me/33771948786?text=Good day, I am interested in booking travel arrangements and would like to inquire about your available tour packages." 
+  target="_blank" 
+  rel="noopener noreferrer"
+  className="text-medium lg:text-base cursor-pointer transition-colors duration-300 ease-in-out"
+>
+  Book Now
+</a>
+              {/* <p className="text-medium lg:text-base cursor-pointer transition-colors duration-300 ease-in-out">
                 Book Now
-              </p>
+              </p> */}
             </a>
 
             <div className="flex space-x-4 text-white ">

@@ -1,11 +1,11 @@
 import React from 'react';
 import { FaTruck, FaWarehouse, FaShippingFast, FaBoxes, FaGlobe } from 'react-icons/fa';
-import img1 from "../../assets/images/freighttransport.jpg"
-import img2 from "../../assets/images/express.jpg"
-import img3 from "../../assets/images/Globalshippingnetwork.jpeg"
-import img4 from "../../assets/images/warehouse.jpeg"
-import img5 from "../../assets/images/package.jpeg"
-import img6 from "../../assets/images/solu.jpeg"
+// import img1 from "../../assets/images/freighttransport.jpg"
+// import img2 from "../../assets/images/express.jpeg"
+// import img3 from "../../assets/images/Globalshippingnetwork.jpeg"
+// import img4 from "../../assets/images/warehouse.jpeg"
+// import img5 from "../../assets/images/package.jpeg"
+// import img6 from "../../assets/images/solu.jpeg"
 import Link from '../LinkComponent';
 
 const Solution = () => {
@@ -14,35 +14,35 @@ const Solution = () => {
       id: 1,
       title: "Freight Transport",
       description: "Reliable freight transportation solutions across land, sea, and air",
-      image: img1,
+      image: "https://res.cloudinary.com/dwkivuqts/image/upload/v1750394887/freighttransport_an4qbq.jpg",
       icon: FaTruck,
     },
     {
       id: 2,
       title: "Warehouse Management",
       description: "State-of-the-art warehouse solutions for optimal storage",
-      image: img4,
+      image: "https://res.cloudinary.com/dwkivuqts/image/upload/v1750395284/warehouse_fhcjwr.jpg",
       icon: FaWarehouse,
     },
     {
       id: 3,
       title: "Global Shipping Network",
       description: "Comprehensive global shipping solutions connecting continents",
-      image: img3,
+      image: "https://res.cloudinary.com/dwkivuqts/image/upload/v1750395469/Globalshippingnetwork_uhj5gf.jpg",
       icon: FaGlobe,
     },
     {
       id: 4,
       title: "Express Delivery",
       description: "Fast and secure express delivery services worldwide",
-      image: img2,
+      image: "https://res.cloudinary.com/dwkivuqts/image/upload/v1750396081/express_io7dsx.jpg",
       icon: FaShippingFast,
     },
     {
       id: 5,
       title: "Package Handling",
       description: "Professional package handling and distribution services",
-      image: img5,
+      image: "https://res.cloudinary.com/dwkivuqts/image/upload/v1750397078/package_etxfuk.jpg",
       icon: FaBoxes,
     }
   ];
@@ -52,9 +52,10 @@ const Solution = () => {
   return (
     <div 
       className='w-screen min-h-screen py-16 bg-cover bg-center bg-fixed relative'
-      style={{ 
-        backgroundImage: `url(${img6})` 
-      }}
+     style={{ 
+  backgroundImage: `url("https://res.cloudinary.com/dwkivuqts/image/upload/v1750397217/solu_tmumqo.jpg")`
+}}
+
     >
       {/* Background Overlay */}
       <div className="absolute inset-0 bg-black/40"></div>

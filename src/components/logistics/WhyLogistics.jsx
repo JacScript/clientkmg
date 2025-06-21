@@ -1,9 +1,9 @@
 import React from "react";
 import Reveal from "../Reveal";
 import Link from "../LinkComponent";
-import img from "../../assets/images/Retail.jpg";
-import img2 from "../../assets/images/warehouse.jpeg";
-import img3 from "../../assets/images/pharmaceuticals.jpg";
+// import img from "../../assets/images/Retail.jpg";
+// import img2 from "../../assets/images/warehouse.jpeg";
+// import img3 from "../../assets/images/pharmaceuticals.jpg";
 
 import TestimonialCarousel from "../TestimonialCarousel";
 import LogisticsCard from "../LogisticsCard";
@@ -17,7 +17,7 @@ const WhyLogistics = () => {
       name: "Retail & E-commerce",
       description:
         "We specialize in streamlined, end-to-end logistics solutions tailored specifically for the fast-paced demands of modern retail and online stores.",
-      image: img,
+      image: "https://res.cloudinary.com/dwkivuqts/image/upload/v1750424198/Retail_dccwpc.jpg",
       icon: GiModernCity,
     },
     {
@@ -25,7 +25,7 @@ const WhyLogistics = () => {
       name: "Manufacturing & Distribution",
       description:
         "Our logistics services are designed to optimize your supply chain, ensuring timely delivery of raw materials and finished goods.",
-      image: img2,
+      image: "https://res.cloudinary.com/dwkivuqts/image/upload/v1750395284/warehouse_fhcjwr.jpg",
       icon: MdOutlineMuseum,
     },
     {
@@ -33,7 +33,7 @@ const WhyLogistics = () => {
       name: "Healthcare & Pharmaceuticals",
       description:
         "We provide specialized logistics solutions for the healthcare sector, ensuring the safe and timely delivery of critical medical supplies.",
-      image: img3,
+      image: "https://res.cloudinary.com/dwkivuqts/image/upload/v1750424455/pharmaceuticals_ehjtow.jpg",
       icon: GiWineBottle,
     },
     {
@@ -41,7 +41,7 @@ const WhyLogistics = () => {
       name: "Food & Beverage",
       description:
         "Our logistics services ensure the safe and efficient transportation of perishable goods, maintaining quality and freshness.",
-      image: img2,
+      image: "https://res.cloudinary.com/dwkivuqts/image/upload/v1750395284/warehouse_fhcjwr.jpg",
       icon: GiWineBottle,
     },
     {
@@ -49,7 +49,7 @@ const WhyLogistics = () => {
       name: "Food & Beverage",
       description:
         "Our logistics services ensure the safe and efficient transportation of perishable goods, maintaining quality and freshness.",
-      image: img,
+      image: "https://res.cloudinary.com/dwkivuqts/image/upload/v1750424198/Retail_dccwpc.jpg",
       icon: GiModernCity,
     },
   ];

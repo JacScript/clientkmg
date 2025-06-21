@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Reveal from '../../Reveal';
-import pic1 from '../../../assets/images/img11.JPG';
+// import pic1 from '../../../assets/images/img11.JPG';
 import FadeInImage from '../../FadeInImage';
 import Link from '../../LinkComponent';
 
@@ -18,7 +18,7 @@ function Why() {
         {/* Image */}
         <div className="w-full md:w-1/2">
           <FadeInImage
-            src={pic1}
+            src="https://res.cloudinary.com/dwkivuqts/image/upload/v1750389279/img11_rlgher.jpg"
             alt="Travel Experience"
             className="w-full h-auto max-h-[500px] object-cover rounded-lg shadow-md"
           />

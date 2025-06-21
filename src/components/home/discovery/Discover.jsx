@@ -1,6 +1,6 @@
 import React from 'react';
 import Reveal from '../../Reveal';
-import pic1 from '../../../assets/images/img19.jpg';
+// import pic1 from '../../../assets/images/img19.jpg';
 import FadeInImage from '../../FadeInImage';
 import Link from '../../LinkComponent';
 
@@ -44,7 +44,7 @@ function Discover() {
         {/* Image Section */}
         <div className="w-full lg:w-1/2">
           <FadeInImage
-            src={pic1}
+            src="https://res.cloudinary.com/dwkivuqts/image/upload/v1750388539/img19_peizvu.jpg"
             alt="City Discovery"
             className="w-full h-auto max-h-[500px] object-cover rounded-lg shadow-md"
           />

@@ -1,7 +1,7 @@
 
 // Testimonial.jsx
 import React from 'react';
-import pic1 from "../../../assets/images/img5.jpeg"
+// import pic1 from "../../../assets/images/img5.jpeg"
 import TestimonialCarousel from '../../TestimonialCarousel';
 import TestimonialCard from '../../TestimonialCard';
 
@@ -9,28 +9,28 @@ const Testimonial = () => {
   const data = [
     {
       name: "John Doe",
-      image: pic1,
+      image: "https://res.cloudinary.com/dwkivuqts/image/upload/v1750398324/about_n1mhi4.jpg",
       testimonial: "Traveling was an unforgettable experience—every place I visited opened my eyes to new cultures, stunning landscapes, and amazing people. Traveling was an unforgettable experience—every place I visited opened my eyes to new cultures, stunning landscapes, and amazing people.",
       rating: 5,
       flag: '🇹🇿'
     },
     {
       name: "Jane Smith",
-      image: pic1,
+      image: "https://res.cloudinary.com/dwkivuqts/image/upload/v1750398324/about_n1mhi4.jpg",
       testimonial: "Traveling was an unforgettable experience—every place I visited opened my eyes to new cultures, stunning landscapes, and amazing people. Traveling was an unforgettable experience—every place I visited opened my eyes to new cultures, stunning landscapes, and amazing people.",
       rating: 4,
      flag: '🇹🇿'
     },
     {
       name: "Michael Brown",
-      image: pic1,
+      image: "https://res.cloudinary.com/dwkivuqts/image/upload/v1750398324/about_n1mhi4.jpg",
       testimonial: "Traveling was an unforgettable experience—every place I visited opened my eyes to new cultures, stunning landscapes, and amazing people. Traveling was an unforgettable experience—every place I visited opened my eyes to new cultures, stunning landscapes, and amazing people.",
       rating: 5,
      flag: '🇹🇿'
     },
     {
       name: "Alice Green",
-      image: pic1,
+      image: "https://res.cloudinary.com/dwkivuqts/image/upload/v1750398324/about_n1mhi4.jpg",
       testimonial: "Traveling was an unforgettable experience—every place I visited opened my eyes to new cultures, stunning landscapes, and amazing people. Traveling was an unforgettable experience—every place I visited opened my eyes to new cultures, stunning landscapes, and amazing people.",
       rating: 5,
       flag: '🇹🇿'

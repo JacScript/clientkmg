@@ -18,7 +18,7 @@ const AboutUs = () => {
         <UnchartedBoundlessSection/>
         <SafariExperts/>
         {/* <About/> */}
-        <Testimonial/>
+        {/* <Testimonial/> */}
         <FeatureTour/>
         <ContactUs/>
     </div>

@@ -3,18 +3,18 @@ import PhotoCard from './PhotoCard';
 // import { Camera, Filter, Grid, Layers } from 'lucide-react';
 import { FaCamera , FaFilter} from "react-icons/fa";
 import { IoGridOutline, IoLayersOutline } from "react-icons/io5";
-import img1 from "../../assets/images/rome1.jpeg"
-import img2 from "../../assets/images/rome2.jpeg"
-import img3 from "../../assets/images/rome3.jpeg"
-import img4 from "../../assets/images/eiffel2.jpg"
-import img5 from "../../assets/images/barcelona.jpeg"
-import img6 from "../../assets/images/Berlin.jpg"
-import img7 from "../../assets/images/brussels.jpg"
-import img8 from "../../assets/images/france.jpeg"
-import img9 from "../../assets/images/img12.jpg"
-import img10 from "../../assets/images/img13.jpg"
-import img11 from "../../assets/images/img15.jpg"
-import img12 from "../../assets/images/img16.jpg"
+// import img1 from "../../assets/images/rome1.jpeg"
+// import img2 from "../../assets/images/rome2.jpeg"
+// import img3 from "../../assets/images/rome3.jpeg"
+// import img4 from "../../assets/images/eiffel2.jpg"
+// import img5 from "../../assets/images/barcelona.jpeg"
+// import img6 from "../../assets/images/Berlin.jpg"
+// import img7 from "../../assets/images/brussels.jpg"
+// import img8 from "../../assets/images/france.jpeg"
+// import img9 from "../../assets/images/img12.jpg"
+// import img10 from "../../assets/images/img13.jpg"
+// import img11 from "../../assets/images/img15.jpg"
+// import img12 from "../../assets/images/img16.jpg"
 
 const PhotoGallery = () => {
   const [activeFilter, setActiveFilter] = useState('all');
@@ -22,7 +22,7 @@ const PhotoGallery = () => {
   const photos = [
     {
       id: 1,
-      src: img1,
+      src: "https://res.cloudinary.com/dwkivuqts/image/upload/v1750421030/rome1_jpbdnh.jpg",
       alt: "Two elegant ladies are enjoying their journey.",
       title: "Rome",
       description: "Two elegant ladies are enjoying their journey.",
@@ -31,7 +31,7 @@ const PhotoGallery = () => {
     },
     {
       id: 2,
-      src: img2,
+      src: "https://res.cloudinary.com/dwkivuqts/image/upload/v1750421121/rome2_st2ixd.jpg",
       alt: "Gray laptop computer",
       title: "Monument aux Morts",
       description: "The lady appears to be observing the monument with a contemplative and respectful demeanor",
@@ -40,7 +40,7 @@ const PhotoGallery = () => {
     },
     {
       id: 3,
-      src: img3,
+      src: "https://res.cloudinary.com/dwkivuqts/image/upload/v1750421196/rome3_vbdxea.jpg",
       alt: "I love Rouen",
       title: "I love Rouen",
       description: 'The two ladies are captured in a joyful moment, posing playfully with the "I love Rouen" sign, indicating their appreciation for the city',
@@ -49,7 +49,7 @@ const PhotoGallery = () => {
     },
     {
       id: 4,
-      src: img4,
+      src: "https://res.cloudinary.com/dwkivuqts/image/upload/v1750421313/eiffel2_jhfnxk.jpg",
       alt: "Street Of Paris",
       title: "Streets Of Paris",
       description: "Street Of Paris",
@@ -58,7 +58,7 @@ const PhotoGallery = () => {
     },
     {
       id: 5,
-      src: img5,
+      src: "https://res.cloudinary.com/dwkivuqts/image/upload/v1750421429/barcelona_ncfpxj.jpg",
       alt: "At trip at the UNI of Barcelona",
       title: "University of Barcelona",
       description: "Two beautiful ladies are seen enjoying their trip at the University of Barcelona, likely appreciating the stunning architecture and vibrant academic atmosphere.",
@@ -67,7 +67,7 @@ const PhotoGallery = () => {
     },
     {
       id: 6,
-      src: img6,
+      src: "https://res.cloudinary.com/dwkivuqts/image/upload/v1750421910/Berlin_hkkbus.jpg",
       alt: "Brandenburg Gate ",
       title: "Brandenburg Gate",
       description: "Brandenburg Gate at Night",
@@ -76,7 +76,7 @@ const PhotoGallery = () => {
     },
     {
       id: 7,
-      src: img7,
+      src: "https://res.cloudinary.com/dwkivuqts/image/upload/v1750390239/brussels_nhf7b5.jpg",
       alt: "Mont des Arts",
       title: "Mont des Arts",
       description: "AI and robotics",
@@ -85,7 +85,7 @@ const PhotoGallery = () => {
     },
     {
       id: 8,
-      src: img8,
+      src: "https://res.cloudinary.com/dwkivuqts/image/upload/v1750422197/france_c9vgbb.jpg",
       alt: "Arc de Triomphe",
       title: "Arc de Triomphe",
       description: "The two ladies are clearly enjoying their vacation, evident in their relaxed postures and radiant smiles captured in front of the iconic Arc de Triomphe.",
@@ -94,7 +94,7 @@ const PhotoGallery = () => {
     },
      {
       id: 9,
-      src: img9,
+      src: "https://res.cloudinary.com/dwkivuqts/image/upload/v1750398579/img12_kaclmj.jpg",
       alt: " Mont Saint-Michel",
       title: "Mont Saint-Michel, France.",
       description: "The individuals in the picture appear to be enjoying their visit to Mont Saint-Michel, as they are seen exploring the area around the famous abbey.",
@@ -103,7 +103,7 @@ const PhotoGallery = () => {
     },
     {
       id: 10,
-      src: img10,
+      src: "https://res.cloudinary.com/dwkivuqts/image/upload/v1750423042/img13_trquev.jpg",
       alt: "Kiosque Tour Eiffel",
       title: "Kiosque Tour Eiffel, France",
       description: "The lady is clearly enjoying her moment at the Eiffel Tower, as evidenced by her bright smile and expressive pose in front of the iconic landmark.",
@@ -112,7 +112,7 @@ const PhotoGallery = () => {
     },
      {
       id: 11,
-      src: img11,
+      src: "https://res.cloudinary.com/dwkivuqts/image/upload/v1750423439/img15_drg7n7.jpg",
       alt: "famous vineyards at Bordeaux",
       title: "Vineyards at Bordeaux",
       description: "The individual in the picture appears to be thoroughly enjoying the moment at the vineyard, taking in the serene beauty of the expansive rows of grapevines under the clear sky.",
@@ -121,7 +121,7 @@ const PhotoGallery = () => {
     },
     {
       id: 12,
-      src: img12,
+      src: "https://res.cloudinary.com/dwkivuqts/image/upload/v1750423692/img16_rayfxe.jpg",
       alt: "famous vineyards at Bordeaux",
       title: "Vineyards at Bordeaux",
       description: "The individual in the picture appears to be thoroughly enjoying the moment at the vineyard, taking in the serene beauty of the expansive rows of grapevines under the clear sky.",
