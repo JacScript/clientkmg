@@ -158,7 +158,7 @@ const FeatureTour = () => {
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-8 sm:mt-12 lg:mt-16 px-4">
       {/* View Packages Button */}
       <Link
-        href="/package"
+        href="/packages"
         className="
           inline-flex items-center justify-center text-center
           px-5 py-2.5     // Default padding for small screens

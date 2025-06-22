@@ -16,9 +16,13 @@ const TravelPackages = () => {
       priceNote: "/person",
       images: [
         "https://res.cloudinary.com/dwkivuqts/image/upload/v1750398579/img12_kaclmj.jpg",        
-        "https://res.cloudinary.com/dwkivuqts/image/upload/v1750398579/img12_kaclmj.jpg",        
-        "https://res.cloudinary.com/dwkivuqts/image/upload/v1750398579/img12_kaclmj.jpg",        
-        "https://res.cloudinary.com/dwkivuqts/image/upload/v1750398579/img12_kaclmj.jpg",        
+        "https://res.cloudinary.com/dwkivuqts/image/upload/v1750552405/WhatsApp_Image_2025-06-21_at_18.24.53_woicog.jpg",        
+        "https://res.cloudinary.com/dwkivuqts/image/upload/v1750552407/WhatsApp_Image_2025-06-21_at_18.24.02_1_yttvfn.jpg",        
+        "https://res.cloudinary.com/dwkivuqts/image/upload/v1750552411/WhatsApp_Image_2025-06-21_at_18.24.03_zjl1vl.jpg", 
+        "https://res.cloudinary.com/dwkivuqts/image/upload/v1750552412/WhatsApp_Image_2025-06-21_at_18.24.52_qsld3e.jpg",
+        "https://res.cloudinary.com/dwkivuqts/image/upload/v1750552416/WhatsApp_Image_2025-06-21_at_18.24.01_1_gjnchz.jpg",
+        "https://res.cloudinary.com/dwkivuqts/image/upload/v1750552533/WhatsApp_Image_2025-06-21_at_18.24.00_juguia.jpg",
+        "https://res.cloudinary.com/dwkivuqts/image/upload/v1750552531/WhatsApp_Image_2025-06-21_at_18.24.01_ac8uty.jpg"       
       ],
       description: "Jiunge nasi katika safari ya kipekee ya hija ya kidini, ambapo tutatembelea maeneo matakatifu na kuimarisha imani yetu.",
       longDescription: "Safari hii itahusisha kutembelea maeneo muhimu ya kidini, kujifunza kuhusu historia na tamaduni za dini mbalimbali, na kushiriki katika ibada maalum.",
@@ -94,9 +98,9 @@ const TravelPackages = () => {
       price: "4,500",
       priceNote: "/person",
       images: [
-        "https://res.cloudinary.com/dwkivuqts/image/upload/v1750421313/eiffel2_jhfnxk.jpg",
-        "https://res.cloudinary.com/dwkivuqts/image/upload/v1750421313/eiffel2_jhfnxk.jpg",
-        "https://res.cloudinary.com/dwkivuqts/image/upload/v1750421313/eiffel2_jhfnxk.jpg",
+        "https://res.cloudinary.com/dwkivuqts/image/upload/v1750552564/WhatsApp_Image_2025-06-21_at_18.24.54_1_ogdubn.jpg",
+        "https://res.cloudinary.com/dwkivuqts/image/upload/v1750552565/WhatsApp_Image_2025-06-21_at_18.24.54_kyrbau.jpg",
+        "https://res.cloudinary.com/dwkivuqts/image/upload/v1750552567/WhatsApp_Image_2025-06-21_at_18.24.53_1_kahylj.jpg",
         "https://res.cloudinary.com/dwkivuqts/image/upload/v1750421313/eiffel2_jhfnxk.jpg",
         
       ],
@@ -224,7 +228,7 @@ const TravelPackages = () => {
     <section className="py-16 bg-gradient-to-br from-blue-50 via-white to-purple-50 min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center mb-16">
+        {/* <div className="text-center mb-16">
           <div className="inline-block mb-4">
             <span className="bg-gradient-to-r from-red-600 to-orange-600 bg-clip-text text-transparent text-4xl md:text-6xl font-bold italic transform -rotate-1">
               FRANCE Travel Packages
@@ -234,7 +238,7 @@ const TravelPackages = () => {
             Discover the magic of France with our carefully curated travel experiences. 
             From the romantic streets of Paris to the historic shores of Normandy and the sparkling vineyards of Champagne.
           </p>
-        </div>
+        </div> */}
 
         {/* Packages Grid */}
         <div className="space-y-12">

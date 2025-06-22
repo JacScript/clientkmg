@@ -8,6 +8,7 @@ import debugScreens from 'tailwindcss-debug-screens'
 
 // https://vite.dev/config/
 export default defineConfig({
+   base: '/',
   plugins: [
     tailwindcss(), 
     react(),

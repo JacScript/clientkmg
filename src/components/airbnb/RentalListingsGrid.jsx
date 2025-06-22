@@ -219,14 +219,18 @@ const houseImages = [
   "https://res.cloudinary.com/dwkivuqts/image/upload/v1750398138/holiday_ktakya.jpg",
   "https://res.cloudinary.com/dwkivuqts/image/upload/v1750398138/home_bqcmaf.jpg",
   // Add more images as needed
-  "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-  "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+  "https://res.cloudinary.com/dwkivuqts/image/upload/v1750554648/WhatsApp_Image_2025-06-21_at_11.20.36_1_enerld.jpg",
+  "https://res.cloudinary.com/dwkivuqts/image/upload/v1750554646/WhatsApp_Image_2025-06-21_at_11.20.07_c08am3.jpg",
+  "https://res.cloudinary.com/dwkivuqts/image/upload/v1750554650/WhatsApp_Image_2025-06-21_at_11.20.35_j7pffq.jpg",
+  "https://res.cloudinary.com/dwkivuqts/image/upload/v1750554652/WhatsApp_Image_2025-06-21_at_11.20.37_vnl382.jpg",
+  "https://res.cloudinary.com/dwkivuqts/image/upload/v1750554653/WhatsApp_Image_2025-06-21_at_11.20.36_mw87lp.jpg"
 ];
 
 const roomImages = [
   "https://res.cloudinary.com/dwkivuqts/image/upload/v1750398138/holiday_ktakya.jpg",
   "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
   "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+  "https://res.cloudinary.com/dwkivuqts/image/upload/v1750554646/WhatsApp_Image_2025-06-21_at_11.20.07_c08am3.jpg"
 ];
 
 const bookingOptions = [
