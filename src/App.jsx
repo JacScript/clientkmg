@@ -168,6 +168,7 @@ import TopBar from "./components/TopBar";
 import Footer from "./components/Footer";
 import WhatsAppLink from "./components/WhatsAppLink";
 import { ToastContainer } from 'react-toastify';
+import ReactGA from "react-ga4";
 
 
 // Lazy load all page components for better code splitting
@@ -190,6 +191,17 @@ const LoadingSpinner = () => (
 );
 
 const App = () => {
+
+
+
+useEffect(() => {
+  ReactGA.initialize("G-ZW0GC0WYYD");
+
+
+  // Send pageview with a custom path
+ReactGA.send({ hitType: "pageview", page: window.location.pathname, title: "App.jsx" });
+}, []);
+
   return (
     <>
       <ToastContainer
