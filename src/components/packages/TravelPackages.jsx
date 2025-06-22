@@ -73,8 +73,7 @@ const TravelPackages = () => {
       images: [
         "https://res.cloudinary.com/dwkivuqts/image/upload/v1750421121/rome2_st2ixd.jpg",
         "https://res.cloudinary.com/dwkivuqts/image/upload/v1750398576/img16_hzvqos.jpg",
-        "https://res.cloudinary.com/dwkivuqts/image/upload/v1750398576/img16_hzvqos.jpg",
-        "https://res.cloudinary.com/dwkivuqts/image/upload/v1750398576/img16_hzvqos.jpg",
+        
         
       ],
       description: "The enchanting City of Light and Love, no matter the season—whether you're strolling vibrant streets during the bustling summer holidays or soaking in the magical charm of a Parisian Christmas will warm your spirits.",

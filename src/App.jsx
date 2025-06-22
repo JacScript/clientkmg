@@ -168,7 +168,7 @@ import TopBar from "./components/TopBar";
 import Footer from "./components/Footer";
 import WhatsAppLink from "./components/WhatsAppLink";
 import { ToastContainer } from 'react-toastify';
-import ReactGA from 'react-ga';
+
 
 // Lazy load all page components for better code splitting
 const Home = React.lazy(() => import('./pages/Home'));
@@ -180,8 +180,6 @@ const Packages = React.lazy(() => import('./pages/Packages'));
 const AirBnB = React.lazy(() => import('./pages/AirBnB'));
 const NotFound = React.lazy(() => import('./pages/NotFound'));
 
-ReactGA.initialize('G-PM8P2MLFTR');
-ReactGA.pageview(window.location.pathname + window.location.search);
 
 // Loading component with Tailwind styling
 const LoadingSpinner = () => (

@@ -80,10 +80,10 @@ const TopBar = () => {
 
           {/* Right side of the top of the nav bar */}
           <div className="flex text-white items-center justify-center gap-4 z-40 ">
-            <a
+            {/* <a
               href="#"
               className="cursor-pointer hover:text-[#000080] transition-colors duration-300 ease-in-out px-2 py-1 lg:px-4 lg:py-2 rounded-lg flex items-center"
-            >
+            > */}
               <a 
   href="https://wa.me/33771948786?text=Good day, I am interested in booking travel arrangements and would like to inquire about your available tour packages." 
   target="_blank" 
@@ -95,7 +95,7 @@ const TopBar = () => {
               {/* <p className="text-medium lg:text-base cursor-pointer transition-colors duration-300 ease-in-out">
                 Book Now
               </p> */}
-            </a>
+            {/* </a> */}
 
             <div className="flex space-x-4 text-white ">
               <IconComponent href="#" icon={FaWhatsapp}/>
