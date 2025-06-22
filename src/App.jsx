@@ -197,6 +197,9 @@ const App = () => {
 useEffect(() => {
   ReactGA.initialize("G-ZW0GC0WYYD");
 
+  ReactGA.initialize("G-PM8P2MLFTR");
+ 
+
 
   // Send pageview with a custom path
 ReactGA.send({ hitType: "pageview", page: window.location.pathname, title: "App.jsx" });
