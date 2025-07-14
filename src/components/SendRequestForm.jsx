@@ -4,8 +4,13 @@ import { FaPersonHiking, FaLocationDot } from "react-icons/fa6";
 import { IoMdMail } from "react-icons/io";
 import { toast } from 'react-toastify';
 import emailjs from "@emailjs/browser";
+import { createRequests } from "../http";
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+
 
 const SendRequestForm = () => {
+  const queryClient = useQueryClient();
+
   const form = useRef();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -33,6 +38,9 @@ const SendRequestForm = () => {
         form.current,
         import.meta.env.VITE_PUBLIC_KEY
       );
+
+       // ✅ 2. Then create database entry
+    await requestMutation.mutateAsync({ destination, activity, email });
       
       toast.success("🎉 Request sent successfully! We'll get back to you soon.");
       
@@ -45,6 +53,17 @@ const SendRequestForm = () => {
 
     setIsSubmitting(false);
   };
+
+  const requestMutation = useMutation({
+    mutationFn: createRequests,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['requests'] });
+      toast.success("Request created successfully!");
+    },
+    onError: (error) => {
+      toast.error(`Error creating request: ${error.message}`);
+    }
+  })
 
   return (
     <div className="w-full max-w-6xl mx-auto p-4">

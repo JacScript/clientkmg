@@ -9,6 +9,17 @@ import debugScreens from 'tailwindcss-debug-screens'
 // https://vite.dev/config/
 export default defineConfig({
    base: '/',
+   server: {
+    port: 5000,
+    proxy: {
+      '/api': {
+        target: 'http://localhost:8080', // Change this tour backend server URL
+        changeOrigin: true,
+        secure: false,
+        rewrite: (path) => path.replace(/^\/api/, '')
+      }
+    }   // Change this to your desired port
+   },
   plugins: [
     tailwindcss(), 
     react(),
