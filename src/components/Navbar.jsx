@@ -5,7 +5,7 @@ import Logo from "../assets/logo3.png";
 
 const NavbarMenu = [
   { id: 6, title: "About Us", path: "/about-us" },
-  { id: 1, title: "Travel & Tours", path: "/" },
+  { id: 1, title: "Travel And Tours", path: "/" },
   { id: 2, title: "Logistics", path: "/logistics" },
   { id: 3, title: "Kiswahili", path: "/Kiswahili" },
   { id: 5, title: "Holiday Home", path: "/holiday-home" },
