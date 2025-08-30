@@ -43,7 +43,7 @@ export default function Hero() {
     if (isAutoPlay) {
       slideInterval = setInterval(() => {
         nextSlide();
-      }, 5000); // Change slide every 5 seconds
+      }, 259200000); // Change slide every 5 seconds
     }
     
     return () => {
@@ -133,7 +133,7 @@ export default function Hero() {
             </h1>
           </Reveal>
           <Reveal>
-            <p className="text-sm sm:text-base lg:text-lg font-bold text-gray-100 capitalize font-serif">
+            <p className="text-sm sm:text-base lg:text-lg font-medium text-white/90 capitalize font-serif">
               your personalized holiday from Tanzania to France organized by Kai'
             </p>
           </Reveal>
@@ -141,7 +141,7 @@ export default function Hero() {
           <div className="mt-6 sm:mt-8 flex justify-center">
             <Link
               href="/about-us"
-              className="rounded-md hover:bg-[#000080] px-4 sm:px-6 py-2 sm:py-3 lg:py-4 text-sm sm:text-base lg:text-lg font-semibold text-white shadow-lg bg-transparent border-2 border-white transition ease-in duration-150 cursor-pointer hover:border-[#000080]"
+              className="rounded-md bg-[#000080] px-4 sm:px-6 py-2 sm:py-3 lg:py-4 text-sm sm:text-base lg:text-lg font-semibold text-white hover:text-[#000080] hover:border-white shadow-lg hover:bg-white/80 border-2 border-[#000080] transition ease-in duration-150 cursor-pointer "
             >
               Find out more
             </Link>
