@@ -32,7 +32,7 @@ const LoadingSpinner = () => (
 const PublicLayout = ({ children }) => (
   <div className="max-w-screen overflow-x-hidden scrollbar-hide">
     <TopBar />
-    <div className="fixed bottom-5 right-5 bg-[#25D366] w-16 h-16 flex justify-center items-center rounded-full z-50">
+    <div className="fixed bottom-[54px] right-5 bg-[#25D366] w-16 h-16 flex justify-center items-center rounded-full z-50">
       <WhatsAppLink />
     </div>
     {children}
