@@ -41,7 +41,7 @@ const CombineHomeAndDiscovery = () => {
       <Hero />
 
       {/* Floating Form */}
-      <div className="relative -mt-20 md:-mt-24 lg:-mt-32 z-50 px-4 sm:px-6 lg:px-8">
+      <div className="relative -mt-20 md:-mt-24 lg:-mt-60 z-20 px-4 sm:px-6 lg:px-8 lg:mb-44">
         <div className="max-w-6xl mx-auto">
           <SendRequestForm />
         </div>
