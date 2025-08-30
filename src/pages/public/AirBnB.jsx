@@ -1,7 +1,7 @@
 import React from 'react'
-import Header from '../components/Header'
-import RentalListingsGrid from '../components/airbnb/RentalListingsGrid'
-import useTitle from '../components/useTitle'
+import Header from '../../components/Header'
+import RentalListingsGrid from '../../components/airbnb/RentalListingsGrid'
+import useTitle from '../../components/useTitle'
 
 const AirBnB = () => {
   useTitle('AirBnB')

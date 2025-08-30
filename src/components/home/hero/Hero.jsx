@@ -165,24 +165,24 @@ export default function Hero() {
       <div className="z-30 left-4 sm:left-8 lg:left-12" style={{ top: '90%' }}>
         <div className="bg-orange-500 text-white px-4 py-2 rounded-lg shadow-lg transform -rotate-2 hover:rotate-0 transition-transform duration-300">
           <span className="text-sm sm:text-base lg:text-lg font-bold uppercase tracking-wide">
-            Tour & Travel
+            Travel And Tour
           </span>
         </div>
       </div>
           <Reveal delay={0.2}>
-            <h1 className="mt-4 text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-8xl uppercase font-semibold font-roboto text-[#000080] leading-tight break-words">
+            <h1 className="mt-4 text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-8xl capitalize font-semibold font-roboto text-[#000080] leading-tight break-words">
                from Tanzania to France 
             </h1>
           </Reveal>
           <Reveal>
-            <p className="text-sm sm:text-base lg:text-lg font-bold text-gray-100 uppercase font-serif">
+            <p className="text-sm sm:text-base lg:text-lg font-bold text-gray-100 capitalize font-serif">
               your personalized holiday from Tanzania to France organized by Kai'
             </p>
           </Reveal>
           
           <div className="mt-6 sm:mt-8 flex justify-center">
             <Link
-              href="#"
+              href="/about-us"
               className="rounded-md hover:bg-[#000080] px-4 sm:px-6 py-2 sm:py-3 lg:py-4 text-sm sm:text-base lg:text-lg font-semibold text-white shadow-lg bg-transparent border-2 border-[#000080] transition ease-in duration-150 cursor-pointer"
             >
               Find out more

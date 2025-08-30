@@ -58,7 +58,7 @@ With operations rooted in both Tanzania and Europe, KM Group is built on cross-c
               </div>
 
               {/* Discover More Button */}
-              <button className="group relative inline-flex items-center px-8 py-4 bg-gradient-to-r from-[#000080] to-orange-600 text-white font-semibold rounded-2xl overflow-hidden transition-all duration-500 hover:shadow-2xl hover:shadow-amber-500/25 transform hover:-translate-y-1">
+              {/* <button className="group relative inline-flex items-center px-8 py-4 bg-gradient-to-r from-[#000080] to-orange-600 text-white font-semibold rounded-2xl overflow-hidden transition-all duration-500 hover:shadow-2xl hover:shadow-amber-500/25 transform hover:-translate-y-1">
                 <div className="absolute inset-0 bg-gradient-to-r from-[#000080] to-amber-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
                 <span className="relative z-10 mr-2 group-hover:mr-4 transition-all duration-300">Discover More</span>
                 <svg 
@@ -69,7 +69,7 @@ With operations rooted in both Tanzania and Europe, KM Group is built on cross-c
                 >
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
-              </button>
+              </button> */}
             </div>
             </div>
           </div>

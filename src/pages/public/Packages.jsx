@@ -1,6 +1,6 @@
 import React from 'react'
-import Header from '../components/Header'
-import TravelPackages from '../components/packages/TravelPackages'
+import Header from '../../components/Header'
+import TravelPackages from '../../components/packages/TravelPackages'
 
 const Packages = () => {
   return (

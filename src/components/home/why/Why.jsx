@@ -34,7 +34,7 @@ function Why() {
 
           <Reveal delay={0.5}>
             <h2 className="text-2xl sm:text-3xl md:text-4xl xl:text-5xl font-black font-roboto leading-tight">
-              WHY CHOOSE <br className="hidden md:block" /> KM TRAVEL & TOUR
+              WHY CHOOSE <br className="hidden md:block" /> KM TRAVEL AND TOUR
             </h2>
           </Reveal>
 
@@ -49,7 +49,7 @@ function Why() {
                   `}
                 >
                   <p>
-                    At KM Travel & Tours, you're not just booking a trip, your travel is being organised by someone who understands your journey. Kai Maembe, Tanzanian-born and raised, has lived in France for over 7 years and is an active member of the diaspora community in France.
+                    At KM Travel And Tours, you're not just booking a trip, your travel is being organised by someone who understands your journey. Kai Maembe, Tanzanian-born and raised, has lived in France for over 7 years and is an active member of the diaspora community in France.
                     {isExpanded && (
                       <>
                         {' '}With firsthand experience living, working, and studying across France, Scandinavia, and other EU cities, Kai brings unmatched insight into what Tanzanian travelers truly need abroad.

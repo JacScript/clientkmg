@@ -1,21 +1,21 @@
 import React from "react";
-import Carousel from "../components/Carousel";
+import Carousel from "../../components/Carousel";
 
-import SendRequestForm from "../components/SendRequestForm";
+import SendRequestForm from "../../components/SendRequestForm";
 import { IoLogoWhatsapp } from "react-icons/io";
-import Discover from "../components/home/discovery/Discover";
-import IntroText from "../components/home/IntroText";
-import Hero from "../components/home/hero/Hero";
-import SmallWord from "../components/home/smallTalk/SmallTalk";
-import SmallTalk from "../components/home/smallTalk/SmallTalk";
-import Why from "../components/home/why/Why";
-import About from "../components/About";
-import Testimonial from "../components/home/testimonial/Testimonial";
-import ContactUs from "../components/contact/Contact";
-import Footer from "../components/Footer";
-import FeatureTour from "../components/home/featureTour/FeatureTour";
-import CombineHomeAndDiscovery from "../components/CombinedHomeAndDiscoveryComponent"
-import UseTitle from "../components/useTitle";
+import Discover from "../../components/home/discovery/Discover";
+import IntroText from "../../components/home/IntroText";
+import Hero from "../../components/home/hero/Hero";
+import SmallWord from "../../components/home/smallTalk/SmallTalk";
+import SmallTalk from "../../components/home/smallTalk/SmallTalk";
+import Why from "../../components/home/why/Why";
+import About from "../../components/About";
+import Testimonial from "../../components/home/testimonial/Testimonial";
+import ContactUs from "../../components/contact/Contact";
+import Footer from "../../components/Footer";
+import FeatureTour from "../../components/home/featureTour/FeatureTour";
+import CombineHomeAndDiscovery from "../../components/CombinedHomeAndDiscoveryComponent"
+import UseTitle from "../../components/useTitle";
 
 
 const Home = () => {

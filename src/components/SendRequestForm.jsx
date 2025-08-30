@@ -90,6 +90,7 @@ const SendRequestForm = () => {
                     required
                   >
                     <option value="">Select a Destination</option>
+                    <option value="Tanzania">Tanzania</option>
                     <option value="France">France</option>
                     <option value="German">German</option>
                     <option value="Spain">Spain</option>
@@ -121,9 +122,13 @@ const SendRequestForm = () => {
                     required
                   >
                     <option value="">Select an Activity</option>
-                    <option value="City Tour">City Tour</option>
-                    <option value="Cultural Experience">Cultural Experience</option>
-                    <option value="Beach Activities">Beach Activities</option>
+                  <option  value="paris_champagne_normandie_tour">Paris, Champagne , Normandie Tour</option>
+                    <option value="paris_day_city_tour">Paris Day City Tour</option>
+                    <option value="paris_only_holiday">Paris Only Holiday</option>
+                    <option value="zanzibar">Zanzibar</option>
+                    <option value="safari">Safari</option>
+                    <option value="safari_and_zanzibar">Safari And Zanzibar</option>
+                    <option value="dar_es_salaam_home">Dar Es Salaam Holiday Home</option>
                   </select>
                 </div>
               </div>

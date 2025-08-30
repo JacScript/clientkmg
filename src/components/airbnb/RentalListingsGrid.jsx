@@ -98,7 +98,7 @@ const RentalListingsGrid = () => {
   // Extract the actual data from the API response
   const homeData = resData?.data?.data || [];
 
-  console.log("Home Details:", homeData);
+  // console.log("Home Details:", homeData);
 
   // Show loading state
   if (isLoading) {
@@ -171,10 +171,10 @@ const RentalListingsGrid = () => {
                   <p className="text-gray-600 text-sm">{option.subtitle}</p>
                 </div>
                 <div className="text-right">
-                  <div className="text-2xl font-bold text-blue-600">
+                  {/* <div className="text-2xl font-bold text-blue-600">
                     Tsh {option.price.toLocaleString()}
-                  </div>
-                  <div className="text-gray-500 text-sm">/night</div>
+                  </div> */}
+                  {/* <div className="text-gray-500 text-sm">/night</div> */}
                 </div>
               </div>
 
