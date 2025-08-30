@@ -10,10 +10,13 @@ import Request from "../../components/dashboard/Request";
 import HolidayHome from "../../components/dashboard/HolidayHome";
 import Package from "../../components/dashboard/Package";
 import Header from "./Header";
+import { Home } from "lucide-react";
+import HomePageAdmin from "../../components/dashboard/HomePage";
 
 
 
 const tabs = [
+  { name: "Home Page Details", icon: <Home />, description: "Home Page Data" },
   { name: "Testimonial", icon: <FaComment />, description: "Overview & Analytics" },
   { name: "Request", icon: <IoIosGitPullRequest />, description: "Recent Orders" },
   { name: "Holiday Home", icon: <MdHolidayVillage />, description: "Detailed Reports" },
@@ -24,7 +27,7 @@ const tabs = [
 
 const Dashboard = () => {
   const [isTableModalOpen, setIsTableModalOpen] = useState(false);
-  const [activeTab, setActiveTab] = useState("Request");
+  const [activeTab, setActiveTab] = useState("Home Page Details");
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
@@ -35,6 +38,8 @@ const Dashboard = () => {
 
   const renderTabContent = () => {
     switch (activeTab) {
+      case "Home Page Details":
+        return <HomePageAdmin />;
       case "Testimonial":
         return <Testimonial />;
       case "Request":

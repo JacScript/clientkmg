@@ -11,6 +11,11 @@ const api = axios.create({
 
 
 //API ENDPOINTS
+//home page data. endpoints
+export const getHomePageData = () => api.get("/api/homepage");
+
+
+
 //User endpoints
 export const login = (data) => api.post("/api/auth/login", data);
 export const logout = (data) => api.post("/api/auth/logout", data);
