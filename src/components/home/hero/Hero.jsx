@@ -134,7 +134,7 @@ export default function Hero() {
           </Reveal>
           <Reveal>
             <p className="text-sm sm:text-base lg:text-lg font-medium text-white/90 capitalize font-serif">
-              your personalized holiday from Tanzania to France organized by Kai'
+              your personalized holiday from Tanzania to France organized by Kai
             </p>
           </Reveal>
           
