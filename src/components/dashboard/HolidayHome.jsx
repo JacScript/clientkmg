@@ -1,11 +1,13 @@
+
+
 import React, { useEffect, useState, useCallback } from 'react';
-import { Edit, Save, X, Plus, Trash2, Upload, Star, MapPin, Users, DollarSign, Home } from 'lucide-react';
+import { Edit, Save, X, Plus, Trash2, Upload, Star, MapPin, Users, DollarSign, Home, Camera } from 'lucide-react';
 import { keepPreviousData, useQueryClient, useMutation, useQuery } from '@tanstack/react-query';
 import { getHome, updateHome } from '../../http';
 import { enqueueSnackbar } from 'notistack';
 
 // Move PropertyCard outside the main component to prevent re-creation on every render
-const PropertyCard = React.memo(({ data, type, isEditing, onEdit, onSave, onCancel, onImageUpload, onAddAmenity, onRemoveAmenity, onAmenityChange, onInputChange, isLoading }) => {
+const PropertyCard = React.memo(({ data, type, isEditing, onEdit, onSave, onCancel, onImageUpload, onAddImage, onDeleteImage, onAddAmenity, onRemoveAmenity, onAmenityChange, onInputChange, isLoading }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   
   if (!data || Object.keys(data).length === 0) {
@@ -50,13 +52,20 @@ const PropertyCard = React.memo(({ data, type, isEditing, onEdit, onSave, onCanc
                       className="w-full h-full object-cover"
                     />
                     {isEditing && (
-                      <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                      <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
                         <button 
                           onClick={() => onImageUpload(type, index)}
                           className="bg-white text-gray-800 px-3 py-1 rounded-lg text-sm font-medium hover:bg-gray-100 transition-colors"
                         >
                           <Upload className="w-4 h-4 inline mr-1" />
                           Replace
+                        </button>
+                        <button 
+                          onClick={() => onDeleteImage(type, index)}
+                          className="bg-red-600 text-white px-3 py-1 rounded-lg text-sm font-medium hover:bg-red-700 transition-colors"
+                        >
+                          <Trash2 className="w-4 h-4 inline mr-1" />
+                          Delete
                         </button>
                       </div>
                     )}
@@ -103,10 +112,30 @@ const PropertyCard = React.memo(({ data, type, isEditing, onEdit, onSave, onCanc
               <div className="absolute top-4 left-4 bg-black bg-opacity-50 text-white px-2 py-1 rounded-lg text-sm">
                 {currentImageIndex + 1} / {images.length}
               </div>
+              
+              {isEditing && (
+                <button
+                  onClick={() => onAddImage(type)}
+                  className="absolute bottom-4 right-4 bg-blue-600 text-white p-2 rounded-full shadow-lg hover:bg-blue-700 transition-colors"
+                  title="Add new image"
+                >
+                  <Camera className="w-5 h-5" />
+                </button>
+              )}
             </>
           ) : (
             <div className="h-full bg-gray-200 flex items-center justify-center">
-              <p className="text-gray-500">No images available</p>
+              {isEditing ? (
+                <button
+                  onClick={() => onAddImage(type)}
+                  className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2"
+                >
+                  <Camera className="w-5 h-5" />
+                  Add First Image
+                </button>
+              ) : (
+                <p className="text-gray-500">No images available</p>
+              )}
             </div>
           )}
         </div>
@@ -361,7 +390,7 @@ const HolidayHome = () => {
     }
   }, [resData]);
 
-  // Memoize event handlers to prevent unnecessary re-renders
+  // Handler for replacing an existing image
   const handleImageUpload = useCallback(async (type, index) => {
     const input = document.createElement('input');
     input.type = 'file';
@@ -400,7 +429,7 @@ const HolidayHome = () => {
           });
         }
 
-        enqueueSnackbar('Image uploaded successfully', { variant: 'success' });
+        enqueueSnackbar('Image replaced successfully', { variant: 'success' });
 
       } catch (error) {
         enqueueSnackbar('Failed to upload image: ' + error.message, { variant: 'error' });
@@ -409,6 +438,82 @@ const HolidayHome = () => {
 
     input.click();
   }, [CLOUDINARY_UPLOAD_PRESET, CLOUDINARY_CLOUD_NAME]);
+
+  // Handler for adding a new image
+  const handleAddImage = useCallback(async (type) => {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/*';
+    input.multiple = true; // Allow multiple file selection
+
+    input.onchange = async (event) => {
+      const files = Array.from(event.target.files);
+      if (files.length === 0) return;
+
+      const uploadPromises = files.map(async (file) => {
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+
+        try {
+          const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`, {
+            method: 'POST',
+            body: formData,
+          });
+
+          const data = await res.json();
+          return data.secure_url;
+        } catch (error) {
+          console.error('Failed to upload image:', error);
+          return null;
+        }
+      });
+
+      try {
+        const uploadedUrls = await Promise.all(uploadPromises);
+        const validUrls = uploadedUrls.filter(url => url !== null);
+
+        if (validUrls.length === 0) {
+          throw new Error('No images were uploaded successfully');
+        }
+
+        if (type === 'room') {
+          setRoomData(prev => ({
+            ...prev,
+            images: [...(prev.images || []), ...validUrls]
+          }));
+        } else {
+          setHouseData(prev => ({
+            ...prev,
+            images: [...(prev.images || []), ...validUrls]
+          }));
+        }
+
+        enqueueSnackbar(`${validUrls.length} image(s) added successfully`, { variant: 'success' });
+
+      } catch (error) {
+        enqueueSnackbar('Failed to add images: ' + error.message, { variant: 'error' });
+      }
+    };
+
+    input.click();
+  }, [CLOUDINARY_UPLOAD_PRESET, CLOUDINARY_CLOUD_NAME]);
+
+  // Handler for deleting an image
+  const handleDeleteImage = useCallback((type, index) => {
+    if (type === 'room') {
+      setRoomData(prev => ({
+        ...prev,
+        images: (prev.images || []).filter((_, i) => i !== index)
+      }));
+    } else {
+      setHouseData(prev => ({
+        ...prev,
+        images: (prev.images || []).filter((_, i) => i !== index)
+      }));
+    }
+    enqueueSnackbar('Image removed', { variant: 'info' });
+  }, []);
 
   const addAmenity = useCallback((type) => {
     const newAmenity = 'New Amenity';
@@ -550,6 +655,8 @@ const HolidayHome = () => {
                 onSave={handleSaveRoom}
                 onCancel={handleCancelRoom}
                 onImageUpload={handleImageUpload}
+                onAddImage={handleAddImage}
+                onDeleteImage={handleDeleteImage}
                 onAddAmenity={addAmenity}
                 onRemoveAmenity={removeAmenity}
                 onAmenityChange={handleAmenityItemChange}
@@ -565,6 +672,8 @@ const HolidayHome = () => {
                 onSave={handleSaveHouse}
                 onCancel={handleCancelHouse}
                 onImageUpload={handleImageUpload}
+                onAddImage={handleAddImage}
+                onDeleteImage={handleDeleteImage}
                 onAddAmenity={addAmenity}
                 onRemoveAmenity={removeAmenity}
                 onAmenityChange={handleAmenityItemChange}
