@@ -10,24 +10,37 @@ import {
   Mail,
   Filter,
   X,
+  Users,
+  TrendingUp,
+  Clock,
+  Globe,
+  Sparkles,
+  AlertCircle,
+  ChevronRight,
+  ExternalLink,
 } from "lucide-react";
 import { CiSearch } from "react-icons/ci";
-import { FaPlus } from "react-icons/fa6";
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import { FaPlus, FaEnvelope, FaMapMarkerAlt, FaCalendarAlt } from "react-icons/fa";
+import { HiOutlineSparkles, HiOutlineFilter } from "react-icons/hi";
+import { keepPreviousData, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getRequests } from "../../http";
 
 const Request = () => {
   const [requests, setRequests] = useState([]);
-  // const [showForm, setShowForm] = useState(false);
-  // const [editingRequest, setEditingRequest] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [filterActivity, setFilterActivity] = useState("");
-  // const [formData, setFormData] = useState({
-  //   destination: "",
-  //   activity: "",
-  //   email: "",
-  // });
-  // const [errors, setErrors] = useState({});
+  const [scrolled, setScrolled] = useState(false);
+  const [selectedRequest, setSelectedRequest] = useState(null);
+  const queryClient = useQueryClient();
+
+  // Handle scroll effect for sticky elements
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 10);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   // React Query for fetching requests
   const { data: resData, isError, isLoading, error } = useQuery({
@@ -38,24 +51,20 @@ const Request = () => {
     placeholderData: keepPreviousData,
   });
 
-  // console.log("Response Data:", resData?.data?.data);
-
   // Update requests state with fetched data
   useEffect(() => {
     if (resData?.data?.data) {
-      // Fix: Use the correct nested data structure
       setRequests(resData.data.data);
     }
   }, [resData]);
 
-  // Get unique activities for filter - fix to handle empty requests array
+  // Get unique activities for filter
   const uniqueActivities = requests.length > 0 
     ? [...new Set(requests.map((req) => req.activity).filter(Boolean))]
     : [];
 
   // Filter requests based on search and filter criteria
   const filteredRequests = requests.filter((request) => {
-    // Add safety checks for undefined/null values
     const destination = request.destination || "";
     const activity = request.activity || "";
     const email = request.email || "";
@@ -71,84 +80,7 @@ const Request = () => {
     return matchesSearch && matchesFilter;
   });
 
-  // const validateForm = () => {
-  //   const newErrors = {};
-
-  //   if (!formData.destination.trim()) {
-  //     newErrors.destination = "Destination is required";
-  //   } else if (formData.destination.trim().length < 2) {
-  //     newErrors.destination = "Destination must be at least 2 characters long";
-  //   }
-
-  //   if (!formData.activity.trim()) {
-  //     newErrors.activity = "Activity is required";
-  //   } else if (formData.activity.trim().length < 2) {
-  //     newErrors.activity = "Activity must be at least 2 characters long";
-  //   }
-
-  //   if (!formData.email.trim()) {
-  //     newErrors.email = "Email is required";
-  //   } else if (
-  //     !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(formData.email)
-  //   ) {
-  //     newErrors.email = "Please enter a valid email address";
-  //   }
-
-  //   setErrors(newErrors);
-  //   return Object.keys(newErrors).length === 0;
-  // };
-
-  // const handleSubmit = () => {
-  //   if (!validateForm()) return;
-
-  //   const newRequest = {
-  //     _id: editingRequest ? editingRequest._id : Date.now().toString(),
-  //     ...formData,
-  //     destination: formData.destination.trim(),
-  //     activity: formData.activity.trim(),
-  //     email: formData.email.trim().toLowerCase(),
-  //     createdAt: editingRequest ? editingRequest.createdAt : new Date(),
-  //     updatedAt: new Date(),
-  //   };
-
-  //   if (editingRequest) {
-  //     setRequests(
-  //       requests.map((req) =>
-  //         req._id === editingRequest._id ? newRequest : req
-  //       )
-  //     );
-  //   } else {
-  //     setRequests([newRequest, ...requests]);
-  //   }
-
-  //   resetForm();
-  // };
-
-  // const resetForm = () => {
-  //   setFormData({ destination: "", activity: "", email: "" });
-  //   setErrors({});
-  //   setShowForm(false);
-  //   setEditingRequest(null);
-  // };
-
-  // const handleEdit = (request) => {
-  //   setFormData({
-  //     destination: request.destination || "",
-  //     activity: request.activity || "",
-  //     email: request.email || ""
-  //   });
-  //   setEditingRequest(request);
-  //   setShowForm(true);
-  // };
-
-  // const handleDelete = (id) => {
-  //   if (window.confirm('Are you sure you want to delete this request?')) {
-  //     setRequests(requests.filter(req => req._id !== id));
-  //   }
-  // };
-
   const formatDate = (date) => {
-    // Add safety check for date
     if (!date) return "N/A";
     
     try {
@@ -156,89 +88,148 @@ const Request = () => {
         year: "numeric",
         month: "short",
         day: "numeric",
-        hour: "2-digit",
-        minute: "2-digit",
       });
     } catch (error) {
       return "Invalid Date";
     }
   };
 
-  // Handle loading and error states
+  const formatTime = (date) => {
+    if (!date) return "";
+    
+    try {
+      return new Date(date).toLocaleTimeString("en-US", {
+        hour: "2-digit",
+        minute: "2-digit",
+      });
+    } catch (error) {
+      return "";
+    }
+  };
+
+  // Get activity statistics
+  const activityStats = uniqueActivities.map(activity => ({
+    name: activity,
+    count: requests.filter(r => r.activity === activity).length,
+    percentage: ((requests.filter(r => r.activity === activity).length / requests.length) * 100).toFixed(1)
+  })).sort((a, b) => b.count - a.count);
+
+  // Get recent requests (last 7 days)
+  const recentRequests = requests.filter(request => {
+    const requestDate = new Date(request.createdAt);
+    const sevenDaysAgo = new Date();
+    sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+    return requestDate >= sevenDaysAgo;
+  });
+
+  // Handle loading state
   if (isLoading) {
     return (
-      <div className="min-h-screen p-6 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 p-6 flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading requests...</p>
+          <div className="relative">
+            <div className="animate-spin rounded-full h-16 w-16 border-b-3 border-blue-600 mx-auto"></div>
+            <Sparkles className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-blue-600 animate-pulse" size={24} />
+          </div>
+          <p className="text-gray-600 mt-4 font-medium">Loading requests...</p>
+          <p className="text-gray-400 text-sm mt-1">Please wait a moment</p>
         </div>
       </div>
     );
   }
 
+  // Handle error state
   if (isError) {
     return (
-      <div className="min-h-screen p-6 flex items-center justify-center">
-        <div className="text-center">
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-red-50 to-pink-50 p-6 flex items-center justify-center">
+        <div className="text-center bg-white rounded-2xl shadow-xl p-8 max-w-md">
           <div className="text-red-500 mb-4">
-            <Activity size={48} className="mx-auto" />
+            <AlertCircle size={56} className="mx-auto" />
           </div>
-          <p className="text-red-600 text-lg">Error loading requests</p>
-          <p className="text-gray-600 text-sm">{error?.message || "Something went wrong"}</p>
+          <p className="text-red-600 text-xl font-semibold mb-2">Error loading requests</p>
+          <p className="text-gray-600 text-sm mb-6">{error?.message || "Something went wrong"}</p>
+          <button
+            onClick={() => queryClient.invalidateQueries({ queryKey: ["requests"] })}
+            className="px-6 py-2.5 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-all transform hover:scale-105 font-medium"
+          >
+            Try Again
+          </button>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen p-6">
-      <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-6">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 pb-12">
+      {/* Sticky Header with Glass Effect */}
+      <div className={`sticky top-0 z-20 transition-all duration-300 ${
+        scrolled 
+          ? 'bg-white/85 backdrop-blur-xl shadow-xl border-b border-gray-100' 
+          : 'bg-white shadow-lg'
+      }`}>
+        <div className="max-w-7xl mx-auto px-6 py-5">
           <div className="flex justify-between items-center">
-            <div>
-              <h1 className="text-2xl font-bold text-gray-900">
-                Request Management
-              </h1>
-              <p className="text-gray-600 mt-1">
-                Manage travel requests and applications
-              </p>
+            <div className="flex items-center gap-4">
+              <div className="p-3 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl shadow-lg">
+                <Globe className="text-white" size={24} />
+              </div>
+              <div>
+                <h1 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
+                  Request Management
+                </h1>
+                <p className="text-gray-600 text-sm mt-0.5">
+                  Track and manage all travel requests
+                </p>
+              </div>
             </div>
-            {/* <button
-              onClick={() => setShowForm(true)}
-              className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors"
-            >
-              <FaPlus size={16} />
-              New Request
-            </button> */}
+            <div className="flex items-center gap-3">
+              <div className="hidden sm:flex items-center gap-2 px-4 py-2 bg-blue-50 rounded-xl">
+                <Users className="text-blue-600" size={18} />
+                <span className="text-sm font-semibold text-blue-900">{requests.length} Total</span>
+              </div>
+            </div>
           </div>
         </div>
+      </div>
 
-        {/* Search and Filter Bar */}
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 mb-6">
-          <div className="flex gap-4 items-center">
-            <div className="relative flex-1">
-              <CiSearch
-                className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
-                size={16}
+      {/* Sticky Search and Filter Bar with Glass Effect */}
+      <div className={`sticky top-[88px] z-10 transition-all duration-300 ${
+        scrolled 
+          ? 'bg-white/80 backdrop-blur-md shadow-lg border-b border-gray-100' 
+          : 'bg-white shadow-md'
+      }`}>
+        <div className="max-w-7xl mx-auto px-6 py-4">
+          <div className="flex flex-col sm:flex-row gap-4">
+            <div className="relative flex-1 group">
+              <Search
+                className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 group-focus-within:text-blue-500 transition-colors"
+                size={18}
               />
               <input
                 type="text"
                 placeholder="Search by destination, activity, or email..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full pl-12 pr-4 py-3 bg-white/70 backdrop-blur-sm border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all hover:border-gray-300"
               />
+              {searchTerm && (
+                <button
+                  onClick={() => setSearchTerm("")}
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
+                >
+                  <X size={18} />
+                </button>
+              )}
             </div>
-            <div className="relative">
-              <Filter
-                className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
-                size={16}
+            <div className="relative group">
+              <HiOutlineFilter
+                className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 group-focus-within:text-blue-500"
+                size={18}
               />
               <select
                 value={filterActivity}
                 onChange={(e) => setFilterActivity(e.target.value)}
-                className="pl-10 pr-8 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white"
+                className="pl-12 pr-10 py-3 bg-white/70 backdrop-blur-sm border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all hover:border-gray-300 cursor-pointer appearance-none font-medium"
               >
                 <option value="">All Activities</option>
                 {uniqueActivities.map((activity) => (
@@ -247,237 +238,230 @@ const Request = () => {
                   </option>
                 ))}
               </select>
+              <ChevronRight className="absolute right-3 top-1/2 transform -translate-y-1/2 rotate-90 text-gray-400 pointer-events-none" size={18} />
             </div>
           </div>
         </div>
+      </div>
 
-        {/* Request Form Modal */}
-        {/* {showForm && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-            <div className="bg-white rounded-lg p-6 w-full max-w-md mx-4">
-              <div className="flex justify-between items-center mb-4">
-                <h2 className="text-xl font-semibold">
-                  {editingRequest ? "Edit Request" : "New Request"}
-                </h2>
-                <button
-                  onClick={resetForm}
-                  className="text-gray-400 hover:text-gray-600"
-                >
-                  <X size={20} />
-                </button>
+      {/* Main Content */}
+      <div className="max-w-7xl mx-auto px-6 mt-6">
+        {/* Statistics Cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+          <div className="bg-white rounded-2xl p-6 shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-100">
+            <div className="flex items-center justify-between mb-3">
+              <div className="p-3 bg-gradient-to-br from-blue-100 to-blue-200 rounded-xl">
+                <Activity className="text-blue-700" size={20} />
               </div>
+              <span className="text-3xl font-bold text-gray-900">{filteredRequests.length}</span>
+            </div>
+            <p className="text-gray-600 font-medium">Active Requests</p>
+            <p className="text-xs text-gray-400 mt-1">Currently showing</p>
+          </div>
 
-              <div className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Destination
-                  </label>
-                  <div className="relative">
-                    <MapPin
-                      className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
-                      size={16}
-                    />
-                    <input
-                      type="text"
-                      value={formData.destination}
-                      onChange={(e) =>
-                        setFormData({
-                          ...formData,
-                          destination: e.target.value,
-                        })
-                      }
-                      placeholder="e.g., Paris, France"
-                      className={`w-full pl-10 pr-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
-                        errors.destination
-                          ? "border-red-500"
-                          : "border-gray-300"
-                      }`}
-                    />
-                  </div>
-                  {errors.destination && (
-                    <p className="text-red-500 text-sm mt-1">
-                      {errors.destination}
-                    </p>
-                  )}
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Activity
-                  </label>
-                  <div className="relative">
-                    <Activity
-                      className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
-                      size={16}
-                    />
-                    <input
-                      type="text"
-                      value={formData.activity}
-                      onChange={(e) =>
-                        setFormData({ ...formData, activity: e.target.value })
-                      }
-                      placeholder="e.g., Visa Application, Tour Booking"
-                      className={`w-full pl-10 pr-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
-                        errors.activity ? "border-red-500" : "border-gray-300"
-                      }`}
-                    />
-                  </div>
-                  {errors.activity && (
-                    <p className="text-red-500 text-sm mt-1">
-                      {errors.activity}
-                    </p>
-                  )}
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Email
-                  </label>
-                  <div className="relative">
-                    <Mail
-                      className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
-                      size={16}
-                    />
-                    <input
-                      type="email"
-                      value={formData.email}
-                      onChange={(e) =>
-                        setFormData({ ...formData, email: e.target.value })
-                      }
-                      placeholder="user@example.com"
-                      className={`w-full pl-10 pr-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
-                        errors.email ? "border-red-500" : "border-gray-300"
-                      }`}
-                    />
-                  </div>
-                  {errors.email && (
-                    <p className="text-red-500 text-sm mt-1">{errors.email}</p>
-                  )}
-                </div>
-
-                <div className="flex gap-3 pt-4">
-                  <button
-                    type="button"
-                    onClick={handleSubmit}
-                    className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg transition-colors"
-                  >
-                    {editingRequest ? "Update Request" : "Create Request"}
-                  </button>
-                  <button
-                    type="button"
-                    onClick={resetForm}
-                    className="flex-1 bg-gray-300 hover:bg-gray-400 text-gray-700 py-2 px-4 rounded-lg transition-colors"
-                  >
-                    Cancel
-                  </button>
-                </div>
+          <div className="bg-white rounded-2xl p-6 shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-100">
+            <div className="flex items-center justify-between mb-3">
+              <div className="p-3 bg-gradient-to-br from-green-100 to-green-200 rounded-xl">
+                <Clock className="text-green-700" size={20} />
               </div>
+              <span className="text-3xl font-bold text-gray-900">{recentRequests.length}</span>
+            </div>
+            <p className="text-gray-600 font-medium">Recent Requests</p>
+            <p className="text-xs text-gray-400 mt-1">Last 7 days</p>
+          </div>
+
+          <div className="bg-white rounded-2xl p-6 shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-100">
+            <div className="flex items-center justify-between mb-3">
+              <div className="p-3 bg-gradient-to-br from-purple-100 to-purple-200 rounded-xl">
+                <TrendingUp className="text-purple-700" size={20} />
+              </div>
+              <span className="text-3xl font-bold text-gray-900">{uniqueActivities.length}</span>
+            </div>
+            <p className="text-gray-600 font-medium">Activity Types</p>
+            <p className="text-xs text-gray-400 mt-1">Unique activities</p>
+          </div>
+
+          <div className="bg-white rounded-2xl p-6 shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-100">
+            <div className="flex items-center justify-between mb-3">
+              <div className="p-3 bg-gradient-to-br from-orange-100 to-orange-200 rounded-xl">
+                <MapPin className="text-orange-700" size={20} />
+              </div>
+              <span className="text-3xl font-bold text-gray-900">
+                {[...new Set(requests.map(r => r.destination).filter(Boolean))].length}
+              </span>
+            </div>
+            <p className="text-gray-600 font-medium">Destinations</p>
+            <p className="text-xs text-gray-400 mt-1">Unique locations</p>
+          </div>
+        </div>
+
+        {/* Activity Distribution */}
+        {activityStats.length > 0 && (
+          <div className="bg-white rounded-2xl shadow-md p-6 mb-6 border border-gray-100">
+            <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+              <HiOutlineSparkles className="text-blue-600" />
+              Activity Distribution
+            </h3>
+            <div className="space-y-3">
+              {activityStats.slice(0, 3).map((stat, index) => (
+                <div key={stat.name} className="flex items-center gap-3">
+                  <span className={`text-sm font-semibold px-2 py-1 rounded-lg ${
+                    index === 0 ? 'bg-gold-100 text-gold-700' :
+                    index === 1 ? 'bg-silver-100 text-silver-700' :
+                    'bg-bronze-100 text-bronze-700'
+                  }`}>
+                    #{index + 1}
+                  </span>
+                  <div className="flex-1">
+                    <div className="flex items-center justify-between mb-1">
+                      <span className="text-sm font-medium text-gray-700">{stat.name}</span>
+                      <span className="text-sm text-gray-500">{stat.count} requests ({stat.percentage}%)</span>
+                    </div>
+                    <div className="w-full bg-gray-200 rounded-full h-2">
+                      <div 
+                        className={`h-2 rounded-full transition-all duration-500 ${
+                          index === 0 ? 'bg-gradient-to-r from-yellow-400 to-orange-500' :
+                          index === 1 ? 'bg-gradient-to-r from-gray-300 to-gray-400' :
+                          'bg-gradient-to-r from-orange-300 to-orange-400'
+                        }`}
+                        style={{ width: `${stat.percentage}%` }}
+                      />
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
-        )} */}
+        )}
 
         {/* Requests Table */}
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
-          <div className="p-6 border-b border-gray-200">
-            <h2 className="text-lg font-semibold text-gray-900">
-              All Requests ({filteredRequests.length})
-            </h2>
+        <div className="bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden">
+          <div className="p-6 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white">
+            <div className="flex items-center justify-between">
+              <h2 className="text-xl font-semibold text-gray-900 flex items-center gap-2">
+                <Activity className="text-blue-600" size={20} />
+                All Requests
+                <span className="ml-2 px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium">
+                  {filteredRequests.length}
+                </span>
+              </h2>
+              {searchTerm || filterActivity ? (
+                <button
+                  onClick={() => {
+                    setSearchTerm("");
+                    setFilterActivity("");
+                  }}
+                  className="text-sm text-blue-600 hover:text-blue-700 font-medium flex items-center gap-1"
+                >
+                  <X size={16} />
+                  Clear filters
+                </button>
+              ) : null}
+            </div>
           </div>
 
           {filteredRequests.length === 0 ? (
-            <div className="p-8 text-center text-gray-500">
-              <Activity className="mx-auto mb-4 text-gray-400" size={48} />
-              <p className="text-lg">No requests found</p>
-              <p className="text-sm">
+            <div className="p-12 text-center">
+              <div className="inline-flex items-center justify-center w-20 h-20 bg-gray-100 rounded-full mb-4">
+                <Search className="text-gray-400" size={32} />
+              </div>
+              <p className="text-xl font-medium text-gray-700 mb-2">No requests found</p>
+              <p className="text-gray-500 mb-6">
                 {requests.length === 0 
                   ? "No requests have been created yet"
                   : "Try adjusting your search or filter criteria"
                 }
               </p>
+              {(searchTerm || filterActivity) && (
+                <button
+                  onClick={() => {
+                    setSearchTerm("");
+                    setFilterActivity("");
+                  }}
+                  className="px-6 py-2.5 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-all transform hover:scale-105 font-medium"
+                >
+                  Clear Filters
+                </button>
+              )}
             </div>
           ) : (
             <div className="overflow-x-auto">
               <table className="w-full">
-                <thead className="bg-gray-50">
+                <thead className="bg-gray-50/50">
                   <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                       Destination
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                       Activity
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Email
+                    <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      Contact
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Created
+                    <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      Date & Time
                     </th>
-                    {/* <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Updated
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Actions
-                    </th> */}
                   </tr>
                 </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
-                  {filteredRequests.map((request) => (
-                    <tr key={request._id} className="hover:bg-gray-50">
+                <tbody className="bg-white divide-y divide-gray-100">
+                  {filteredRequests.map((request, index) => (
+                    <tr 
+                      key={request._id} 
+                      className="hover:bg-blue-50/30 transition-all duration-200 cursor-pointer group"
+                      onClick={() => setSelectedRequest(request)}
+                      style={{
+                        animation: `fadeInUp 0.4s ease-out ${index * 0.05}s both`
+                      }}
+                    >
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="flex items-center">
-                          <MapPin className="text-gray-400 mr-2" size={16} />
-                          <div className="text-sm font-medium text-gray-900">
-                            {request.destination || "N/A"}
+                        <div className="flex items-center gap-3">
+                          <div className="p-2 bg-blue-100 rounded-lg group-hover:bg-blue-200 transition-colors">
+                            <FaMapMarkerAlt className="text-blue-600" size={14} />
+                          </div>
+                          <div>
+                            <div className="text-sm font-semibold text-gray-900">
+                              {request.destination || "N/A"}
+                            </div>
+                            <div className="text-xs text-gray-500">Location</div>
                           </div>
                         </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="flex items-center">
-                          <Activity className="text-gray-400 mr-2" size={16} />
-                          <span className="px-2 py-1 text-xs font-medium bg-blue-100 text-blue-800 rounded-full">
-                            {request.activity || "N/A"}
-                          </span>
-                        </div>
+                        <span className="inline-flex items-center gap-2 px-3 py-1.5 text-xs font-semibold bg-gradient-to-r from-blue-500 to-indigo-500 text-white rounded-full shadow-sm">
+                          <Activity size={12} />
+                          {request.activity || "N/A"}
+                        </span>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="flex items-center">
-                          <Mail className="text-gray-400 mr-2" size={16} />
+                        <div className="flex items-center gap-2">
+                          <div className="p-1.5 bg-gray-100 rounded-lg">
+                            <FaEnvelope className="text-gray-600" size={12} />
+                          </div>
                           <a
                             href={`mailto:${request.email}`}
-                            className="text-sm text-gray-900 hover:underline hover:text-blue-500"
+                            onClick={(e) => e.stopPropagation()}
+                            className="text-sm text-gray-700 hover:text-blue-600 hover:underline transition-colors flex items-center gap-1"
                           >
                             {request.email || "N/A"}
+                            <ExternalLink size={12} className="opacity-0 group-hover:opacity-100 transition-opacity" />
                           </a>
                         </div>
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        <div className="flex items-center">
-                          <Calendar className="text-gray-400 mr-2" size={16} />
-                          {formatDate(request.createdAt)}
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <div className="flex items-center gap-2">
+                          <div className="p-1.5 bg-gray-100 rounded-lg">
+                            <FaCalendarAlt className="text-gray-600" size={12} />
+                          </div>
+                          <div>
+                            <div className="text-sm font-medium text-gray-900">
+                              {formatDate(request.createdAt)}
+                            </div>
+                            <div className="text-xs text-gray-500">
+                              {formatTime(request.createdAt)}
+                            </div>
+                          </div>
                         </div>
                       </td>
-                      {/* <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        <div className="flex items-center">
-                          <Calendar className="text-gray-400 mr-2" size={16} />
-                          {formatDate(request.updatedAt)}
-                        </div>
-                      </td> */}
-                      {/* <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                        <div className="flex gap-2">
-                          <button
-                            onClick={() => handleEdit(request)}
-                            className="text-blue-600 hover:text-blue-900 p-1 rounded"
-                          >
-                            <Edit size={16} />
-                          </button>
-                          <button
-                            onClick={() => handleDelete(request._id)}
-                            className="text-red-600 hover:text-red-900 p-1 rounded"
-                          >
-                            <Trash2 size={16} />
-                          </button>
-                        </div>
-                      </td> */}
                     </tr>
                   ))}
                 </tbody>
@@ -486,6 +470,127 @@ const Request = () => {
           )}
         </div>
       </div>
+
+      {/* Request Detail Modal */}
+      {selectedRequest && (
+        <div 
+          className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fadeIn"
+          onClick={() => setSelectedRequest(null)}
+        >
+          <div 
+            className="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl transform transition-all animate-slideUp"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="text-xl font-bold text-gray-900">Request Details</h3>
+              <button
+                onClick={() => setSelectedRequest(null)}
+                className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+              >
+                <X size={20} className="text-gray-500" />
+              </button>
+            </div>
+            
+            <div className="space-y-4">
+              <div className="flex items-start gap-3">
+                <MapPin className="text-blue-600 mt-1" size={18} />
+                <div>
+                  <p className="text-sm text-gray-500">Destination</p>
+                  <p className="font-medium text-gray-900">{selectedRequest.destination}</p>
+                </div>
+              </div>
+              
+              <div className="flex items-start gap-3">
+                <Activity className="text-green-600 mt-1" size={18} />
+                <div>
+                  <p className="text-sm text-gray-500">Activity</p>
+                  <p className="font-medium text-gray-900">{selectedRequest.activity}</p>
+                </div>
+              </div>
+              
+              <div className="flex items-start gap-3">
+                <Mail className="text-purple-600 mt-1" size={18} />
+                <div>
+                  <p className="text-sm text-gray-500">Email</p>
+                  <a 
+                    href={`mailto:${selectedRequest.email}`}
+                    className="font-medium text-blue-600 hover:underline"
+                  >
+                    {selectedRequest.email}
+                  </a>
+                </div>
+              </div>
+              
+              <div className="flex items-start gap-3">
+                <Calendar className="text-orange-600 mt-1" size={18} />
+                <div>
+                  <p className="text-sm text-gray-500">Created</p>
+                  <p className="font-medium text-gray-900">
+                    {formatDate(selectedRequest.createdAt)} at {formatTime(selectedRequest.createdAt)}
+                  </p>
+                </div>
+              </div>
+            </div>
+            
+            <div className="mt-6 flex gap-3">
+              <button
+                onClick={() => setSelectedRequest(null)}
+                className="flex-1 px-4 py-2.5 bg-gray-100 text-gray-700 rounded-xl hover:bg-gray-200 transition-colors font-medium"
+              >
+                Close
+              </button>
+              <a
+                href={`mailto:${selectedRequest.email}`}
+                className="flex-1 px-4 py-2.5 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors font-medium text-center"
+              >
+                Contact
+              </a>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Custom Animations */}
+      <style jsx>{`
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+          }
+          to {
+            opacity: 1;
+          }
+        }
+        
+        @keyframes slideUp {
+          from {
+            opacity: 0;
+            transform: translateY(30px) scale(0.95);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+          }
+        }
+        
+        .animate-fadeIn {
+          animation: fadeIn 0.3s ease-out;
+        }
+        
+        .animate-slideUp {
+          animation: slideUp 0.3s ease-out;
+        }
+      `}</style>
     </div>
   );
 };
