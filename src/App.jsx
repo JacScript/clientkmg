@@ -22,8 +22,8 @@ const NotFound = React.lazy(() => import("./pages/public/NotFound"));
 
 // Loading spinner
 const LoadingSpinner = () => (
-  <div className="flex items-center justify-center min-h-[100vh]">
-    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
+  <div className="flex items-center justify-center min-h-[100vh] bg-transparent">
+    <div className="animate-spin rounded-full h-12 w-12 border-b-4 border-blue-500"></div>
     <span className="ml-3 text-gray-600">Loading...</span>
   </div>
 );

@@ -24,50 +24,8 @@ const AddTestimonialModal = ({ isOpen, onClose, onAdd }) => {
   const [showCountryDropdown, setShowCountryDropdown] = useState(false);
   const [countrySearch, setCountrySearch] = useState('');
 
-  // React Query mutation for creating testimonial
-  // const testimonialMutation = useMutation({
-  //   mutationFn: async (testimonialData) => {
-  //     const response = await fetch('/api/testimonials', {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify(testimonialData),
-  //     });
 
-  //     if (!response.ok) {
-  //       throw new Error(`HTTP error! status: ${response.status}`);
-  //     }
-
-  //     return response.json();
-  //   },
-  //   onSuccess: (result, variables) => {
-  //     // Invalidate and refetch testimonials
-  //     queryClient.invalidateQueries({ queryKey: ['testimonials'] });
-      
-  //     // Optionally, you can also update the cache optimistically
-  //     queryClient.setQueryData(['testimonials'], (old) => {
-  //       if (!old) return [{ ...variables, id: result.id }];
-  //       return [...old, { ...variables, id: result.id }];
-  //     });
-
-  //     const newTestimonial = {
-  //       ...variables,
-  //       id: result.id || Date.now()
-  //     };
-
-  //     onAdd(newTestimonial);
-  //     handleClose();
-  //     alert('Testimonial added successfully!');
-  //   },
-  //   onError: (error) => {
-  //     console.error('Submit error:', error);
-  //     setErrors({
-  //       submit: error.message || 'Failed to save testimonial. Please try again.'
-  //     });
-  //   }
-  // });
-const testimonialMutation = useMutation({
+  const testimonialMutation = useMutation({
   mutationFn: createTestimonial,
   onSuccess: (result, variables) => {
     queryClient.invalidateQueries({ queryKey: ['testimonials'] });
@@ -93,38 +51,6 @@ const testimonialMutation = useMutation({
   }
 });
 
-
-  // Cloudinary upload mutation
-  // const uploadMutation = useMutation({
-  //   mutationFn: async (file) => {
-  //     const formData = new FormData();
-  //     formData.append('file', file);
-  //     formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
-  //     formData.append('cloud_name', CLOUDINARY_CLOUD_NAME);
-
-  //     const response = await fetch(
-  //       `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`,
-  //       {
-  //         method: 'POST',
-  //         body: formData,
-  //       }
-  //     );
-
-  //     if (!response.ok) {
-  //       throw new Error('Failed to upload image');
-  //     }
-
-  //     return response.json();
-  //   },
-  //   onSuccess: (data) => {
-  //     setIsUploadingImage(false);
-  //   },
-  //   onError: (error) => {
-  //       console.log(error);
-  //     setIsUploadingImage(false);
-  //     setErrors({ profileImg: 'Failed to upload image. Please try again77.' });
-  //   }
-  // });
 
   const uploadMutation = useMutation({
   mutationFn: async (file) => {
