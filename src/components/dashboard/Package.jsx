@@ -315,7 +315,7 @@ const Package = () => {
   const isSubmitting = addPackageMutation.isLoading || updatePackageMutation.isLoading;
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
       {/* Header */}
       <div className="w-4/5 mx-auto shadow-sm">
         <div className="bg-white border-b border-gray-200 rounded-lg max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

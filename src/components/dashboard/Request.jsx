@@ -164,8 +164,8 @@ const Request = () => {
       {/* Sticky Header with Glass Effect */}
       <div className={`sticky top-0 z-20 transition-all duration-300 ${
         scrolled 
-          ? 'bg-white/85 backdrop-blur-xl shadow-xl border-b border-gray-100' 
-          : 'bg-white shadow-lg'
+          ? 'bg-white/85 backdrop-blur-xl border-b border-gray-100' 
+          : 'bg-white'
       }`}>
         <div className="max-w-7xl mx-auto px-6 py-5">
           <div className="flex justify-between items-center">

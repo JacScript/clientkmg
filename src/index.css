@@ -95,3 +95,11 @@
         .animate-float-delayed { animation: float-delayed 8s ease-in-out infinite 2s; }
         .animate-float-slow { animation: float-slow 10s ease-in-out infinite 4s; }
         .animate-gradient-x { animation: gradient-x 4s ease infinite; }
+
+
+
+        .sticky-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
