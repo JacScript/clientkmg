@@ -1528,21 +1528,7 @@ const HolidayHome = () => {
       <div>
         <LoadingSpinner/>
       </div>
-      // <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 flex items-center justify-center relative overflow-hidden w-[80%] mx-auto">
-      //   <FloatingParticles />
-      //   <div className="text-center relative z-10">
-      //     <div className="relative">
-      //       <div className="animate-spin rounded-full h-20 w-20 border-4 border-transparent bg-gradient-to-r from-blue-500 to-purple-600 rounded-full mx-auto mb-8">
-      //         <div className="absolute inset-2 bg-white rounded-full" />
-      //       </div>
-      //       <div className="absolute inset-0 rounded-full h-20 w-20 bg-gradient-to-r from-blue-400 to-purple-600 blur-xl opacity-30 mx-auto animate-pulse" />
-      //     </div>
-      //     <h3 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">
-      //       Loading Your Properties
-      //     </h3>
-      //     <p className="text-gray-600 font-medium">Preparing something amazing...</p>
-      //   </div>
-      // </div>
+      
     );
   }
 

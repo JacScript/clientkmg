@@ -12,6 +12,7 @@ import PackageViewModalContent from './PackageViewModalContent';
 import PackageListView from './PackageListView';
 import PackageGridCard from './PackageGridCard';
 import { enqueueSnackbar } from 'notistack';
+import LoadingSpinner from '../LoadingComponents';
 
 const Package = () => {
   const queryClient = useQueryClient();
@@ -116,9 +117,7 @@ const Package = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-gray-600 text-lg">Loading Packages...</div>
-      </div>
+     <LoadingSpinner/>
     );
   }
 
