@@ -8,6 +8,7 @@ import DiscoverSection from './homePageComponent/DiscoverSection';
 import WhySection from './homePageComponent/WhySection';
 import FeaturedSection from './homePageComponent/FeaturedSection';
 import LoadingComponents from '../LoadingComponents';
+import ErrorDisplay from '../ErrorComponent';
 
 const HomePageAdmin = () => {
   const queryClient = useQueryClient();
@@ -29,12 +30,12 @@ const HomePageAdmin = () => {
       showNotification('Home page data updated successfully!', 'success');
     },
     onError: (error) => {
-      console.error('Error updating homepage data:', error);
+      // console.error('Error updating homepage data:', error);
       showNotification('Failed to update home page data. Please try again.', 'error');
     },
   });
 
-  console.log("Home page data:", resData?.data);
+  // console.log("Home page data:", resData?.data);
 
   // Initialize with empty data structure that matches your schema
   const [homeData, setHomeData] = useState({
@@ -213,9 +214,7 @@ const HomePageAdmin = () => {
   // Show error state
   if (isError) {
     return (
-      <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-        <div className="text-xl text-red-600">Error loading data</div>
-      </div>
+     <ErrorDisplay />
     );
   }
 

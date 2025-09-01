@@ -9,6 +9,7 @@ import AddTestimonialModal from './AddTestimonialModal';
 import EditTestimonialModal from './EditTestimonialModal';
 import { enqueueSnackbar } from 'notistack';
 import LoadingSpinner from '../LoadingComponents';
+import ErrorDisplay from '../ErrorComponent';
 
 const Testimonial = () => {
   const [testimonials, setTestimonials] = useState([]);
@@ -70,18 +71,21 @@ const Testimonial = () => {
 
   if (isError) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <div className="text-red-500 text-6xl mb-4">⚠️</div>
-          <p className="text-red-600 text-lg">Error loading testimonials</p>
-          <button 
-            onClick={() => queryClient.invalidateQueries({ queryKey: ['testimonials'] })}
-            className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-          >
-            Retry
-          </button>
-        </div>
-      </div>
+
+   <ErrorDisplay />
+      // <ErrorDisplay --- IGNORE ---
+      // <div className="min-h-screen flex items-center justify-center">
+      //   <div className="text-center">
+      //     <div className="text-red-500 text-6xl mb-4">⚠️</div>
+      //     <p className="text-red-600 text-lg">Error loading testimonials</p>
+      //     <button 
+      //       onClick={() => queryClient.invalidateQueries({ queryKey: ['testimonials'] })}
+      //       className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+      //     >
+      //       Retry
+      //     </button>
+      //   </div>
+      // </div>
     );
   }
 
