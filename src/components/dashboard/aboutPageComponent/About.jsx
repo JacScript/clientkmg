@@ -106,7 +106,7 @@ const ImageUploader = ({ currentImage, onImageChange, isEditing }) => {
   return (
     <>
       <div className="mb-6">
-        <label className="block text-sm font-medium text-gray-700 mb-3 flex items-center">
+        <label className=" text-sm font-medium text-gray-700 mb-3 flex items-center">
           <Image className="h-4 w-4 mr-2 text-gray-500" />
           Company Image
         </label>
@@ -329,7 +329,7 @@ const EditableField = ({
   description
 }) => (
   <div className="mb-6">
-    <label className="block text-sm font-medium text-gray-700 mb-2 flex items-center">
+    <label className="text-sm font-medium text-gray-700 mb-2 flex items-center">
       {icon && <span className="mr-2 text-gray-500">{icon}</span>}
       {label}
     </label>
