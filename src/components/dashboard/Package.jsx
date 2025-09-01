@@ -18,7 +18,7 @@ import ErrorDisplay from '../ErrorComponent';
 const Package = () => {
   const queryClient = useQueryClient();
   const [packages, setPackages] = useState([]);
-  const [view, setView] = useState('grid');
+  const [view, setView] = useState('list'); // 'grid' or 'list'
   const [selectedPackage, setSelectedPackage] = useState(null);
   const [modalType, setModalType] = useState('');
   const [searchTerm, setSearchTerm] = useState('');

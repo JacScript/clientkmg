@@ -15,7 +15,9 @@ const api = axios.create({
 export const getHomePageData = () => api.get("/api/homepage");
 export const updateHomePageData = (id, data) => api.put(`/api/homepage/${id}`, data);
 
-
+//about page data. endpoints
+export const getAboutData = () => api.get("/api/about");
+export const updateAboutData = (id, data) => api.put(`/api/about/${id}`, data);
 
 //User endpoints
 export const login = (data) => api.post("/api/auth/login", data);

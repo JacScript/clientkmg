@@ -15,13 +15,15 @@ import Package from "../../components/dashboard/Package";
 import Header from "./Header";
 import { Home } from "lucide-react";
 import HomePageAdmin from "../../components/dashboard/HomePage";
+import AboutPageAdmin from "../../components/dashboard/aboutPageComponent/About";
 
 const tabs = [
   { name: "Home Page Details", icon: <Home />, description: "Home Page Data" },
   { name: "Testimonial", icon: <FaComment />, description: "Overview & Analytics" },
   { name: "Request", icon: <IoIosGitPullRequest />, description: "Recent Orders" },
   { name: "Holiday Home", icon: <MdHolidayVillage />, description: "Detailed Reports" },
-  { name: "Package", icon: <TbPackages />, description: "Detailed Reports" }
+  { name: "Package", icon: <TbPackages />, description: "Detailed Reports" },
+  {name: 'About Us', icon: <MdAssessment />, description: 'About Us Page Data'}
 ];
 
 const Dashboard = () => {
@@ -44,8 +46,12 @@ const Dashboard = () => {
         return <Request />;
       case "Holiday Home":
         return <HolidayHome />;
-      default:
+      case "Package":
         return <Package />;
+      case "About Us":
+        return <AboutPageAdmin />;  
+      default:
+        return <HomePageAdmin />;
     }
   };
 
