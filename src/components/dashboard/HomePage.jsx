@@ -226,30 +226,30 @@ const HomePageAdmin = () => {
           <h1 className="text-3xl font-bold text-gray-900">Home Page Content Management</h1>
         </div>
       
-        {/* Tabs - positioned directly below the header, also sticky */}
-        <div className="border-b border-gray-200 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <nav className="flex space-x-8">
-            {[
-              { id: 'hero', name: 'Hero Section' },
-              { id: 'discover', name: 'Discover' },
-              { id: 'why', name: 'Why Choose Us' },
-              { id: 'featured', name: 'Featured Tours' }
-            ].map((tab) => (
-              <button
-                key={tab.id}
-                type="button"
-                onClick={() => setActiveTab(tab.id)}
-                className={`whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm ${
-                  activeTab === tab.id
-                    ? 'border-blue-500 text-blue-600'
-                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-                }`}
-              >
-                {tab.name}
-              </button>
-            ))}
-          </nav>
-        </div>
+       {/* Tabs - positioned directly below the header, also sticky */}
+<div className="border-b border-gray-200 w-[80%] mx-auto px-4 sm:px-6 lg:px-8">
+  <nav className="flex overflow-x-auto py-2 sm:py-0 space-x-2 sm:space-x-4 md:space-x-6 lg:space-x-8 hide-scrollbar">
+    {[
+      { id: 'hero', name: 'Hero Section' },
+      { id: 'discover', name: 'Discover' },
+      { id: 'why', name: 'Why Choose Us' },
+      { id: 'featured', name: 'Featured Tours' }
+    ].map((tab) => (
+      <button
+        key={tab.id}
+        type="button"
+        onClick={() => setActiveTab(tab.id)}
+        className={`whitespace-nowrap py-3 px-2 sm:py-4 sm:px-1 border-b-2 font-medium text-xs sm:text-sm ${
+          activeTab === tab.id
+            ? 'border-blue-500 text-blue-600'
+            : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+        }`}
+      >
+        {tab.name}
+      </button>
+    ))}
+  </nav>
+</div>
       </header>
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pt-4">
@@ -318,8 +318,21 @@ const HomePageAdmin = () => {
           </div>
         </form>
       </main>
+
+      <style jsx>{`
+  .hide-scrollbar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;  /* Chrome, Safari and Opera */
+  }
+`}</style>
     </div>
   );
 };
+
+
+
 
 export default HomePageAdmin;
