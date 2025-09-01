@@ -123,11 +123,11 @@ const Auth = () => {
           </div>
 
           {/* Optional: Forgot Password Link */}
-          <div className="text-center mt-6">
+          {/* <div className="text-center mt-6">
             <a href="#" className="text-gray-300 hover:text-yellow-400 text-sm transition-colors duration-200 hover:underline">
               Forgot Password?
             </a>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

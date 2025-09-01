@@ -18,12 +18,12 @@ import HomePageAdmin from "../../components/dashboard/HomePage";
 import AboutPageAdmin from "../../components/dashboard/aboutPageComponent/About";
 
 const tabs = [
+  {name: 'About Us', icon: <MdAssessment />, description: 'About Us Page Data'},
   { name: "Home Page Details", icon: <Home />, description: "Home Page Data" },
   { name: "Testimonial", icon: <FaComment />, description: "Overview & Analytics" },
   { name: "Request", icon: <IoIosGitPullRequest />, description: "Recent Orders" },
   { name: "Holiday Home", icon: <MdHolidayVillage />, description: "Detailed Reports" },
   { name: "Package", icon: <TbPackages />, description: "Detailed Reports" },
-  {name: 'About Us', icon: <MdAssessment />, description: 'About Us Page Data'}
 ];
 
 const Dashboard = () => {
