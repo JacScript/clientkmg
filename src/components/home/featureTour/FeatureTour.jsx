@@ -6,35 +6,37 @@ import Link from '../../LinkComponent'
 import TestimonialCarousel from '../../TestimonialCarousel';
 import FeatureCard from './FeatureCard';
 
-const FeatureTour = () => {
-  const data = [
-    {
-      pic: "https://res.cloudinary.com/dwkivuqts/image/upload/v1750390239/brussels_nhf7b5.jpg",
-      title: "Brussels"
-    },
-    {
-      pic: "https://res.cloudinary.com/dwkivuqts/image/upload/v1750390258/Barcelona_iatvqy.jpg",
-      title: "Barcelona"
-    },
-    {
-      pic: "https://res.cloudinary.com/dwkivuqts/image/upload/v1750390302/Amsterdam_wmh0so.jpg",
-      title: "Amsterdam"
-    },
-    {
-      pic: "https://res.cloudinary.com/dwkivuqts/image/upload/v1750389829/Rome_dxqkym.jpg",
-      title:"Rome"
-    },
-    {
-      pic: "https://res.cloudinary.com/dwkivuqts/image/upload/v1750391426/greece_gnihsm.jpg",
-      title: "greece"
-    },
-    {
-      pic: "https://res.cloudinary.com/dwkivuqts/image/upload/v1750389808/Berlin_bu6hcd.jpg",
-      title:"Berlin"
-    },
+const FeatureTour = ({data}) => {
+  // console.log(data)
+  // const data = [
+  //   {
+  //     pic: "https://res.cloudinary.com/dwkivuqts/image/upload/v1750390239/brussels_nhf7b5.jpg",
+  //     title: "Brussels"
+  //   },
+  //   {
+  //     pic: "https://res.cloudinary.com/dwkivuqts/image/upload/v1750390258/Barcelona_iatvqy.jpg",
+  //     title: "Barcelona"
+  //   },
+  //   {
+  //     pic: "https://res.cloudinary.com/dwkivuqts/image/upload/v1750390302/Amsterdam_wmh0so.jpg",
+  //     title: "Amsterdam"
+  //   },
+  //   {
+  //     pic: "https://res.cloudinary.com/dwkivuqts/image/upload/v1750389829/Rome_dxqkym.jpg",
+  //     title:"Rome"
+  //   },
+  //   {
+  //     pic: "https://res.cloudinary.com/dwkivuqts/image/upload/v1750391426/greece_gnihsm.jpg",
+  //     title: "greece"
+  //   },
+  //   {
+  //     pic: "https://res.cloudinary.com/dwkivuqts/image/upload/v1750389808/Berlin_bu6hcd.jpg",
+  //     title:"Berlin"
+  //   },
     
-  ];
+  // ];
 
+  const images = data?.backgroundImage;
   return (
     <section className="min-h-screen xl:h-dvh w-full py-12 sm:py-16 lg:py-20 flex items-center justify-center bg-gradient-to-b from-gray-50 to-white">
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
@@ -54,7 +56,7 @@ const FeatureTour = () => {
           </div>
 
           {/* Tour Cards Grid */}
-          <TestimonialCarousel component={FeatureCard} items={data} />
+          <TestimonialCarousel component={FeatureCard} items={images} />
         
 
           {/* View All Tours Button

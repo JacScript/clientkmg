@@ -4,12 +4,19 @@ import Reveal from '../../Reveal';
 import FadeInImage from '../../FadeInImage';
 import Link from '../../LinkComponent';
 
-function Why() {
+function Why({data}) {
+  
+  const res = data?.whySection;
   const [isExpanded, setIsExpanded] = useState(false);
 
   const toggleExpanded = () => {
     setIsExpanded(!isExpanded);
   };
+
+  const text = res?.heading;
+  const extra = res?.subheading ||  "With firsthand experience living, working, and studying across France, Scandinavia, and other EU cities, Kai brings unmatched insight into what Tanzanian travelers truly need abroad.\n\nFluent in Swahili, English, and French, Kai offers warm, personalized support from the moment you start your visa process to the day you land in Europe. Whether it's your first international trip or your fifth, KM Travel & Tours makes you feel informed, prepared, and right at home anywhere in Europe.\n\nFrom Tanzania to Europe—travel confidently, travel with Kai.";
+const [first, ...rest] = text.split("KM");
+
 
   return (
     <section className="w-full py-12 md:py-20 bg-white text-[#000080]">
@@ -18,7 +25,7 @@ function Why() {
         {/* Image */}
         <div className="w-full md:w-1/2">
           <FadeInImage
-            src="https://res.cloudinary.com/dwkivuqts/image/upload/v1750389279/img11_rlgher.jpg"
+            src={ res?.image ||  "https://res.cloudinary.com/dwkivuqts/image/upload/v1750389279/img11_rlgher.jpg"}
             alt="Travel Experience"
             className="w-full h-auto max-h-[500px] object-cover rounded-lg shadow-md"
           />
@@ -28,13 +35,18 @@ function Why() {
         <div className="w-full md:w-1/2 space-y-2 md:pr-8 text-center md:text-left">
           <Reveal>
             <p className="text-base md:text-lg font-bold font-serif tracking-wide">
-              TIMELESS ADVENTURE
+              { res?.title || "TIMELESS ADVENTURE"}
             </p>
           </Reveal>
 
           <Reveal delay={0.5}>
             <h2 className="text-2xl sm:text-3xl md:text-4xl xl:text-5xl font-black font-roboto leading-tight">
-              WHY CHOOSE <br className="hidden md:block" /> KM TRAVEL AND TOUR
+              {/* WHY CHOOSE <br className="hidden md:block" /> KM TRAVEL AND TOUR */}
+
+                  {first}
+    <br className="hidden md:block" />
+    {"KM" + rest.join("KM")}
+
             </h2>
           </Reveal>
 
@@ -49,6 +61,19 @@ function Why() {
                   `}
                 >
                   <p>
+  {text}
+  {isExpanded && (
+    <>
+      {" "}{extra.split("\n\n").map((para, i) => (
+        <React.Fragment key={i}>
+          {para}
+          <br/><br/>
+        </React.Fragment>
+      ))}
+    </>
+  )}
+</p>
+                  {/* <p>
                     At KM Travel & Tours, you're not just booking a trip, your travel is being organised by someone who understands your journey. Kai Maembe, Tanzanian-born and raised, has lived in France for over 7 years and is an active member of the diaspora community in France.
                     {isExpanded && (
                       <>
@@ -61,7 +86,7 @@ function Why() {
                         From Tanzania to Europe—travel confidently, travel with Kai.
                       </>
                     )}
-                  </p>
+                  </p> */}
                 </div>
                 
                 {/* Fade overlay when collapsed */}

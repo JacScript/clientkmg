@@ -2,6 +2,7 @@ import React from 'react';
 import Link from '../../LinkComponent'; // Assuming LinkComponent is responsive internally
 
 const FeatureCard = ({ data }) => {
+  // console.log(data)
   return (
     <div
       className="relative 
@@ -13,7 +14,7 @@ const FeatureCard = ({ data }) => {
         group cursor-pointer
         transform transition-all duration-500 
         hover:scale-105 hover:-translate-y-2"
-      style={{ backgroundImage: `url(${data.pic})` }}
+      style={{ backgroundImage: `url(${data.url})` }}
     >
       {/* Gradient Overlay */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500"></div>

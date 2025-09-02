@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { BsPatchCheckFill } from "react-icons/bs";
 
-const AmazingCompanySection = () => {
+const SafariExpert = () => {
+  // console.log(data)
   const [hoveredCard, setHoveredCard] = useState(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isVisible, setIsVisible] = useState(false);
@@ -252,4 +253,4 @@ const AmazingCompanySection = () => {
   );
 };
 
-export default AmazingCompanySection;
+export default SafariExpert;

@@ -2,7 +2,12 @@ import React from 'react';
 // Assuming your image path for the safari scene
 // import safariImage from '../../assets/images/about.jpeg'; // Adjust this path to your actual image
 
-export default function UnchartedBoundlessSection() {
+
+
+
+const UnchartedBoundlessSection = ({data}) => {
+
+  // console.log(data)
   return (
     <section className="relative py-16 sm:py-24 lg:py-32 bg-white overflow-hidden">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -12,7 +17,7 @@ export default function UnchartedBoundlessSection() {
           <div className="relative mb-12 lg:mb-0 lg:order-1"> {/* order-1 to place it on left on lg screens */}
             <div className="relative w-full overflow-hidden rounded-tl-[100px] rounded-br-[100px] sm:rounded-tl-[150px] sm:rounded-br-[150px] aspect-[4/3] lg:aspect-[3/4] xl:aspect-[4/3] shadow-xl">
               <img 
-                src="https://res.cloudinary.com/dwkivuqts/image/upload/v1750398324/about_n1mhi4.jpg" //
+                src={ data?.image || "https://res.cloudinary.com/dwkivuqts/image/upload/v1750398324/about_n1mhi4.jpg" }//
                 alt="Safari vehicle with elephants in the distance"
                 className="absolute inset-0 w-full h-full object-cover" 
               />
@@ -25,7 +30,7 @@ export default function UnchartedBoundlessSection() {
             {/* "Safari 360" Tag */}
             <div className="mb-4">
               <span className="inline-block px-4 py-1 rounded-full text-sm font-semibold text-gray-700 bg-gray-100">
-            KM Group
+            { data?.title || "KM Group"}
               </span>
             </div>
 
@@ -37,10 +42,11 @@ export default function UnchartedBoundlessSection() {
             {/* Description Paragraphs */}
             <div className="space-y-6 text-xl text-gray-600 leading-relaxed max-w-xl lg:max-w-none mx-auto lg:mx-0">
               <p>
-          KM Group is a French-Tanzanian enterprise founded by Kai Maembe, a Tanzanian entrepreneur based in France. The group bridges two worlds—bringing global standards and local insight together to deliver trusted, people-centered services across travel, logistics, education, and hospitality.
+                {data?.description || 
+          "KM Group is a French-Tanzanian enterprise founded by Kai Maembe, a Tanzanian entrepreneur based in France. The group bridges two worlds—bringing global standards and local insight together to deliver trusted, people-centered services across travel, logistics, education, and hospitality."}
 <br/>
 <br/>
-With operations rooted in both Tanzania and Europe, KM Group is built on cross-cultural experience, integrity, and a commitment to quality.
+{data?.subdescription||"With operations rooted in both Tanzania and Europe, KM Group is built on cross-cultural experience, integrity, and a commitment to quality."}
               </p>
 
                 <div className="flex flex-col sm:flex-row items-center sm:items-center space-y-4 sm:space-y-0 sm:space-x-6 pt-6">
@@ -78,3 +84,6 @@ With operations rooted in both Tanzania and Europe, KM Group is built on cross-c
     </section>
   );
 }
+
+
+export default UnchartedBoundlessSection;

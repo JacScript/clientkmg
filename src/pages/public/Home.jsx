@@ -92,25 +92,28 @@ const SectionSkeleton = ({ className = "" }) => (
 );
 
 const LoadingSpinner = () => (
-  <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-50">
-    <div className="text-center">
-      <div className="relative">
-        <div className="animate-spin rounded-full h-20 w-20 border-4 border-blue-600 border-t-transparent mx-auto"></div>
-        <div className="absolute inset-0 rounded-full h-20 w-20 border-4 border-blue-200 mx-auto"></div>
-      </div>
-      <h2 className="mt-6 text-xl font-semibold text-gray-800">Loading Your Experience</h2>
-      <p className="mt-2 text-gray-600">Preparing amazing content...</p>
-      <div className="mt-4 flex justify-center space-x-1">
-        {[0, 1, 2].map((i) => (
-          <div
-            key={i}
-            className="w-2 h-2 bg-blue-600 rounded-full animate-bounce"
-            style={{ animationDelay: `${i * 0.1}s` }}
-          />
-        ))}
-      </div>
-    </div>
+  <div>
+
   </div>
+  // <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-50">
+  //   <div className="text-center">
+  //     <div className="relative">
+  //       <div className="animate-spin rounded-full h-20 w-20 border-4 border-blue-600 border-t-transparent mx-auto"></div>
+  //       <div className="absolute inset-0 rounded-full h-20 w-20 border-4 border-blue-200 mx-auto"></div>
+  //     </div>
+  //     <h2 className="mt-6 text-xl font-semibold text-gray-800">Loading Your Experience</h2>
+  //     <p className="mt-2 text-gray-600">Preparing amazing content...</p>
+  //     <div className="mt-4 flex justify-center space-x-1">
+  //       {[0, 1, 2].map((i) => (
+  //         <div
+  //           key={i}
+  //           className="w-2 h-2 bg-blue-600 rounded-full animate-bounce"
+  //           style={{ animationDelay: `${i * 0.1}s` }}
+  //         />
+  //       ))}
+  //     </div>
+  //   </div>
+  // </div>
 );
 
 const ErrorState = ({ onRetry, error }) => (
@@ -203,23 +206,23 @@ const HomeContent = ({ data }) => (
     {/* Why Choose Us Section */}
     <AnimatedSection id="why-section" className="py-12 md:py-20 bg-white" delay={200}>
       <Suspense fallback={<SectionSkeleton className="h-96 mx-8" />}>
-        <Why />
+        <Why data={data}/>
       </Suspense>
     </AnimatedSection>
 
     {/* Feature Tour Section */}
-    <AnimatedSection id="feature-tour" className="py-12 md:py-20 bg-gradient-to-br from-gray-50 to-blue-50" delay={400}>
+    <AnimatedSection id="feature-tour" className=" bg-gradient-to-br from-gray-50 to-blue-50" delay={400}>
       <Suspense fallback={<SectionSkeleton className="h-96 mx-8" />}>
-        <FeatureTour />
+        <FeatureTour data={data?.featuredSections} />
       </Suspense>
     </AnimatedSection>
 
     {/* Contact Section */}
-    <AnimatedSection id="contact-section" className="py-12 md:py-20 bg-white" delay={600}>
-      <Suspense fallback={<SectionSkeleton className="h-80 mx-8" />}>
+    {/* <AnimatedSection id="contact-section" className="py-12 md:py-20 bg-white" delay={600}> */}
+      {/* <Suspense fallback={<SectionSkeleton className="h-80 mx-8" />}> */}
         <ContactUs id="homecontact" />
-      </Suspense>
-    </AnimatedSection>
+      {/* </Suspense> */}
+    {/* </AnimatedSection> */}
   </div>
 );
 

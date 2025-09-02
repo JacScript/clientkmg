@@ -83,7 +83,7 @@ const TestimonialCarousel = ({ component: Component, items }) => {
     >
       <div className="testimonial-carousel">
         <Slider {...settings}>
-          {items.map((item, idx) => (
+          {items?.map((item, idx) => (
             <div key={idx} className="px-2 sm:px-3">
               <Component data={item} />
             </div>
