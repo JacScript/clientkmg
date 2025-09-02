@@ -18,7 +18,7 @@ const data = [
   },
 ];
 
-export default function Hero() {
+export default function Hero({res}) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAutoPlay, setIsAutoPlay] = useState(true);
 
@@ -101,7 +101,7 @@ export default function Hero() {
 
       {/* Slide Indicators */}
       <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 z-30 flex space-x-2">
-        {data.map((_, idx) => (
+        {res?.backgroundImage.map((_, idx) => (
           <button
             key={idx}
             onClick={() => goToSlide(idx)}
@@ -123,27 +123,28 @@ export default function Hero() {
       <div className="z-30 left-4 sm:left-8 lg:left-12" style={{ top: '90%' }}>
         <div className="bg-orange-500 text-white px-4 py-2 rounded-lg shadow-lg transform -rotate-2 hover:rotate-0 transition-transform duration-300">
           <span className="text-sm sm:text-base lg:text-lg font-bold uppercase tracking-wide">
-            Travel And Tours
+            { res?.badge || "Travel And Tours"}
           </span>
         </div>
       </div>
           <Reveal delay={0.2}>
             <h1 className="mt-4 text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-7xl capitalize font-semibold font-roboto text-white leading-tight break-words">
-              from Tanzania to France 
+              {res?.heading || "from Tanzania to France"} 
             </h1>
           </Reveal>
           <Reveal>
             <p className="text-sm sm:text-base lg:text-lg font-medium text-white/90 capitalize font-serif">
-              your personalized holiday from Tanzania to France organized by Kai
+            {res?.subheading || "your personalized holiday from Tanzania to France organized by Kai"}
+              {/* your personalized holiday from Tanzania to France organized by Kai */}
             </p>
           </Reveal>
           
           <div className="mt-6 sm:mt-8 flex justify-center">
             <Link
-              href="/about-us"
+              href={res?.buttonLink || "/about-us"}
               className="rounded-md bg-[#000080] px-4 sm:px-6 py-2 sm:py-3 lg:py-4 text-sm sm:text-base lg:text-lg font-semibold text-white hover:text-[#000080] hover:border-white shadow-lg hover:bg-white/80 border-2 border-[#000080] transition ease-in duration-150 cursor-pointer "
             >
-              Find out more
+              { res?.buttonText || "Find out more"}
             </Link>
           </div>
         </div>
