@@ -269,7 +269,7 @@ const usePerformanceMonitor = (componentName) => {
       
       return () => {
         const endTime = performance.now();
-        console.log(`${componentName} render time: ${(endTime - startTime).toFixed(2)}ms`);
+        // console.log(`${componentName} render time: ${(endTime - startTime).toFixed(2)}ms`);
       };
     }
   }, [componentName]);
@@ -302,11 +302,11 @@ const Home = () => {
     refetchOnWindowFocus: false,
     refetchOnReconnect: true,
     onError: (error) => {
-      console.error('Homepage data fetch failed:', error);
+      // console.error('Homepage data fetch failed:', error);
       // Optional: Send error to monitoring service
     },
     onSuccess: (data) => {
-      console.log('Homepage data loaded successfully');
+      // console.log('Homepage data loaded successfully');
     }
   });
 
@@ -343,13 +343,13 @@ const Home = () => {
   // Debug logging (development only)
   useEffect(() => {
     if (process.env.NODE_ENV === 'development') {
-      console.group('Home Component Debug');
-      console.log('Data loading:', isLoading);
-      console.log('Data fetching:', isFetching);
-      console.log('Has error:', isError);
-      console.log('Home data:', homeData);
+      // console.group('Home Component Debug');
+      // console.log('Data loading:', isLoading);
+      // console.log('Data fetching:', isFetching);
+      // console.log('Has error:', isError);
+      // console.log('Home data:', homeData);
       if (error) console.error('Error details:', error);
-      console.groupEnd();
+      // console.groupEnd();
     }
   }, [isLoading, isFetching, isError, homeData, error]);
 

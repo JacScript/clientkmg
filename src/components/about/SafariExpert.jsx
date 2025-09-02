@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { BsPatchCheckFill } from "react-icons/bs";
 
-const SafariExpert = () => {
-  // console.log(data)
+const SafariExpert = ({data}) => {
   const [hoveredCard, setHoveredCard] = useState(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isVisible, setIsVisible] = useState(false);
-
+  
   useEffect(() => {
     setIsVisible(true);
     
@@ -16,39 +15,12 @@ const SafariExpert = () => {
         y: e.clientY / window.innerHeight,
       });
     };
-
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
-
-  const infos = [
-    {
-      id: 1,
-      title: "KM Travel & Tours",
-      description: "Tailored travel experiences for Tanzanians exploring Europe, especially France and neighboring countries, with full support from visa to airport pick-up.",
-      icon: "✈️"
-    },
-    {
-      id: 2,
-      title: "KM Logistics",
-      description: "Reliable freight and cargo solutions connecting local and regional markets.",
-      icon: "🚛"
-    },
-    {
-      id: 3,
-      title: "KM Kiswahili Institute",
-      description: "A center dedicated to promoting the Swahili language and Tanzanian culture to global learners and researchers.",
-      icon: "📚"
-    },
-    {
-      id: 4,
-      title: "KM Bahari Beach Holiday Home",
-      description: "A tranquil coastal escape offering personalized accommodation on Tanzania's beautiful shores.",
-      icon: "🏖️"
-    },
-  ];
-
-  const services = [
+  
+  // Default services with icons (fallback if data?.valueSection is not available)
+  const defaultServices = [
     {
       id: 1,
       title: "Our Mission",
@@ -77,6 +49,46 @@ const SafariExpert = () => {
     },
   ];
 
+  // Default info items with icons (fallback if data?.whoweareSection?.service is not available)
+  const defaultInfos = [
+    {
+      id: 1,
+      title: "KM Travel & Tours",
+      description: "Tailored travel experiences for Tanzanians exploring Europe, especially France and neighboring countries, with full support from visa to airport pick-up.",
+      icon: "✈️"
+    },
+    {
+      id: 2,
+      title: "KM Logistics",
+      description: "Reliable freight and cargo solutions connecting local and regional markets.",
+      icon: "🚛"
+    },
+    {
+      id: 3,
+      title: "KM Kiswahili Institute",
+      description: "A center dedicated to promoting the Swahili language and Tanzanian culture to global learners and researchers.",
+      icon: "📚"
+    },
+    {
+      id: 4,
+      title: "KM Bahari Beach Holiday Home",
+      description: "A tranquil coastal escape offering personalized accommodation on Tanzania's beautiful shores.",
+      icon: "🏖️"
+    },
+  ];
+
+  // Fallback icon component
+  const FallbackIcon = () => (
+    <div className="relative">
+      <div className="absolute inset-0 bg-blue-400 rounded-full blur-lg opacity-50 animate-pulse"></div>
+      <BsPatchCheckFill className="relative w-8 h-8 text-white" />
+    </div>
+  );
+
+  // Use data if available, otherwise use defaults
+  const services = data?.valueSection || defaultServices;
+  const infosData = data?.whoweareSection?.service || defaultInfos;
+
   return (
     <section className="relative min-h-screen py-20 px-4 overflow-hidden bg-gradient-to-br from-slate-50 via-white to-gray-50">
       {/* Animated Background */}
@@ -97,7 +109,7 @@ const SafariExpert = () => {
         {/* Grid pattern overlay */}
         <div className="absolute inset-0 bg-[linear-gradient(rgba(0,0,128,.02)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,128,.02)_1px,transparent_1px)] bg-[size:100px_100px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_110%)]"></div>
       </div>
-
+      
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
           
@@ -110,7 +122,7 @@ const SafariExpert = () => {
                 <div className="absolute inset-0 rounded-full bg-blue-400/10 blur-xl group-hover:blur-2xl transition-all duration-300"></div>
               </span>
             </div>
-
+            
             {/* Main Title */}
             <div className="space-y-4">
               <h2 className="text-4xl lg:text-6xl font-black leading-tight" style={{ color: '#000080' }}>
@@ -120,11 +132,11 @@ const SafariExpert = () => {
                 </span>
               </h2>
             </div>
-
+            
             {/* Description */}
             <div className="space-y-8">
               <div className="space-y-8">
-                {infos.map((info, idx) => (
+                {infosData.map((info, idx) => (
                   <div 
                     key={idx} 
                     className={`group flex items-start gap-6 p-6 rounded-2xl bg-blue-400/5 backdrop-blur-sm border border-blue-400/20 hover:bg-blue-400/10 hover:border-blue-400/40 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-blue-400/20 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}
@@ -132,7 +144,7 @@ const SafariExpert = () => {
                   >
                     <div className="flex-shrink-0">
                       <div className="w-16 h-16 rounded-2xl bg-gradient-to-r from-blue-400 to-blue-500 flex items-center justify-center text-2xl group-hover:scale-110 group-hover:rotate-12 transition-all duration-500 shadow-lg shadow-blue-400/25">
-                        {info.icon}
+                        {info.icon || <FallbackIcon />}
                       </div>
                     </div>
                     <div className="flex-1 space-y-3">
@@ -146,21 +158,21 @@ const SafariExpert = () => {
                   </div>
                 ))}
               </div>
-
+              
               <div className="relative p-6 mt-12 text-center">
                 <div className="absolute inset-0 bg-blue-400/10 rounded-2xl blur-xl"></div>
                 <p className="relative text-lg text-gray-700 font-medium">
-                  Our team works across continents to create value, build connections, and support community development through everything we do.
+                  { data?.whoweareSection?.bottomtext||"Our team works across continents to create value, build connections, and support community development through everything we do."}
                 </p>
               </div>
             </div>
           </div>
-
+          
           {/* Right Side - Mission & Vision Cards */}
           <div className={`space-y-8 transition-all duration-1000 delay-300 ${isVisible ? 'translate-x-0 opacity-100' : 'translate-x-20 opacity-0'}`}>
             {services.map((service, index) => (
               <div 
-                key={service.id}
+                key={index}
                 className={`group relative overflow-hidden rounded-3xl transition-all duration-700 hover:scale-105 ${hoveredCard === service.id ? 'z-20' : 'z-10'}`}
                 onMouseEnter={() => setHoveredCard(service.id)}
                 onMouseLeave={() => setHoveredCard(null)}
@@ -179,20 +191,20 @@ const SafariExpert = () => {
                     {/* Icon Container */}
                     <div className="mb-8">
                       <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-blue-400 to-blue-500 rounded-2xl group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg shadow-blue-400/30 group-hover:shadow-2xl group-hover:shadow-blue-400/50">
-                        {service.icon}
+                        {service.icon || <FallbackIcon />}
                       </div>
                     </div>
-
+                    
                     {/* Title */}
                     <h3 className="text-3xl font-black mb-6 group-hover:text-blue-400 transition-all duration-300" style={{ color: '#000080' }}>
                       {service.title}
                     </h3>
-
+                    
                     {/* Description */}
                     <p className="text-gray-600 text-lg leading-relaxed group-hover:text-gray-700 transition-colors duration-300">
                       {service.description}
                     </p>
-
+                    
                     {/* Animated CTA */}
                     <div className="mt-8 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 delay-200">
                       <div className="inline-flex items-center text-blue-400 font-bold text-lg">
@@ -205,7 +217,7 @@ const SafariExpert = () => {
                       </div>
                     </div>
                   </div>
-
+                  
                   {/* Floating decorative elements */}
                   <div className="absolute top-4 right-4 w-20 h-20 bg-blue-400/10 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-700 animate-pulse"></div>
                   <div className="absolute bottom-4 left-4 w-12 h-12 bg-blue-400/5 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-700 delay-300 animate-pulse"></div>
@@ -214,7 +226,7 @@ const SafariExpert = () => {
             ))}
           </div>
         </div>
-
+        
         {/* Bottom Decorative Elements */}
         <div className="mt-20 flex justify-center space-x-4">
           <div className="w-40 h-1 bg-gradient-to-r from-transparent via-blue-400 to-transparent rounded-full animate-pulse"></div>
@@ -222,7 +234,7 @@ const SafariExpert = () => {
           <div className="w-40 h-1 bg-gradient-to-r from-transparent via-blue-400 to-transparent rounded-full animate-pulse delay-2000"></div>
         </div>
       </div>
-
+      
       <style jsx>{`
         @keyframes float {
           0%, 100% { transform: translateY(0px) rotate(0deg); }
