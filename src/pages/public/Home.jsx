@@ -1,80 +1,9 @@
-// import React from "react";
-// import Carousel from "../../components/Carousel";
 
-// import SendRequestForm from "../../components/SendRequestForm";
-// import { IoLogoWhatsapp } from "react-icons/io";
-// import Discover from "../../components/home/discovery/Discover";
-// import IntroText from "../../components/home/IntroText";
-// import Hero from "../../components/home/hero/Hero";
-// import SmallWord from "../../components/home/smallTalk/SmallTalk";
-// import SmallTalk from "../../components/home/smallTalk/SmallTalk";
-// import Why from "../../components/home/why/Why";
-// import About from "../../components/About";
-// import Testimonial from "../../components/home/testimonial/Testimonial";
-// import ContactUs from "../../components/contact/Contact";
-// import Footer from "../../components/Footer";
-// import FeatureTour from "../../components/home/featureTour/FeatureTour";
-// import CombineHomeAndDiscovery from "../../components/CombinedHomeAndDiscoveryComponent"
-// import UseTitle from "../../components/useTitle";
-// import { keepPreviousData, useQuery } from "@tanstack/react-query";
-// import { getHomePageData } from "../../http";
-
-
-// const Home = () => {
-//   const { data: resData, isLoading, isError } = useQuery({
-//     queryKey: ['homepage'],
-//     queryFn: async () => {
-//       return await getHomePageData();
-//     },
-//     placeholderData: keepPreviousData,
-//   });
-
-//   console.log("home data", resData?.data.data)
-
-//   const response = resData?.data.data;
-
-//    UseTitle('Home')
-
-//   return (
-//     <div className="max-w-screen scrollbar-hide">
-     
-
-    
-// <CombineHomeAndDiscovery data={response}/>
-
-     
-
-     
-
-//       {/* Why section */}
-//       <Why/>
-
-//       {/* About */}
-
-//       {/* <About/> */}
-
-//       <FeatureTour/>
-
-//       {/* Testimonial */}
-
-//       {/* <Testimonial/> */}
-
-//       {/* contact */}
-//     <ContactUs id='homecontact'/>
-
-// {/* <Footer/> */}
-//     </div>
-//   );
-// };
-
-// export default Home;
-
-
-
-import React, { useEffect, useState, Suspense, lazy } from "react";
+import React, { useEffect, useState, Suspense, lazy, useMemo } from "react";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import { getHomePageData } from "../../http";
+import { getHomePageData, getTestimonials } from "../../http";
 import UseTitle from "../../components/useTitle";
+import Testimonial from "../../components/home/testimonial/Testimonial";
 
 // Lazy load components for better performance
 const CombineHomeAndDiscovery = lazy(() => import("../../components/CombinedHomeAndDiscoveryComponent"));
@@ -82,9 +11,48 @@ const Why = lazy(() => import("../../components/home/why/Why"));
 const FeatureTour = lazy(() => import("../../components/home/featureTour/FeatureTour"));
 const ContactUs = lazy(() => import("../../components/contact/Contact"));
 
+// Error Boundary Component
+class ErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false, errorInfo: null };
+  }
+
+  static getDerivedStateFromError(error) {
+    return { hasError: true };
+  }
+
+  componentDidCatch(error, errorInfo) {
+    if (process.env.NODE_ENV === 'development') {
+      console.error('Error caught by boundary:', error, errorInfo);
+    }
+    this.setState({ errorInfo });
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="min-h-screen flex items-center justify-center bg-gray-50">
+          <div className="text-center p-8 max-w-md">
+            <h2 className="text-2xl font-bold text-gray-800 mb-4">Something went wrong</h2>
+            <p className="text-gray-600 mb-6">Please refresh the page to try again</p>
+            <button 
+              onClick={() => window.location.reload()}
+              className="px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
+            >
+              Refresh Page
+            </button>
+          </div>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
+
 // Reusable Loading Components
 const SectionSkeleton = ({ className = "" }) => (
-  <div className={`animate-pulse bg-gray-200 rounded-lg ${className}`}>
+  <div className={`animate-pulse bg-gray-200 rounded-lg p-6 ${className}`}>
     <div className="h-4 bg-gray-300 rounded w-3/4 mb-4"></div>
     <div className="h-4 bg-gray-300 rounded w-1/2 mb-4"></div>
     <div className="h-32 bg-gray-300 rounded"></div>
@@ -92,28 +60,25 @@ const SectionSkeleton = ({ className = "" }) => (
 );
 
 const LoadingSpinner = () => (
-  <div>
-
+  <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-50">
+    {/* <div className="text-center">
+      <div className="relative">
+        <div className="animate-spin rounded-full h-20 w-20 border-4 border-blue-600 border-t-transparent mx-auto"></div>
+        <div className="absolute inset-0 rounded-full h-20 w-20 border-4 border-blue-200 mx-auto"></div>
+      </div>
+      <h2 className="mt-6 text-xl font-semibold text-gray-800">Loading Your Experience</h2>
+      <p className="mt-2 text-gray-600">Preparing amazing content...</p>
+      <div className="mt-4 flex justify-center space-x-1">
+        {[0, 1, 2].map((i) => (
+          <div
+            key={i}
+            className="w-2 h-2 bg-blue-600 rounded-full animate-bounce"
+            style={{ animationDelay: `${i * 0.1}s` }}
+          />
+        ))}
+      </div>
+    </div> */}
   </div>
-  // <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-50">
-  //   <div className="text-center">
-  //     <div className="relative">
-  //       <div className="animate-spin rounded-full h-20 w-20 border-4 border-blue-600 border-t-transparent mx-auto"></div>
-  //       <div className="absolute inset-0 rounded-full h-20 w-20 border-4 border-blue-200 mx-auto"></div>
-  //     </div>
-  //     <h2 className="mt-6 text-xl font-semibold text-gray-800">Loading Your Experience</h2>
-  //     <p className="mt-2 text-gray-600">Preparing amazing content...</p>
-  //     <div className="mt-4 flex justify-center space-x-1">
-  //       {[0, 1, 2].map((i) => (
-  //         <div
-  //           key={i}
-  //           className="w-2 h-2 bg-blue-600 rounded-full animate-bounce"
-  //           style={{ animationDelay: `${i * 0.1}s` }}
-  //         />
-  //       ))}
-  //     </div>
-  //   </div>
-  // </div>
 );
 
 const ErrorState = ({ onRetry, error }) => (
@@ -193,38 +158,81 @@ const ComponentFallback = ({ height = "h-64" }) => (
   </div>
 );
 
+// Safe component wrapper
+const SafeComponent = ({ children, fallback = null, name = "Component" }) => {
+  try {
+    return children();
+  } catch (error) {
+    if (process.env.NODE_ENV === 'development') {
+      console.error(`${name} crashed:`, error);
+    }
+    return fallback || <div className="p-4 text-center text-gray-500">Component temporarily unavailable</div>;
+  }
+};
+
 // Main content sections
-const HomeContent = ({ data }) => (
-  <div className="max-w-screen overflow-x-hidden">
-    {/* Hero & Discovery Combined Section */}
-    <AnimatedSection id="hero-discovery" className="relative">
-      <Suspense fallback={<ComponentFallback height="h-screen" />}>
-        <CombineHomeAndDiscovery data={data} />
-      </Suspense>
-    </AnimatedSection>
+const HomeContent = ({ homeData, testimonialData }) => {
+  // Safely extract testimonial data
+  const testimonials = useMemo(() => {
+    try {
+      if (!testimonialData) return [];
+      if (testimonialData?.data?.data) return testimonialData.data.data;
+      if (testimonialData?.data) return testimonialData.data;
+      if (Array.isArray(testimonialData)) return testimonialData;
+      return [];
+    } catch (error) {
+      if (process.env.NODE_ENV === 'development') {
+        console.error('Error processing testimonial data:', error);
+      }
+      return [];
+    }
+  }, [testimonialData]);
 
-    {/* Why Choose Us Section */}
-    <AnimatedSection id="why-section" className="py-12 md:py-20 bg-white" delay={200}>
-      <Suspense fallback={<SectionSkeleton className="h-96 mx-8" />}>
-        <Why data={data}/>
-      </Suspense>
-    </AnimatedSection>
+  return (
+    <div className="max-w-screen overflow-x-hidden">
+      {/* Hero & Discovery Combined Section */}
+      <AnimatedSection id="hero-discovery" className="relative">
+        <Suspense fallback={<ComponentFallback height="h-screen" />}>
+          <SafeComponent name="CombineHomeAndDiscovery" fallback={<ComponentFallback height="h-screen" />}>
+            {() => <CombineHomeAndDiscovery data={homeData} />}
+          </SafeComponent>
+        </Suspense>
+      </AnimatedSection>
 
-    {/* Feature Tour Section */}
-    <AnimatedSection id="feature-tour" className=" bg-gradient-to-br from-gray-50 to-blue-50" delay={400}>
-      <Suspense fallback={<SectionSkeleton className="h-96 mx-8" />}>
-        <FeatureTour data={data?.featuredSections} />
-      </Suspense>
-    </AnimatedSection>
+      {/* Why Choose Us Section */}
+      <AnimatedSection id="why-section" className="py-12 md:py-20 bg-white" delay={200}>
+        <Suspense fallback={<SectionSkeleton className="h-96 mx-8" />}>
+          <SafeComponent name="Why" fallback={<SectionSkeleton className="h-96 mx-8" />}>
+            {() => <Why data={homeData} />}
+          </SafeComponent>
+        </Suspense>
+      </AnimatedSection>
 
-    {/* Contact Section */}
-    {/* <AnimatedSection id="contact-section" className="py-12 md:py-20 bg-white" delay={600}> */}
-      {/* <Suspense fallback={<SectionSkeleton className="h-80 mx-8" />}> */}
-        <ContactUs id="homecontact" />
-      {/* </Suspense> */}
-    {/* </AnimatedSection> */}
-  </div>
-);
+      {/* Feature Tour Section */}
+      <AnimatedSection id="feature-tour" className="bg-gradient-to-br from-gray-50 to-blue-50" delay={400}>
+        <Suspense fallback={<SectionSkeleton className="h-96 mx-8" />}>
+          <SafeComponent name="FeatureTour" fallback={<SectionSkeleton className="h-96 mx-8" />}>
+            {() => <FeatureTour data={homeData?.featuredSections} />}
+          </SafeComponent>
+        </Suspense>
+      </AnimatedSection>
+
+      {/* Testimonial Section */}
+      <AnimatedSection id="testimonial" className="bg-gradient-to-br from-gray-50 to-blue-50" delay={600}>
+        <Suspense fallback={<SectionSkeleton className="h-96 mx-8" />}>
+          <SafeComponent name="Testimonial" fallback={<SectionSkeleton className="h-96 mx-8" />}>
+            {() => <Testimonial data={testimonials} />}
+          </SafeComponent>
+        </Suspense>
+      </AnimatedSection>
+
+      {/* Contact Section */}
+      <SafeComponent name="ContactUs" fallback={<div className="h-20 bg-gray-50"></div>}>
+        {() => <ContactUs id="homecontact" />}
+      </SafeComponent>
+    </div>
+  );
+};
 
 // Floating Back to Top Button
 const BackToTopButton = () => {
@@ -261,36 +269,19 @@ const BackToTopButton = () => {
   );
 };
 
-// Performance monitoring (development only)
-const usePerformanceMonitor = (componentName) => {
-  useEffect(() => {
-    if (process.env.NODE_ENV === 'development') {
-      const startTime = performance.now();
-      
-      return () => {
-        const endTime = performance.now();
-        // console.log(`${componentName} render time: ${(endTime - startTime).toFixed(2)}ms`);
-      };
-    }
-  }, [componentName]);
-};
-
 // Main Home Component
 const Home = () => {
-  // Performance monitoring in development
-  usePerformanceMonitor('Home Component');
-
   // Set dynamic page title
   UseTitle('Home - Experience the Extraordinary');
 
   // Fetch homepage data with enhanced configuration
   const { 
     data: resData, 
-    isLoading, 
-    isError, 
-    error, 
-    refetch,
-    isFetching 
+    isLoading: homeLoading, 
+    isError: homeError, 
+    error: homeErrorObj, 
+    refetch: refetchHome,
+    isFetching: homeFetching 
   } = useQuery({
     queryKey: ['homepage'],
     queryFn: getHomePageData,
@@ -301,22 +292,54 @@ const Home = () => {
     retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000),
     refetchOnWindowFocus: false,
     refetchOnReconnect: true,
-    onError: (error) => {
-      // console.error('Homepage data fetch failed:', error);
-      // Optional: Send error to monitoring service
-    },
-    onSuccess: (data) => {
-      // console.log('Homepage data loaded successfully');
-    }
   });
 
-  // Extract response data
-  const homeData = resData?.data?.data;
+  // Fetch testimonials data
+  const { 
+    data: testimonialData, 
+    isLoading: testimonialLoading,
+    isError: testimonialError,
+    refetch: refetchTestimonials 
+  } = useQuery({
+    queryKey: ['testimonials'],
+    queryFn: getTestimonials,
+    placeholderData: keepPreviousData,
+    staleTime: 10 * 60 * 1000, // 10 minutes
+    retry: 2,
+    refetchOnWindowFocus: false,
+  });
 
-  // Handle retry
+  // Extract response data safely
+  const homeData = useMemo(() => {
+    try {
+      return resData?.data?.data;
+    } catch (error) {
+      if (process.env.NODE_ENV === 'development') {
+        console.error('Error extracting home data:', error);
+      }
+      return null;
+    }
+  }, [resData]);
+
+  // Handle retry for both queries
   const handleRetry = () => {
-    refetch();
+    refetchHome();
+    refetchTestimonials();
   };
+
+  // Debug logging (development only)
+  useEffect(() => {
+    if (process.env.NODE_ENV === 'development') {
+      // console.group('Home Component Debug');
+      // console.log('Home data loading:', homeLoading);
+      // console.log('Testimonial data loading:', testimonialLoading);
+      // console.log('Home data:', homeData);
+      // console.log('Testimonial data:', testimonialData);
+      if (homeErrorObj) console.error('Home error:', homeErrorObj);
+      if (testimonialError) console.error('Testimonial error:', testimonialError);
+      // console.groupEnd();
+    }
+  }, [homeLoading, testimonialLoading, homeData, testimonialData, homeErrorObj, testimonialError]);
 
   // Add structured data for SEO
   useEffect(() => {
@@ -335,51 +358,40 @@ const Home = () => {
       document.head.appendChild(script);
 
       return () => {
-        document.head.removeChild(script);
+        if (document.head.contains(script)) {
+          document.head.removeChild(script);
+        }
       };
     }
   }, [homeData]);
 
-  // Debug logging (development only)
-  useEffect(() => {
-    if (process.env.NODE_ENV === 'development') {
-      // console.group('Home Component Debug');
-      // console.log('Data loading:', isLoading);
-      // console.log('Data fetching:', isFetching);
-      // console.log('Has error:', isError);
-      // console.log('Home data:', homeData);
-      if (error) console.error('Error details:', error);
-      // console.groupEnd();
-    }
-  }, [isLoading, isFetching, isError, homeData, error]);
-
-  // Loading state
-  if (isLoading) {
+  // Loading state - only show if critical home data is loading
+  if (homeLoading && !homeData) {
     return <LoadingSpinner />;
   }
 
-  // Error state
-  if (isError) {
-    return <ErrorState onRetry={handleRetry} error={error} />;
+  // Error state - only show if home data failed (testimonials are optional)
+  if (homeError) {
+    return <ErrorState onRetry={handleRetry} error={homeErrorObj} />;
   }
 
   // Success state
   return (
-    <>
+    <ErrorBoundary>
       <main className="scrollbar-hide relative min-h-screen">
         {/* Background refetch indicator */}
-        {isFetching && !isLoading && (
+        {(homeFetching && !homeLoading) && (
           <div className="fixed top-0 left-0 right-0 h-1 bg-blue-200 z-50">
             <div className="h-full bg-blue-600 animate-pulse"></div>
           </div>
         )}
         
-        <HomeContent data={homeData} />
+        <HomeContent homeData={homeData} testimonialData={testimonialData} />
         <BackToTopButton />
       </main>
-    </>
+    </ErrorBoundary>
   );
 };
 
-// Export with error boundary wrapper
+// Export with React.memo for performance
 export default React.memo(Home);
