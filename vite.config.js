@@ -175,6 +175,7 @@ export default defineConfig({
     global: 'globalThis',
   },
   build: {
+    chunkSizeWarningLimit: 1000,
     target: 'esnext',
     rollupOptions: {
       external: ['fsevents', 'lightningcss']
