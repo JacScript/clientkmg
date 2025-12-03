@@ -73,7 +73,7 @@ const FeatureTour = ({data}) => {
             >View More</Link>
           </div> */}
 
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-8 sm:mt-12 lg:mt-16 px-4">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-20 sm:mt-12 lg:mt-16 px-4">
       {/* View Packages Button */}
       <Link
         href="/packages"

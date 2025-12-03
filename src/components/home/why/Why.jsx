@@ -101,8 +101,8 @@ const [first, ...rest] = text.split("KM");
               <button
                 onClick={toggleExpanded}
                 className="
-                   md:px-2 md:py-1
-                  text-base sm:text-lg md:text-base font-bold
+                   px-2 md:py-1
+                   md:text-base font-bold
                   text-[#000080] border-1 border-[#000080] rounded-lg
                   hover:bg-[#000080] hover:text-white
                   transition-all duration-300 transform hover:scale-105

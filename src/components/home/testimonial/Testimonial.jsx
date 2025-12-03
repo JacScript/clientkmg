@@ -167,30 +167,30 @@ const Testimonial = ({ data }) => {
         <div className="absolute inset-0 bg-[linear-gradient(rgba(59,130,246,.03)_1px,transparent_1px),linear-gradient(90deg,rgba(59,130,246,.03)_1px,transparent_1px)] bg-[size:100px_100px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_110%)]"></div>
       </div>
 
-      <div className="max-w-6xl mx-auto relative z-10">
+      <div className="w-full md:w-[80%] mx-auto relative z-10">
         {/* Header */}
         <div className="text-center mb-16">
           <div className="inline-block group mb-6">
-            <span className="relative text-blue-500 font-bold text-lg tracking-wide px-6 py-3 rounded-full border-2 border-blue-500/30 backdrop-blur-sm bg-blue-500/5 hover:bg-blue-500/10 transition-all duration-300 group-hover:scale-105 hover:border-blue-500/50">
+            <span className="relative text-blue-500 font-bold text-medium md:text-lg tracking-wide px-6 py-3 rounded-full border-2 border-blue-500/30 backdrop-blur-sm bg-blue-500/5 hover:bg-blue-500/10 transition-all duration-300 group-hover:scale-105 hover:border-blue-500/50">
               Testimonials
               <div className="absolute inset-0 rounded-full bg-blue-500/10 blur-xl group-hover:blur-2xl transition-all duration-300"></div>
             </span>
           </div>
           
-          <h2 className="text-5xl lg:text-7xl font-black leading-tight text-[#000080] mb-6">
+          <h2 className="text-4xl lg:text-7xl font-black leading-tight text-[#000080] mb-6">
             What Our
             <span className="block text-blue-500 animate-gradient-text">
               Clients Say
             </span>
           </h2>
           
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-xs md:text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
             Discover the experiences that make our clients choose us again and again
           </p>
         </div>
 
         {/* Main Testimonial Card */}
-        <div className="relative px-12">
+        <div className="w-full relative px-12">
           <div className={`transform transition-all duration-500 ease-out ${
             isAnimating ? 'scale-95 opacity-0 rotate-1' : 'scale-100 opacity-100 rotate-0'
           }`}>
@@ -245,7 +245,7 @@ const Testimonial = ({ data }) => {
 
                     {/* Testimonial Text */}
                     <div className="flex-1">
-                      <blockquote className="text-2xl lg:text-3xl leading-relaxed text-gray-700 font-light italic mb-8">
+                      <blockquote className="text-xs md:text-2xl lg:text-3xl leading-relaxed text-gray-700 font-light italic mb-8">
                         {currentTestimonial?.description || currentTestimonial?.testimonial || 'Amazing service and experience!'}
                       </blockquote>
                       
