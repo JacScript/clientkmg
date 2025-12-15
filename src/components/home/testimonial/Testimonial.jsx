@@ -190,7 +190,7 @@ const Testimonial = ({ data }) => {
         </div>
 
         {/* Main Testimonial Card */}
-        <div className="w-full relative px-12">
+        <div className="w-full relative md:px-12 px-4">
           <div className={`transform transition-all duration-500 ease-out ${
             isAnimating ? 'scale-95 opacity-0 rotate-1' : 'scale-100 opacity-100 rotate-0'
           }`}>
