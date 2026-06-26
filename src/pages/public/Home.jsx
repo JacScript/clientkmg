@@ -1,4 +1,5 @@
 
+
 import React, { useEffect, useState, Suspense, lazy, useMemo } from "react";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { getHomePageData, getTestimonials } from "../../http";
@@ -18,7 +19,7 @@ class ErrorBoundary extends React.Component {
     this.state = { hasError: false, errorInfo: null };
   }
 
-  static getDerivedStateFromError(error) {
+  static getDerivedStateFromError() {
     return { hasError: true };
   }
 
@@ -36,7 +37,7 @@ class ErrorBoundary extends React.Component {
           <div className="text-center p-8 max-w-md">
             <h2 className="text-2xl font-bold text-gray-800 mb-4">Something went wrong</h2>
             <p className="text-gray-600 mb-6">Please refresh the page to try again</p>
-            <button 
+            <button
               onClick={() => window.location.reload()}
               className="px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
             >
@@ -61,23 +62,6 @@ const SectionSkeleton = ({ className = "" }) => (
 
 const LoadingSpinner = () => (
   <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-50">
-    {/* <div className="text-center">
-      <div className="relative">
-        <div className="animate-spin rounded-full h-20 w-20 border-4 border-blue-600 border-t-transparent mx-auto"></div>
-        <div className="absolute inset-0 rounded-full h-20 w-20 border-4 border-blue-200 mx-auto"></div>
-      </div>
-      <h2 className="mt-6 text-xl font-semibold text-gray-800">Loading Your Experience</h2>
-      <p className="mt-2 text-gray-600">Preparing amazing content...</p>
-      <div className="mt-4 flex justify-center space-x-1">
-        {[0, 1, 2].map((i) => (
-          <div
-            key={i}
-            className="w-2 h-2 bg-blue-600 rounded-full animate-bounce"
-            style={{ animationDelay: `${i * 0.1}s` }}
-          />
-        ))}
-      </div>
-    </div> */}
   </div>
 );
 
@@ -91,15 +75,15 @@ const ErrorState = ({ onRetry, error }) => (
       </div>
       <h3 className="text-2xl font-bold text-gray-900 mb-3">Something Went Wrong</h3>
       <p className="text-gray-600 mb-6">We're having trouble loading the content. Don't worry, it's not you!</p>
-      
+
       {process.env.NODE_ENV === 'development' && error && (
         <div className="bg-gray-100 rounded-lg p-4 mb-6 text-left">
           <p className="text-sm text-gray-800 font-mono">{error.message}</p>
         </div>
       )}
-      
+
       <div className="space-y-3">
-        <button 
+        <button
           onClick={onRetry}
           className="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
         >
@@ -108,7 +92,7 @@ const ErrorState = ({ onRetry, error }) => (
           </svg>
           Try Again
         </button>
-        <button 
+        <button
           onClick={() => window.location.href = '/'}
           className="w-full sm:w-auto block sm:inline-block ml-0 sm:ml-3 px-6 py-3 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
         >
@@ -140,11 +124,10 @@ const AnimatedSection = ({ id, children, className = "", delay = 0 }) => {
   }, [id, delay]);
 
   return (
-    <section 
-      id={id} 
-      className={`transition-all duration-1000 ${
-        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-      } ${className}`}
+    <section
+      id={id}
+      className={`transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+        } ${className}`}
     >
       {children}
     </section>
@@ -170,23 +153,52 @@ const SafeComponent = ({ children, fallback = null, name = "Component" }) => {
   }
 };
 
+/**
+ * Robustly extracts the testimonials array from the raw axios response.
+ *
+ * Axios wraps every response in a `response.data` envelope, so the shape is:
+ *   testimonialData         = axios response object  → { data: <backend payload> }
+ *   testimonialData.data    = backend payload         → could be [] | {data:[]} | {data:{data:[]}}
+ *
+ * We probe each layer so it works regardless of how the backend structures its JSON.
+ */
+const extractTestimonials = (testimonialData) => {
+  try {
+    if (!testimonialData) return [];
+
+    // Layer 1 – axios response object: { data: <payload> }
+    const payload = testimonialData?.data;
+    if (!payload) return [];
+
+    // Layer 2a – backend returns array directly: []
+    if (Array.isArray(payload)) return payload;
+
+    // Layer 2b – backend returns { data: [] }
+    if (Array.isArray(payload?.data)) return payload.data;
+
+    // Layer 2c – backend returns { data: { data: [] } }  (e.g. paginated)
+    if (Array.isArray(payload?.data?.data)) return payload.data.data;
+
+    // Layer 2d – backend returns { testimonials: [] }
+    if (Array.isArray(payload?.testimonials)) return payload.testimonials;
+
+    // Layer 2e – backend returns { data: { testimonials: [] } }
+    if (Array.isArray(payload?.data?.testimonials)) return payload.data.testimonials;
+
+    console.warn('[Home] Could not find testimonials array. Raw payload:', payload);
+    return [];
+  } catch (err) {
+    console.error('[Home] extractTestimonials error:', err);
+    return [];
+  }
+};
+
 // Main content sections
 const HomeContent = ({ homeData, testimonialData }) => {
-  // Safely extract testimonial data
-  const testimonials = useMemo(() => {
-    try {
-      if (!testimonialData) return [];
-      if (testimonialData?.data?.data) return testimonialData.data.data;
-      if (testimonialData?.data) return testimonialData.data;
-      if (Array.isArray(testimonialData)) return testimonialData;
-      return [];
-    } catch (error) {
-      if (process.env.NODE_ENV === 'development') {
-        console.error('Error processing testimonial data:', error);
-      }
-      return [];
-    }
-  }, [testimonialData]);
+  const testimonials = useMemo(
+    () => extractTestimonials(testimonialData),
+    [testimonialData]
+  );
 
   return (
     <div className="max-w-screen overflow-x-hidden">
@@ -248,18 +260,14 @@ const BackToTopButton = () => {
   }, []);
 
   const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
     <button
       onClick={scrollToTop}
-      className={`fixed bottom-8 left-8 z-50 p-3 bg-blue-600 text-white rounded-full shadow-lg hover:bg-blue-700 transition-all duration-300 transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${
-        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10 pointer-events-none'
-      }`}
+      className={`fixed bottom-8 left-8 z-50 p-3 bg-blue-600 text-white rounded-full shadow-lg hover:bg-blue-700 transition-all duration-300 transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10 pointer-events-none'
+        }`}
       aria-label="Back to top"
     >
       <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -271,45 +279,63 @@ const BackToTopButton = () => {
 
 // Main Home Component
 const Home = () => {
-  // Set dynamic page title
   UseTitle('Home - Experience the Extraordinary');
 
-  // Fetch homepage data with enhanced configuration
-  const { 
-    data: resData, 
-    isLoading: homeLoading, 
-    isError: homeError, 
-    error: homeErrorObj, 
+  // ─── DEBUG: log env on every env (remove after fix confirmed) ───────────────
+  useEffect(() => {
+    const backendUrl = import.meta.env.VITE_BACKEND_URL;
+    if (!backendUrl) {
+      console.error(
+        '[Home] ⚠️  VITE_BACKEND_URL is not set! ' +
+        'Add it to your hosting platform environment variables and redeploy.'
+      );
+    } else {
+      console.log('[Home] VITE_BACKEND_URL:', backendUrl);
+    }
+  }, []);
+  // ────────────────────────────────────────────────────────────────────────────
+
+  const {
+    data: resData,
+    isLoading: homeLoading,
+    isError: homeError,
+    error: homeErrorObj,
     refetch: refetchHome,
-    isFetching: homeFetching 
+    isFetching: homeFetching
   } = useQuery({
     queryKey: ['homepage'],
     queryFn: getHomePageData,
     placeholderData: keepPreviousData,
-    staleTime: 5 * 60 * 1000, // 5 minutes
-    cacheTime: 30 * 60 * 1000, // 30 minutes
+    staleTime: 5 * 60 * 1000,
+    cacheTime: 30 * 60 * 1000,
     retry: 3,
     retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000),
     refetchOnWindowFocus: false,
     refetchOnReconnect: true,
   });
 
-  // Fetch testimonials data
-  const { 
-    data: testimonialData, 
-    isLoading: testimonialLoading,
+  const {
+    data: testimonialData,
     isError: testimonialError,
-    refetch: refetchTestimonials 
+    refetch: refetchTestimonials
   } = useQuery({
     queryKey: ['testimonials'],
     queryFn: getTestimonials,
     placeholderData: keepPreviousData,
-    staleTime: 10 * 60 * 1000, // 10 minutes
+    staleTime: 10 * 60 * 1000,
     retry: 2,
     refetchOnWindowFocus: false,
+    onSuccess: (data) => {
+      // ─── DEBUG: log raw testimonial response shape ──────────────────────────
+      console.log('[Home] Raw testimonialData from API:', JSON.stringify(data, null, 2));
+      console.log('[Home] Extracted testimonials:', extractTestimonials(data));
+      // ────────────────────────────────────────────────────────────────────────
+    },
+    onError: (err) => {
+      console.error('[Home] Testimonials fetch failed:', err?.response?.status, err?.message);
+    },
   });
 
-  // Extract response data safely
   const homeData = useMemo(() => {
     try {
       return resData?.data?.data;
@@ -321,25 +347,15 @@ const Home = () => {
     }
   }, [resData]);
 
-  // Handle retry for both queries
   const handleRetry = () => {
     refetchHome();
     refetchTestimonials();
   };
 
-  // Debug logging (development only)
   useEffect(() => {
-    if (process.env.NODE_ENV === 'development') {
-      // console.group('Home Component Debug');
-      // console.log('Home data loading:', homeLoading);
-      // console.log('Testimonial data loading:', testimonialLoading);
-      // console.log('Home data:', homeData);
-      // console.log('Testimonial data:', testimonialData);
-      if (homeErrorObj) console.error('Home error:', homeErrorObj);
-      if (testimonialError) console.error('Testimonial error:', testimonialError);
-      // console.groupEnd();
-    }
-  }, [homeLoading, testimonialLoading, homeData, testimonialData, homeErrorObj, testimonialError]);
+    if (homeErrorObj) console.error('[Home] Home page fetch error:', homeErrorObj);
+    if (testimonialError) console.error('[Home] Testimonials fetch error:', testimonialError);
+  }, [homeErrorObj, testimonialError]);
 
   // Add structured data for SEO
   useEffect(() => {
@@ -365,27 +381,23 @@ const Home = () => {
     }
   }, [homeData]);
 
-  // Loading state - only show if critical home data is loading
   if (homeLoading && !homeData) {
     return <LoadingSpinner />;
   }
 
-  // Error state - only show if home data failed (testimonials are optional)
   if (homeError) {
     return <ErrorState onRetry={handleRetry} error={homeErrorObj} />;
   }
 
-  // Success state
   return (
     <ErrorBoundary>
       <main className="scrollbar-hide relative min-h-screen">
-        {/* Background refetch indicator */}
         {(homeFetching && !homeLoading) && (
           <div className="fixed top-0 left-0 right-0 h-1 bg-blue-200 z-50">
             <div className="h-full bg-blue-600 animate-pulse"></div>
           </div>
         )}
-        
+
         <HomeContent homeData={homeData} testimonialData={testimonialData} />
         <BackToTopButton />
       </main>
@@ -393,5 +405,10 @@ const Home = () => {
   );
 };
 
-// Export with React.memo for performance
 export default React.memo(Home);
+
+
+
+
+
+

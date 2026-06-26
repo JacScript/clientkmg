@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { BsPatchCheckFill } from "react-icons/bs";
+import kms from '../../assets/kms.png';
+import kml from '../../assets/kml.png';
+import kmb from '../../assets/kmb.png';
+import kmt from '../../assets/kmt.png';
 
 const SafariExpert = ({data}) => {
   const [hoveredCard, setHoveredCard] = useState(null);
@@ -55,25 +59,25 @@ const SafariExpert = ({data}) => {
       id: 1,
       title: "KM Travel & Tours",
       description: "Tailored travel experiences for Tanzanians exploring Europe, especially France and neighboring countries, with full support from visa to airport pick-up.",
-      icon: "✈️"
+      icon: kmt
     },
     {
       id: 2,
       title: "KM Logistics",
       description: "Reliable freight and cargo solutions connecting local and regional markets.",
-      icon: "🚛"
+      icon: kml
     },
     {
       id: 3,
       title: "KM Kiswahili Institute",
       description: "A center dedicated to promoting the Swahili language and Tanzanian culture to global learners and researchers.",
-      icon: "📚"
+      icon: kms
     },
     {
       id: 4,
       title: "KM Bahari Beach Holiday Home",
       description: "A tranquil coastal escape offering personalized accommodation on Tanzania's beautiful shores.",
-      icon: "🏖️"
+      icon: kmb
     },
   ];
 
@@ -85,9 +89,14 @@ const SafariExpert = ({data}) => {
     </div>
   );
 
+  const localIcons = [kmt, kml, kms, kmb];
+
   // Use data if available, otherwise use defaults
   const services = data?.valueSection || defaultServices;
-  const infosData = data?.whoweareSection?.service || defaultInfos;
+  const infosData = (data?.whoweareSection?.service || defaultInfos).map((item, idx) => ({
+    ...item,
+    icon: localIcons[idx] ?? item.icon,
+  }));
 
   return (
     <section className="relative min-h-screen py-20 px-4 overflow-hidden bg-gradient-to-br from-slate-50 via-white to-gray-50">
@@ -143,8 +152,10 @@ const SafariExpert = ({data}) => {
                     style={{ transitionDelay: `${idx * 150}ms` }}
                   >
                     <div className="flex-shrink-0">
-                      <div className="w-16 h-16 rounded-2xl bg-gradient-to-r from-blue-400 to-blue-500 flex items-center justify-center text-2xl group-hover:scale-110 group-hover:rotate-12 transition-all duration-500 shadow-lg shadow-blue-400/25">
-                        {info.icon || <FallbackIcon />}
+                      <div className="w-16 h-16 rounded-2xl bg-gradient-to-r from-blue-200 to-blue-300 flex items-center justify-center text-2xl group-hover:scale-110 group-hover:rotate-12 transition-all duration-500 shadow-lg shadow-blue-400/25">
+                        {typeof info.icon === 'string'
+                          ? <img src={info.icon} alt={info.title} className="w-20 h-20 object-contain" />
+                          : info.icon}
                       </div>
                     </div>
                     <div className="flex-1 space-y-3">

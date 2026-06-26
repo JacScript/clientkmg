@@ -1,118 +1,5 @@
-// import React from 'react'
-// import Header from '../../components/Header'
-// import SafariExpert from '../../components/about/SafariExpert.jsx'
-// import UnchartedBoundlessSection from '../../components/about/Uncharted.jsx'
-// import FeatureTour from '../../components/home/featureTour/FeatureTour'
-// import useTitle from '../../components/useTitle'
-// import Testimonial from '../../components/home/testimonial/Testimonial'
-// import ContactUs from '../../components/contact/Contact'
-// import { keepPreviousData, useQuery } from '@tanstack/react-query'
-// import { getAboutData, getHomePageData, getTestimonials } from '../../http'
 
-// const AboutUs = () => {
-
-
-//  const { data: resData, isLoading, isError } = useQuery({
-//     queryKey: ['homepage'],
-//     queryFn: async () => {
-//       return await getHomePageData();
-//     },
-//     placeholderData: keepPreviousData,
-//   });
-
-//    const { data: testimonialData } = useQuery({
-//       queryKey: ['testimonials'],
-//       queryFn: async () => {
-//         return await getTestimonials();
-//       },
-//       placeholderData: keepPreviousData,
-//     });
-
-//  console.log(testimonialData)
-
-
-//   const { data: responseData } = useQuery({
-//     queryKey: ['about'],
-//     queryFn: async () => {
-//       return await getAboutData();
-//     },
-//     placeholderData: keepPreviousData,
-//   });
-
-//   const responseAboutData = responseData?.data.data;
-//   const featureData = resData?.data?.data;
-//   const testimonial = testimonialData?.data?.data;
-
-
-//   useTitle('About Us')
-//   return (
-
-//      <div>
-//     {(() => {
-//       try {
-//         return <Header title="About Us" link="about"/>
-//       } catch (e) {
-//         console.error("Header crashed:", e)
-//         return null
-//       }
-//     })()}
-
-//     {(() => {
-//       try {
-//         return <UnchartedBoundlessSection data={responseAboutData.mainContent} />
-//       } catch (e) {
-//         console.error("Uncharted crashed:", e)
-//         return null
-//       }
-//     })()}
-
-//     {(() => {
-//       try {
-//         return <SafariExpert data={responseAboutData}/>
-//       } catch (e) {
-//         console.error("SafariExperts crashed:", e)
-//         return null
-//       }
-//     })()}
-
-    
-
-//     {(() => {
-//       try {
-//         return  <FeatureTour data={featureData?.featuredSections} />
-//       } catch (e) {
-//         console.error("SafariExperts crashed:", e)
-//         return null
-//       }
-//     })()}
-
-//        {(() => {
-//       try {
-//         return <Testimonial data={testimonial}/>
-//       } catch (e) {
-//         console.error("SafariExperts crashed:", e)
-//         return null
-//       }
-//     })()}
-
-//     {(() => {
-//       try {
-//         return <ContactUs/>
-//       } catch (e) {
-//         console.error("ContactUs crashed:", e)
-//         return null
-//       }
-//     })()}
-//   </div>
-//   )
-// }
-
-// export default AboutUs;
-
-
-
-
-import React, { useEffect, useMemo } from 'react'
+import React, { useMemo } from 'react'
 import Header from '../../components/Header'
 import SafariExpert from '../../components/about/SafariExpert.jsx'
 import UnchartedBoundlessSection from '../../components/about/Uncharted.jsx'
@@ -123,6 +10,8 @@ import ContactUs from '../../components/contact/Contact'
 import { keepPreviousData, useQuery } from '@tanstack/react-query'
 import { getAboutData, getHomePageData, getTestimonials } from '../../http'
 
+const isDevelopment = import.meta.env.DEV
+
 // Error Boundary Component
 class ErrorBoundary extends React.Component {
   constructor(props) {
@@ -130,12 +19,13 @@ class ErrorBoundary extends React.Component {
     this.state = { hasError: false, errorInfo: null };
   }
 
+  // eslint-disable-next-line no-unused-vars
   static getDerivedStateFromError(error) {
     return { hasError: true };
   }
 
   componentDidCatch(error, errorInfo) {
-    if (process.env.NODE_ENV === 'development') {
+    if (isDevelopment) {
       console.log('Error caught by boundary:', error, errorInfo);
     }
     this.setState({ errorInfo });
@@ -172,16 +62,16 @@ const SafeComponent = ({ children, fallback = null, name = "Component" }) => {
   try {
     return children();
   } catch (error) {
-    if (process.env.NODE_ENV === 'development') {
-      console.error(`${name} crashed:`, error);
-    }
+    if (isDevelopment) {
+        console.error(`${name} crashed:`, error);
+      }
     return fallback;
   }
 };
 
 // Loading Component
 const LoadingSpinner = ({ message = "Loading..." }) => (
-  <div className="min-h-[200px] flex items-center justify-center">
+  <div className="h-screen flex items-center justify-center">
     <div className="text-center">
       <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
       <p className="text-gray-600">{message}</p>
@@ -214,13 +104,6 @@ const AboutUs = () => {
     placeholderData: keepPreviousData,
   });
 
-  // Log data changes only when they actually change
-  useEffect(() => {
-    if (process.env.NODE_ENV === 'development') {
-      // console.log('Testimonial data updated:', testimonialData);
-    }
-  }, [testimonialData]);
-
   // Safely process data with memoization to prevent unnecessary re-computations
   const processedData = useMemo(() => {
     const safeProcessData = (data, fallback = {}) => {
@@ -231,7 +114,7 @@ const AboutUs = () => {
         if (data?.data) return data.data;
         return data;
       } catch (error) {
-        if (process.env.NODE_ENV === 'development') {
+        if (isDevelopment) {
           console.error("Error processing data:", error);
         }
         return fallback;

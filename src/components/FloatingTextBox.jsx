@@ -93,7 +93,7 @@
 // export default FloatingTextBox;
 
 import React from "react";
-import { motion } from "framer-motion";
+// import { motion } from "framer-motion";
 
 const FloatingTextBox = ({ number, text, delay = 0.6 }) => {
   const variants = {

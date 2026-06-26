@@ -7,6 +7,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import { SnackbarProvider } from "notistack";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Provider } from 'react-redux';
+import { CartProvider } from "./context/CartContext";
 
 
 
@@ -38,7 +39,10 @@ createRoot(document.getElementById('root')).render(
       <PersistGate loading={<LoadingComponent />}  persistor={persistor}>
         <SnackbarProvider autoHideDuration={3000}>
           <QueryClientProvider client={queryClient}>
+            <CartProvider>
+
             <App />
+            </CartProvider>
           </QueryClientProvider>
         </SnackbarProvider>
       </PersistGate>

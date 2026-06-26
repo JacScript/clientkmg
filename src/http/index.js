@@ -1,4 +1,6 @@
 import axios from "axios";
+import { store } from "../redux/store"; // adjust path to your redux store
+import { clearCredentials } from "../redux/slices/userSlice";
 
 const api = axios.create({
     baseURL: import.meta.env.VITE_BACKEND_URL,
@@ -8,6 +10,18 @@ const api = axios.create({
         Accept: "application/json",
     }
 })
+
+// Response interceptor — if any request gets a 401, clear the user and redirect to login
+api.interceptors.response.use(
+    (response) => response, // pass through successful responses
+    (error) => {
+        if (error.response?.status === 401) {
+            store.dispatch(clearCredentials()); // clear Redux + localStorage
+            window.location.href = "/login";   // redirect to login page
+        }
+        return Promise.reject(error);
+    }
+);
 
 
 //API ENDPOINTS
