@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useParams, Link } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   MapPin,
   Users,
@@ -17,6 +17,8 @@ import {
   Check,
   MessageCircle,
   ShieldCheck,
+  Megaphone,
+  X,
 } from "lucide-react";
 import { apartments } from "../../data/apartments";
 import { formatTZS } from "../../utils/currency";
@@ -56,6 +58,7 @@ const ApartmentDetailPage = () => {
   const total = apartment?.images.length ?? 0;
   const [current, setCurrent] = useState(0);
   const [paused, setPaused] = useState(false);
+  const [showAnnouncement, setShowAnnouncement] = useState(true);
 
   const goTo = useCallback(
     (index) => setCurrent(((index % total) + total) % total),
@@ -87,11 +90,51 @@ const ApartmentDetailPage = () => {
     );
   }
 
-  const { title, description, location, guests, images, features, availability, price } =
-    apartment;
+  const {
+    title,
+    description,
+    location,
+    guests,
+    images,
+    features,
+    availability,
+    availableFrom,
+    price,
+  } = apartment;
 
   return (
     <main className="relative top-44 bg-white">
+      {/* Announcement — sits between the navbar and the hero section */}
+       <AnimatePresence>
+  {!availability && availableFrom && showAnnouncement && (
+    <motion.div
+      initial={{ height: 0, opacity: 0 }}
+      animate={{ height: "auto", opacity: 1 }}
+      exit={{ height: 0, opacity: 0 }}
+      transition={{ duration: 0.35, ease: "easeOut" }}
+      className="overflow-hidden bg-amber-50"
+    >
+      <div className="mx-auto flex w-full flex-col items-start gap-3 px-4 py-3 sm:w-[90%] sm:flex-row sm:items-center sm:justify-between sm:gap-4 sm:px-6 md:w-[85%] lg:w-[80%] xl:w-[75%] 2xl:w-[70%]">
+        <div className="flex items-start gap-2 text-xs font-medium text-amber-800 sm:items-center sm:text-sm">
+          <Megaphone size={16} className="mt-0.5 shrink-0 sm:mt-0" />
+          <span>
+            {title} isn't bookable yet — it opens for stays starting{" "}
+            {availableFrom}.
+          </span>
+        </div>
+        <button
+          type="button"
+          onClick={() => setShowAnnouncement(false)}
+          aria-label="Dismiss announcement"
+          className="shrink-0 self-end rounded-full p-1 text-amber-700 transition hover:bg-amber-100 sm:self-auto"
+        >
+          <X size={16} />
+        </button>
+      </div>
+    </motion.div>
+  )}
+</AnimatePresence>
+
       {/* Hero carousel */}
       <section
         onMouseEnter={() => setPaused(true)}
@@ -114,7 +157,7 @@ const ApartmentDetailPage = () => {
 
         <Link
           to="/holiday-home"
-          className="absolute top-6 left-6 z-20 inline-flex items-center gap-1 rounded-full bg-black/40 px-4 py-2 text-sm font-semibold text-white backdrop-blur transition hover:bg-black/60"
+          className="absolute top-6 max-md:left-6 left-90 z-20 inline-flex items-center gap-1 rounded-full bg-black/40 px-4 py-2 text-sm font-semibold text-white backdrop-blur transition hover:bg-black/60"
         >
           <ArrowLeft size={16} /> All apartments
         </Link>
@@ -150,7 +193,7 @@ const ApartmentDetailPage = () => {
           variants={container}
           initial="hidden"
           animate="visible"
-          className="absolute inset-x-0 top-1/2 z-10 flex flex-col gap-5 px-6 pb-10 sm:px-10 sm:pb-12 mx-4 sm:mx-8 md:mx-16 lg:mx-32 xl:mx-80"
+          className=" absolute inset-x-0 top-1/2 z-10 flex flex-col gap-5 px-6 pb-10 sm:px-10 sm:pb-12 mx-4 sm:mx-8 md:mx-16 lg:mx-32 xl:mx-80"
         >
           <motion.p
             variants={item}
@@ -269,6 +312,12 @@ const ApartmentDetailPage = () => {
               {availability ? <CheckCircle2 size={16} /> : <XCircle size={16} />}
               {availability ? "Available now" : "Not available"}
             </span>
+
+            {!availability && availableFrom && (
+              <p className="mt-2 text-xs font-medium text-amber-600">
+                Available starting from {availableFrom}
+              </p>
+            )}
 
             <div className="mt-4 flex items-center gap-2 text-sm text-gray-500">
               <Users size={15} /> Up to {guests} guests

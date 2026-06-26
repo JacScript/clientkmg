@@ -6,7 +6,10 @@ export const apartments = [
     description: "A luxurious apartment overlooking the Indian Ocean.",
     location: "Kigamboni, Dar es Salaam",
     guests: 4,
-    availability: true,
+    availability: false,
+    // Shown when availability is false — a human-readable date the listing
+    // opens up for booking. Optional; leave it off if not applicable.
+    availableFrom: "September 2025",
     images: [
       "/images/apartment1-1.jpg",
       "/images/apartment1-2.jpg",

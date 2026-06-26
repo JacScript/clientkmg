@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { MapPin, Users, CheckCircle2, XCircle, ArrowUpRight } from "lucide-react";
-import { formatTZS } from "../../utils/Currency";
+import { MapPin, Users, CheckCircle2, XCircle, ArrowUpRight, CalendarClock } from "lucide-react";
+import { formatTZS } from "../../utils/currency";
 
 const AUTOPLAY_MS = 4500;
 
@@ -23,6 +23,7 @@ const ApartmentCard = ({ apartment }) => {
     location,
     guests,
     availability,
+    availableFrom,
     images,
     features,
     price,
@@ -149,6 +150,13 @@ const ApartmentCard = ({ apartment }) => {
         )}
 
         <p className="mt-4 text-sm leading-relaxed text-gray-600">{description}</p>
+
+        {!availability && availableFrom && (
+          <p className="mt-3 flex items-center gap-1.5 text-xs font-medium text-amber-600">
+            <CalendarClock size={14} />
+            Available starting from {availableFrom}
+          </p>
+        )}
 
         <div className="mt-5 flex items-center justify-between">
           {typeof price === "number" && (
