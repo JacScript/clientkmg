@@ -20,6 +20,7 @@ const Packages = React.lazy(() => import("./pages/public/Packages"));
 const AirBnB = React.lazy(() => import("./pages/public/AirBnB"));
 const NespressoPage = React.lazy(() => import("./pages/public/Nespresso"))
 const NotFound = React.lazy(() => import("./pages/public/NotFound"));
+const ApartmentDetailPage = React.lazy(() => import("./pages/public/ApartmentDetailPage"));
 
 // Loading spinner
 const LoadingSpinner = () => (
@@ -84,6 +85,7 @@ const App = () => {
             <Route path="/packages" component={() => <PublicLayout><Packages /></PublicLayout>} />
             <Route path="/holiday-home" component={() => <PublicLayout><AirBnB /></PublicLayout>} />
             <Route path="/nespresso" component={() => <PublicLayout><NespressoPage /></PublicLayout>} />
+            <Route path="/apartments/:slug" component={() => <PublicLayout><ApartmentDetailPage /></PublicLayout>} />
 
             {/* Auth Route */}
             <Route path="/login" render={() => (isAuth ? <Redirect to="/admin/dashboard" /> : <Auth />)} />
