@@ -1,10 +1,74 @@
-import React from "react";
+import React, { useState } from "react";
 import { IoMdClose, IoMdAdd, IoMdRemove, IoMdTrash } from "react-icons/io";
 import { useCart } from "../context/CartContext";
 import { formatTZS } from "../utils/currency";
 
+// Same WhatsApp number used by the Nespresso Accessories "Enquire" button.
+const WHATSAPP_NUMBER = "33771948786";
+
+// Adjust to wherever your API actually lives (e.g. an env var like
+// import.meta.env.VITE_API_URL) — left as a relative path assuming the
+// frontend and API share an origin or are proxied together.
+const API_BASE = "/api";
+
 const CartDrawer = ({ isOpen, onClose }) => {
-  const { items, removeFromCart, updateQty, totalPrice } = useCart();
+  const { items, removeFromCart, updateQty, totalPrice, clearCart } = useCart();
+
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState("");
+  const [sentInvoice, setSentInvoice] = useState(null);
+
+  const canSubmit = items.length > 0 && name.trim() && phone.trim() && !submitting;
+
+  const handleSendOrder = async () => {
+    if (!canSubmit) return;
+
+    setSubmitting(true);
+    setError("");
+
+    try {
+      const payload = {
+        customer: { name: name.trim(), phone: phone.trim() },
+        items: items.map((item) => ({
+          name: item.name,
+          unitPrice: item.price,
+          quantity: item.qty,
+        })),
+      };
+
+      const response = await fetch(`${API_BASE}/orders`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok || !result.success) {
+        throw new Error(result.message || "Could not create the order.");
+      }
+
+      const order = result.data;
+      const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
+        result.whatsappMessage
+      )}`;
+
+      window.open(whatsappUrl, "_blank", "noopener,noreferrer");
+
+      // Best-effort — don't block the user on this; the order already
+      // exists either way.
+      fetch(`${API_BASE}/orders/${order._id}/sent`, { method: "PATCH" }).catch(() => {});
+
+      setSentInvoice(order.invoiceNumber);
+      clearCart();
+    } catch (err) {
+      setError(err.message || "Something went wrong sending your order. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   return (
     <>
@@ -31,7 +95,11 @@ const CartDrawer = ({ isOpen, onClose }) => {
 
         <div className="flex-1 overflow-y-auto px-5 py-4">
           {items.length === 0 ? (
-            <p className="mt-10 text-center text-gray-500">Your cart is empty.</p>
+            <p className="mt-10 text-center text-gray-500">
+              {sentInvoice
+                ? `Your cart is empty. Last order sent — invoice ${sentInvoice}.`
+                : "Your cart is empty."}
+            </p>
           ) : (
             <ul className="flex flex-col gap-4">
               {items.map((item) => (
@@ -73,6 +141,27 @@ const CartDrawer = ({ isOpen, onClose }) => {
               ))}
             </ul>
           )}
+
+          {items.length > 0 && (
+            <div className="mt-6 flex flex-col gap-3 border-t border-gray-100 pt-4">
+              <p className="text-sm font-semibold text-gray-700">Your details</p>
+              <input
+                type="text"
+                placeholder="Full name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className="rounded-lg border border-gray-200 px-3 py-2 text-sm outline-none focus:border-[#000080]"
+              />
+              <input
+                type="tel"
+                placeholder="Phone number"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                className="rounded-lg border border-gray-200 px-3 py-2 text-sm outline-none focus:border-[#000080]"
+              />
+              {error && <p className="text-xs text-red-500">{error}</p>}
+            </div>
+          )}
         </div>
 
         <div className="border-t border-gray-200 px-5 py-4">
@@ -80,12 +169,19 @@ const CartDrawer = ({ isOpen, onClose }) => {
             <span>Total</span>
             <span>{formatTZS(totalPrice)}</span>
           </div>
+
           <button
-            disabled={items.length === 0}
-            className="w-full rounded-full bg-[#000080] py-3 font-semibold text-white disabled:opacity-40"
+            onClick={handleSendOrder}
+            disabled={!canSubmit}
+            className="flex w-full items-center justify-center gap-2 rounded-full bg-[#25D366] py-3 font-semibold text-white transition disabled:cursor-not-allowed disabled:opacity-40"
           >
-            Checkout
+            <IoMdTrash className="text-xl" />
+            {submitting ? "Sending…" : "Send Order via WhatsApp"}
           </button>
+
+          <p className="mt-2 text-center text-xs text-gray-400">
+            We'll open WhatsApp with your order ready to send — nothing is charged here.
+          </p>
         </div>
       </aside>
     </>
