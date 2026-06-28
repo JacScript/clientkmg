@@ -1,7 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import ApartmentCard from "../../components/airbnb/ApartmentCard"
-import { apartments } from "../../data/apartments";
+import ApartmentCard from "../../components/airbnb/ApartmentCard";
 
 const container = {
   hidden: {},
@@ -22,7 +21,12 @@ const item = {
   },
 };
 
-const ApartmentsSection = () => {
+const ApartmentsSection = ({
+  apartments = [],
+  badge = "Holiday Home",
+  heading = "Choose Your Perfect Stay",
+  subheading = "Experience comfort and convenience in our beautiful house in Dar es Salaam. Whether you need a cozy room or the entire house, we have the perfect option for you.",
+}) => {
   return (
     <section id="apartments" className="bg-[#F7F5F2] px-6 py-20 lg:px-12">
       <div className="mx-auto max-w-7xl">
@@ -37,27 +41,31 @@ const ApartmentsSection = () => {
             variants={item}
             className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-blue-600"
           >
-            Holiday Home
+            {badge}
           </motion.p>
           <motion.h2 variants={item} className="text-3xl font-bold text-gray-900 sm:text-4xl">
-            Choose Your Perfect Stay
+            {heading}
           </motion.h2>
           <motion.p variants={item} className="mt-4 text-gray-500">
-            Experience comfort and convenience in our beautiful house in Dar es Salaam. Whether you need a cozy room or the entire house, we have the perfect option for you.
+            {subheading}
           </motion.p>
         </motion.div>
 
-        <motion.div
-          className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3"
-          variants={container}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.15 }}
-        >
-          {apartments.map((apartment) => (
-            <ApartmentCard key={apartment.id} apartment={apartment} />
-          ))}
-        </motion.div>
+        {apartments.length === 0 ? (
+          <p className="text-gray-500">No stays are linked to this page yet.</p>
+        ) : (
+          <motion.div
+            className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3"
+            variants={container}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.15 }}
+          >
+            {apartments.map((apartment) => (
+              <ApartmentCard key={apartment._id} apartment={apartment} />
+            ))}
+          </motion.div>
+        )}
       </div>
     </section>
   );
