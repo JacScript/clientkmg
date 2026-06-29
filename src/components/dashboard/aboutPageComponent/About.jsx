@@ -1,5 +1,3 @@
-
-
 import React, { useState, useEffect } from 'react';
 import { keepPreviousData, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { 
@@ -30,7 +28,7 @@ const CLOUDINARY_UPLOAD_PRESET = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
 // =============================================================================
 // COMPONENT: Image Uploader
 // =============================================================================
-const ImageUploader = ({ currentImage, onImageChange, isEditing }) => {
+const ImageUploader = ({ currentImage, onImageChange, isEditing, compact = false }) => {
   const [isUploading, setIsUploading] = useState(false);
   const [showViewer, setShowViewer] = useState(false);
   const [widgetLoaded, setWidgetLoaded] = useState(false);
@@ -105,33 +103,43 @@ const ImageUploader = ({ currentImage, onImageChange, isEditing }) => {
 
   return (
     <>
-      <div className="mb-6">
-        <label className=" text-sm font-medium text-gray-700 mb-3 flex items-center">
-          <Image className="h-4 w-4 mr-2 text-gray-500" />
-          Company Image
-        </label>
+      <div className={compact ? "mb-3" : "mb-6"}>
+        {!compact && (
+          <label className=" text-sm font-medium text-gray-700 mb-3 flex items-center">
+            <Image className="h-4 w-4 mr-2 text-gray-500" />
+            Company Image
+          </label>
+        )}
         
-        <div className="flex flex-col sm:flex-row items-start sm:space-x-6 space-y-4 sm:space-y-0">
+        <div className={
+          compact
+            ? "flex flex-row items-center gap-4"
+            : "flex flex-col sm:flex-row items-start sm:space-x-6 space-y-4 sm:space-y-0"
+        }>
           {/* Image Preview */}
           <div className="relative flex-shrink-0">
             {currentImage ? (
               <div className="relative group">
                 <img 
                   src={currentImage} 
-                  alt="Company" 
-                  className="w-24 h-24 sm:w-32 sm:h-32 rounded-xl object-cover border-2 border-gray-200 cursor-pointer transition-all group-hover:shadow-lg group-hover:scale-105"
+                  alt="Preview" 
+                  className={`${compact ? 'w-16 h-16' : 'w-24 h-24 sm:w-32 sm:h-32'} rounded-xl object-cover border-2 border-gray-200 cursor-pointer transition-all group-hover:shadow-lg group-hover:scale-105`}
                   onClick={() => setShowViewer(true)}
                 />
-                <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 rounded-xl flex items-center justify-center transition-all">
-                  <Eye className="h-6 w-6 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
-                </div>
-                <div className="absolute -top-2 -right-2 bg-blue-100 rounded-full p-1">
-                  <Eye className="h-4 w-4 text-blue-600" />
-                </div>
+                {!compact && (
+                  <>
+                    <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 rounded-xl flex items-center justify-center transition-all">
+                      <Eye className="h-6 w-6 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
+                    </div>
+                    <div className="absolute -top-2 -right-2 bg-blue-100 rounded-full p-1">
+                      <Eye className="h-4 w-4 text-blue-600" />
+                    </div>
+                  </>
+                )}
               </div>
             ) : (
-              <div className="w-24 h-24 sm:w-32 sm:h-32 rounded-xl bg-gradient-to-br from-gray-100 to-gray-200 border-2 border-dashed border-gray-300 flex items-center justify-center">
-                <Image className="h-10 w-10 text-gray-400" />
+              <div className={`${compact ? 'w-16 h-16' : 'w-24 h-24 sm:w-32 sm:h-32'} rounded-xl bg-gradient-to-br from-gray-100 to-gray-200 border-2 border-dashed border-gray-300 flex items-center justify-center`}>
+                <Image className={compact ? "h-6 w-6 text-gray-400" : "h-10 w-10 text-gray-400"} />
               </div>
             )}
           </div>
@@ -139,22 +147,22 @@ const ImageUploader = ({ currentImage, onImageChange, isEditing }) => {
           {/* Upload Controls */}
           <div className="flex-1 space-y-3 w-full">
             {isEditing ? (
-              <div className="flex flex-col sm:flex-row gap-3">
+              <div className={compact ? "flex flex-wrap gap-2" : "flex flex-col sm:flex-row gap-3"}>
                 <button
                   type="button"
                   onClick={openWidget}
                   disabled={isUploading}
-                  className="inline-flex items-center justify-center px-4 py-2.5 border border-transparent shadow-sm text-sm font-medium rounded-lg text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 transition-all"
+                  className={`inline-flex items-center justify-center ${compact ? 'px-3 py-1.5 text-xs' : 'px-4 py-2.5 text-sm'} border border-transparent shadow-sm font-medium rounded-lg text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 transition-all`}
                 >
                   {isUploading ? (
                     <>
-                      <Loader className="h-4 w-4 mr-2 animate-spin" />
+                      <Loader className={`${compact ? 'h-3.5 w-3.5' : 'h-4 w-4'} mr-1.5 animate-spin`} />
                       Uploading...
                     </>
                   ) : (
                     <>
-                      <Upload className="h-4 w-4 mr-2" />
-                      {currentImage ? 'Change Image' : 'Upload Image'}
+                      <Upload className={`${compact ? 'h-3.5 w-3.5' : 'h-4 w-4'} mr-1.5`} />
+                      {currentImage ? 'Change' : 'Upload'}
                     </>
                   )}
                 </button>
@@ -163,45 +171,49 @@ const ImageUploader = ({ currentImage, onImageChange, isEditing }) => {
                   <button
                     type="button"
                     onClick={handleRemoveImage}
-                    className="inline-flex items-center justify-center px-4 py-2.5 border border-gray-300 shadow-sm text-sm font-medium rounded-lg text-red-700 bg-white hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-all"
+                    className={`inline-flex items-center justify-center ${compact ? 'px-3 py-1.5 text-xs' : 'px-4 py-2.5 text-sm'} border border-gray-300 shadow-sm font-medium rounded-lg text-red-700 bg-white hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-all`}
                   >
-                    <Trash2 className="h-4 w-4 mr-2" />
-                    Remove Image
+                    <Trash2 className={`${compact ? 'h-3.5 w-3.5' : 'h-4 w-4'} mr-1.5`} />
+                    Remove
                   </button>
                 )}
               </div>
             ) : (
-              <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
-                <p className="text-sm text-gray-600">
-                  {currentImage ? (
-                    <span className="flex items-center">
-                      <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
-                      Click image to preview • Image uploaded successfully
-                    </span>
-                  ) : (
-                    <span className="flex items-center">
-                      <AlertCircle className="h-4 w-4 text-amber-500 mr-2" />
-                      No image uploaded
-                    </span>
-                  )}
-                </p>
-              </div>
+              !compact && (
+                <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
+                  <p className="text-sm text-gray-600">
+                    {currentImage ? (
+                      <span className="flex items-center">
+                        <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
+                        Click image to preview • Image uploaded successfully
+                      </span>
+                    ) : (
+                      <span className="flex items-center">
+                        <AlertCircle className="h-4 w-4 text-amber-500 mr-2" />
+                        No image uploaded
+                      </span>
+                    )}
+                  </p>
+                </div>
+              )
             )}
             
-            <div className="text-xs text-gray-500 bg-gray-50 rounded-lg p-3 border border-gray-200">
-              <div className="flex items-start space-x-2">
-                <div className="w-2 h-2 bg-blue-400 rounded-full mt-1.5 flex-shrink-0"></div>
-                <div>
-                  <p className="font-medium">Upload Guidelines:</p>
-                  <ul className="mt-1 space-y-1">
-                    <li>• Recommended: Square aspect ratio (1:1)</li>
-                    <li>• Max file size: 5MB</li>
-                    <li>• Formats: JPG, PNG, GIF, WebP</li>
-                    <li>• Will be cropped to square automatically</li>
-                  </ul>
+            {!compact && (
+              <div className="text-xs text-gray-500 bg-gray-50 rounded-lg p-3 border border-gray-200">
+                <div className="flex items-start space-x-2">
+                  <div className="w-2 h-2 bg-blue-400 rounded-full mt-1.5 flex-shrink-0"></div>
+                  <div>
+                    <p className="font-medium">Upload Guidelines:</p>
+                    <ul className="mt-1 space-y-1">
+                      <li>• Recommended: Square aspect ratio (1:1)</li>
+                      <li>• Max file size: 5MB</li>
+                      <li>• Formats: JPG, PNG, GIF, WebP</li>
+                      <li>• Will be cropped to square automatically</li>
+                    </ul>
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
       </div>
@@ -375,9 +387,16 @@ const ServiceItem = ({
   isEditing, 
   onTitleChange, 
   onDescriptionChange, 
+  onImageChange,
   onRemove 
 }) => (
   <div className="border border-gray-200 rounded-lg p-5 hover:shadow-md transition-all bg-white">
+    <ImageUploader
+      currentImage={service.image}
+      onImageChange={(value) => onImageChange(value, index)}
+      isEditing={isEditing}
+      compact
+    />
     <div className="flex justify-between items-start mb-3">
       {isEditing ? (
         <input
@@ -412,6 +431,92 @@ const ServiceItem = ({
     )}
   </div>
 );
+
+// =============================================================================
+// COMPONENT: Add Service Modal
+// =============================================================================
+const AddServiceModal = ({ isOpen, onClose, onAdd }) => {
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [image, setImage] = useState('');
+
+  if (!isOpen) return null;
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!title.trim() || !description.trim()) return;
+
+    onAdd({ title: title.trim(), description: description.trim(), image });
+
+    setTitle('');
+    setDescription('');
+    setImage('');
+  };
+
+  const handleClose = () => {
+    setTitle('');
+    setDescription('');
+    setImage('');
+    onClose();
+  };
+
+  return (
+    <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+      <div className="bg-white rounded-2xl p-6 max-w-lg w-full max-h-[90vh] overflow-y-auto">
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="text-xl font-bold text-gray-900">Add New Service</h2>
+          <button onClick={handleClose} className="text-gray-400 hover:text-gray-600">
+            <X className="h-5 w-5" />
+          </button>
+        </div>
+
+        <form onSubmit={handleSubmit} className="space-y-5">
+          <ImageUploader currentImage={image} onImageChange={setImage} isEditing={true} />
+
+          <div>
+            <label className="text-sm font-medium text-gray-700 mb-2 block">Service Title</label>
+            <input
+              type="text"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              placeholder="e.g. KM Logistics"
+              required
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+            />
+          </div>
+
+          <div>
+            <label className="text-sm font-medium text-gray-700 mb-2 block">Description</label>
+            <textarea
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              rows={4}
+              placeholder="Brief description of this service or division"
+              required
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all resize-none"
+            />
+          </div>
+
+          <div className="flex gap-3 pt-2">
+            <button
+              type="button"
+              onClick={handleClose}
+              className="flex-1 px-4 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg font-medium transition-colors"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              className="flex-1 px-4 py-3 bg-green-600 hover:bg-green-700 text-white rounded-lg font-medium transition-colors"
+            >
+              Add Service
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+};
 
 // =============================================================================
 // COMPONENT: Value Item
@@ -452,102 +557,20 @@ const ValueItem = ({
 );
 
 // =============================================================================
-// COMPONENT: Preview Section
-// =============================================================================
-const PreviewSection = ({ formData }) => (
-  <div className="bg-white rounded-xl shadow-sm border overflow-hidden">
-    <div className="px-4 sm:px-6 py-4 border-b border-gray-200 bg-gradient-to-r from-white to-gray-50">
-      <div className="flex items-center">
-        <div className="p-2.5 rounded-lg bg-gray-100 text-gray-600 mr-4 flex-shrink-0">
-          <Eye className="h-5 w-5" />
-        </div>
-        <div>
-          <h2 className="text-xl font-semibold text-gray-900">Live Preview</h2>
-          <p className="text-sm text-gray-500 mt-0.5">See how your changes will look</p>
-        </div>
-      </div>
-    </div>
-    <div className="p-4 sm:p-6">
-      <div className="bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 rounded-xl p-6 sm:p-8 border border-gray-200">
-        <div className="text-center mb-10 sm:mb-12">
-          {formData.mainContent?.image && (
-            <div className="relative inline-block mb-6">
-              <img 
-                src={formData.mainContent.image} 
-                alt={formData.mainContent?.title}
-                className="w-24 h-24 sm:w-32 sm:h-32 rounded-full mx-auto object-cover border-4 border-white shadow-lg"
-              />
-              <div className="absolute -bottom-2 -right-2 bg-blue-500 rounded-full p-2">
-                <Building className="h-4 w-4 text-white" />
-              </div>
-            </div>
-          )}
-          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">{formData.mainContent?.title}</h1>
-          <p className="text-base sm:text-lg text-gray-700 mb-4 max-w-2xl mx-auto leading-relaxed">{formData.mainContent?.description}</p>
-          <p className="text-gray-600 mb-6 max-w-2xl mx-auto leading-relaxed">{formData.mainContent?.subdescription}</p>
-          {formData.mainContent?.phoneNumber && (
-            <div className="inline-flex items-center bg-white rounded-full px-4 py-2 shadow-sm border border-gray-200">
-              <Phone className="h-4 w-4 mr-2 text-blue-600" />
-              <span className="text-blue-600 font-medium">{formData.mainContent?.phoneNumber}</span>
-            </div>
-          )}
-        </div>
-        
-        {/* Who We Are Section */}
-        <div className="mt-12 sm:mt-16">
-          <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-6 sm:mb-8 text-center">{formData.whoweareSection?.title}</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 mb-8">
-            {formData.whoweareSection?.service?.map((service, index) => (
-              <div key={service._id} className="bg-white rounded-xl p-4 sm:p-6 shadow-sm border border-gray-200 hover:shadow-md transition-shadow">
-                <div className="flex items-start space-x-3">
-                  <div className="bg-blue-100 rounded-lg p-2 flex-shrink-0">
-                    <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-lg text-gray-900 mb-2">{service.title}</h3>
-                    <p className="text-gray-600 leading-relaxed">{service.description}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-          <p className="text-gray-700 text-center max-w-2xl mx-auto leading-relaxed">{formData.whoweareSection?.bottomtext}</p>
-        </div>
-        
-        {/* Values Section */}
-        <div className="mt-12 sm:mt-16">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
-            {formData.valueSection?.map((value, index) => (
-              <div key={value._id} className="bg-white rounded-xl p-4 sm:p-6 shadow-sm border border-gray-200 hover:shadow-md transition-shadow">
-                <div className="flex items-start space-x-3">
-                  <div className={`rounded-lg p-2 flex-shrink-0 ${
-                    index === 0 ? 'bg-purple-100' : 'bg-green-100'
-                  }`}>
-                    <Target className={`h-5 w-5 ${
-                      index === 0 ? 'text-purple-600' : 'text-green-600'
-                    }`} />
-                  </div>
-                  <div>
-                    <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-3">{value.title}</h3>
-                    <p className="text-gray-600 leading-relaxed">{value.description}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-);
-
-// =============================================================================
 // MAIN COMPONENT: About Page Admin
 // =============================================================================
-const AboutPageAdmin = () => {
+const SECTION_TABS = [
+  { key: 'mainContent', label: 'Main Content' },
+  { key: 'whoweareSection', label: 'Who We Are' },
+  { key: 'valueSection', label: 'Mission & Vision' },
+];
+
+const AboutPageAdmin = ({ activeSection }) => {
   const [editingSection, setEditingSection] = useState(null);
+  const [visibleSection, setVisibleSection] = useState('mainContent');
   const [formData, setFormData] = useState({});
   const [notification, setNotification] = useState(null);
+  const [isAddServiceModalOpen, setIsAddServiceModalOpen] = useState(false);
   
   const queryClient = useQueryClient();
   
@@ -590,6 +613,17 @@ const AboutPageAdmin = () => {
     }
   }, [notification]);
 
+  // Sidebar section keys (mainContent, whoweareSection, valueSection)
+  // already match this component's own section names exactly, so no
+  // translation map is needed — unlike HomePageAdmin's heroSection -> 'hero'.
+  // Switches which single section is rendered, and opens it for editing.
+  useEffect(() => {
+    if (SECTION_TABS.some((tab) => tab.key === activeSection)) {
+      setVisibleSection(activeSection);
+      setEditingSection(activeSection);
+    }
+  }, [activeSection]);
+
   const handleInputChange = (section, field, value, index = null) => {
     setFormData(prev => {
       const newData = { ...prev };
@@ -610,18 +644,20 @@ const AboutPageAdmin = () => {
     });
   };
 
-  const addService = () => {
+  // Opens the Add Service modal instead of pushing a blank card straight
+  // into the grid — the modal collects title/description/image up front.
+  const handleAddService = (newService) => {
     setFormData(prev => ({
       ...prev,
       whoweareSection: {
         ...prev.whoweareSection,
-        service: [...prev.whoweareSection.service, { 
-          title: '', 
-          description: '', 
-          _id: `new_${Date.now()}` 
-        }]
+        service: [
+          ...prev.whoweareSection.service,
+          { ...newService, _id: `new_${Date.now()}` }
+        ]
       }
     }));
+    setIsAddServiceModalOpen(false);
   };
 
   const removeService = (index) => {
@@ -676,10 +712,39 @@ const AboutPageAdmin = () => {
         />
       )}
 
+      {/* Add Service Modal */}
+      <AddServiceModal
+        isOpen={isAddServiceModalOpen}
+        onClose={() => setIsAddServiceModalOpen(false)}
+        onAdd={handleAddService}
+      />
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+        {/* Section Tabs */}
+        <div className="flex gap-1 mb-6 sm:mb-8 border-b border-gray-200 overflow-x-auto">
+          {SECTION_TABS.map((tab) => (
+            <button
+              key={tab.key}
+              type="button"
+              onClick={() => {
+                setVisibleSection(tab.key);
+                setEditingSection(tab.key);
+              }}
+              className={`whitespace-nowrap py-3 px-3 border-b-2 font-medium text-sm transition-colors ${
+                visibleSection === tab.key
+                  ? 'border-blue-500 text-blue-600'
+                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+              }`}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
+
         <div className="space-y-6 sm:space-y-8">
           
           {/* Main Content Section */}
+          {visibleSection === 'mainContent' && (
           <div className="bg-white rounded-xl shadow-sm border overflow-hidden">
             <SectionHeader 
               icon={<Building className="h-5 w-5 text-blue-600" />}
@@ -741,8 +806,10 @@ const AboutPageAdmin = () => {
               />
             </div>
           </div>
+          )}
 
           {/* Who We Are Section */}
+          {visibleSection === 'whoweareSection' && (
           <div className="bg-white rounded-xl shadow-sm border overflow-hidden">
             <SectionHeader 
               icon={<Users className="h-5 w-5 text-green-600" />}
@@ -771,7 +838,7 @@ const AboutPageAdmin = () => {
                   </div>
                   {editingSection === 'whoweareSection' && (
                     <button
-                      onClick={addService}
+                      onClick={() => setIsAddServiceModalOpen(true)}
                       className="inline-flex items-center justify-center px-4 py-2 text-sm bg-green-50 text-green-700 rounded-lg hover:bg-green-100 border border-green-200 transition-all w-full sm:w-auto"
                     >
                       <Plus className="h-4 w-4 mr-2" />
@@ -788,6 +855,7 @@ const AboutPageAdmin = () => {
                       isEditing={editingSection === 'whoweareSection'}
                       onTitleChange={(value, index) => handleInputChange('whoweareSection', 'service', { title: value }, index)}
                       onDescriptionChange={(value, index) => handleInputChange('whoweareSection', 'service', { description: value }, index)}
+                      onImageChange={(value, index) => handleInputChange('whoweareSection', 'service', { image: value }, index)}
                       onRemove={removeService}
                     />
                   ))}
@@ -797,7 +865,7 @@ const AboutPageAdmin = () => {
                     <Users className="h-12 w-12 text-gray-400 mx-auto mb-4" />
                     <p className="text-gray-500 mb-4">No services added yet</p>
                     <button
-                      onClick={addService}
+                      onClick={() => setIsAddServiceModalOpen(true)}
                       className="inline-flex items-center px-4 py-2 text-sm bg-green-600 text-white rounded-lg hover:bg-green-700 transition-all"
                     >
                       <Plus className="h-4 w-4 mr-2" />
@@ -819,8 +887,10 @@ const AboutPageAdmin = () => {
               />
             </div>
           </div>
+          )}
 
           {/* Values Section */}
+          {visibleSection === 'valueSection' && (
           <div className="bg-white rounded-xl shadow-sm border overflow-hidden">
             <SectionHeader 
               icon={<Target className="h-5 w-5 text-purple-600" />}
@@ -848,9 +918,7 @@ const AboutPageAdmin = () => {
               </div>
             </div>
           </div>
-
-          {/* Preview Section */}
-          <PreviewSection formData={formData} />
+          )}
 
           {/* Footer Info */}
           <div className="bg-white rounded-xl shadow-sm border p-4 sm:p-6">

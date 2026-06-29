@@ -1,15 +1,12 @@
 import React, { useState } from "react";
 import { IoMdClose, IoMdAdd, IoMdRemove, IoMdTrash } from "react-icons/io";
+import { FaWhatsapp } from "react-icons/fa";
 import { useCart } from "../context/CartContext";
 import { formatTZS } from "../utils/currency";
+import { createOrder, markOrderSent } from "../http";
 
 // Same WhatsApp number used by the Nespresso Accessories "Enquire" button.
-const WHATSAPP_NUMBER = "33771948786";
-
-// Adjust to wherever your API actually lives (e.g. an env var like
-// import.meta.env.VITE_API_URL) — left as a relative path assuming the
-// frontend and API share an origin or are proxied together.
-const API_BASE = "/api";
+const WHATSAPP_NUMBER = "255764437845";
 
 const CartDrawer = ({ isOpen, onClose }) => {
   const { items, removeFromCart, updateQty, totalPrice, clearCart } = useCart();
@@ -38,15 +35,10 @@ const CartDrawer = ({ isOpen, onClose }) => {
         })),
       };
 
-      const response = await fetch(`${API_BASE}/orders`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
+      const response = await createOrder(payload);
+      const result = response.data;
 
-      const result = await response.json();
-
-      if (!response.ok || !result.success) {
+      if (!result.success) {
         throw new Error(result.message || "Could not create the order.");
       }
 
@@ -59,12 +51,16 @@ const CartDrawer = ({ isOpen, onClose }) => {
 
       // Best-effort — don't block the user on this; the order already
       // exists either way.
-      fetch(`${API_BASE}/orders/${order._id}/sent`, { method: "PATCH" }).catch(() => {});
+      markOrderSent(order._id).catch(() => {});
 
       setSentInvoice(order.invoiceNumber);
       clearCart();
     } catch (err) {
-      setError(err.message || "Something went wrong sending your order. Please try again.");
+      setError(
+        err?.response?.data?.message ||
+          err.message ||
+          "Something went wrong sending your order. Please try again."
+      );
     } finally {
       setSubmitting(false);
     }
@@ -175,7 +171,7 @@ const CartDrawer = ({ isOpen, onClose }) => {
             disabled={!canSubmit}
             className="flex w-full items-center justify-center gap-2 rounded-full bg-[#25D366] py-3 font-semibold text-white transition disabled:cursor-not-allowed disabled:opacity-40"
           >
-            <IoMdTrash className="text-xl" />
+            <FaWhatsapp className="text-xl" />
             {submitting ? "Sending…" : "Send Order via WhatsApp"}
           </button>
 

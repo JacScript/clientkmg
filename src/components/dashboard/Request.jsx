@@ -22,7 +22,7 @@ import {
 import { CiSearch } from "react-icons/ci";
 import { FaPlus, FaEnvelope, FaMapMarkerAlt, FaCalendarAlt } from "react-icons/fa";
 import { HiOutlineSparkles, HiOutlineFilter } from "react-icons/hi";
-import { keepPreviousData, useQuery, useQueryClient } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { getRequests } from "../../http";
 import ErrorDisplay from "../ErrorComponent";
 
@@ -32,7 +32,7 @@ const Request = () => {
   const [filterActivity, setFilterActivity] = useState("");
   const [scrolled, setScrolled] = useState(false);
   const [selectedRequest, setSelectedRequest] = useState(null);
-  const queryClient = useQueryClient();
+  // const queryClient = useQueryClient();
 
   // Handle scroll effect for sticky elements
   useEffect(() => {
@@ -90,7 +90,7 @@ const Request = () => {
         month: "short",
         day: "numeric",
       });
-    } catch (error) {
+    } catch {
       return "Invalid Date";
     }
   };
@@ -103,7 +103,7 @@ const Request = () => {
         hour: "2-digit",
         minute: "2-digit",
       });
-    } catch (error) {
+    } catch {
       return "";
     }
   };
@@ -157,9 +157,9 @@ const Request = () => {
         <div className="max-w-7xl mx-auto px-6 py-5">
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-4">
-              <div className="p-3 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl shadow-lg">
+              {/* <div className="p-3 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl shadow-lg">
                 <Globe className="text-white" size={24} />
-              </div>
+              </div> */}
               <div>
                 <h1 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
                   Request Management

@@ -75,7 +75,6 @@ const Package = () => {
       setPackageToDelete(null);
     },
     onError: (error) => {
-      // console.error('Delete error:', error);
       enqueueSnackbar('Failed to delete package. Please try again.', { variant: 'error' });
       setShowDeleteModal(false);
       setPackageToDelete(null);
@@ -153,7 +152,6 @@ const Package = () => {
     });
 
   const openModal = (type, pkg = null) => {
-    console.log('Opening modal with package:', pkg);
     setModalType(type);
     setSelectedPackage(pkg);
     setCurrentImageIndex(0);
@@ -210,7 +208,6 @@ const Package = () => {
 
   const handleSave = (e) => {
     e.preventDefault();
-    // console.log('Saving package with formData:', formData);
 
     if (!formData?.title?.trim() || !formData?.subtitle?.trim() || !formData?.price || !formData?.description?.trim()) {
       alert('Please fill in all required fields: Title, Subtitle, Price, and Description.');
@@ -234,24 +231,17 @@ const Package = () => {
     }
   };
 
-  // Fixed delete handler - opens confirmation modal
   const handleDelete = (pkg) => {
-    // console.log('Requesting delete for package:', pkg);
     setPackageToDelete(pkg);
     setShowDeleteModal(true);
   };
 
-  // Confirm delete handler
   const confirmDelete = () => {
-    // console.log('Confirming delete for package:', packageToDelete);
-    // setShowDeleteModal(false);
-    // setPackageToDelete(null);
     if (packageToDelete) {
       deletePackageMutation.mutate(packageToDelete._id);
     }
   };
 
-  // Cancel delete handler
   const cancelDelete = () => {
     setShowDeleteModal(false);
     setPackageToDelete(null);
@@ -314,42 +304,25 @@ const Package = () => {
   const isSubmitting = addPackageMutation.isLoading || updatePackageMutation.isLoading;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 w-screen">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
       {/* Header */}
       <div className="w-full px-4 sm:px-6 lg:px-8 sticky top-0 z-40">
-  <div className="bg-white border-b border-gray-200 rounded-lg max-w-7xl mx-auto shadow-sm">
-    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 py-4 sm:py-0 sm:h-16 px-4 sm:px-6">
-      <div className="text-center sm:text-left">
-        <h1 className="text-xl sm:text-2xl font-bold text-gray-900">Package Management</h1>
-        <p className="text-xs sm:text-sm text-gray-600 mt-1">Manage your travel packages and bookings</p>
-      </div>
-      <button
-        onClick={() => openModal('add')}
-        className="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-blue-700 text-white px-4 py-2 sm:px-6 sm:py-2 rounded-lg sm:rounded-xl font-semibold shadow-md hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2"
-      >
-        <FaPlus className="w-3 h-3 sm:w-4 sm:h-4" />
-        <span className="text-sm sm:text-base">Add Package</span>
-      </button>
-    </div>
-  </div>
-</div>
-      {/* <div className="w-4/5 mx-auto shadow-sm">
-        <div className="bg-white border-b border-gray-200 rounded-lg max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            <div>
-              <h1 className="text-2xl font-bold text-gray-900">Package Management</h1>
-              <p className="text-sm text-gray-600">Manage your travel packages and bookings</p>
+        <div className="bg-white border-b border-gray-200 rounded-lg max-w-7xl mx-auto shadow-sm">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 py-4 sm:py-0 sm:h-16 px-4 sm:px-6">
+            <div className="text-center sm:text-left">
+              <h1 className="text-xl sm:text-2xl font-bold text-gray-900">Package Management</h1>
+              <p className="text-xs sm:text-sm text-gray-600 mt-1">Manage your travel packages and bookings</p>
             </div>
             <button
               onClick={() => openModal('add')}
-              className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-2 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2"
+              className="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-blue-700 text-white px-4 py-2 sm:px-6 sm:py-2 rounded-lg sm:rounded-xl font-semibold shadow-md hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2"
             >
-              <FaPlus className="w-4 h-4" />
-              Add Package
+              <FaPlus className="w-3 h-3 sm:w-4 sm:h-4" />
+              <span className="text-sm sm:text-base">Add Package</span>
             </button>
           </div>
         </div>
-      </div> */}
+      </div>
 
       {/* Stats Cards */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -469,7 +442,7 @@ const Package = () => {
 
       {/* Main Modal */}
       {modalType && (
-        <div className="fixed inset-0  flex items-center justify-center p-4 z-50 backdrop-blur-sm bg-black/30 min-h-screen">
+        <div className="fixed inset-0 flex items-center justify-center p-4 z-50 backdrop-blur-sm bg-black/30 min-h-screen">
           <div className="bg-white rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
             <div className="sticky top-0 bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between rounded-t-2xl">
               <h2 className="text-2xl font-bold text-gray-900">
@@ -511,7 +484,7 @@ const Package = () => {
 
       {/* Delete Confirmation Modal */}
       {showDeleteModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 backdrop-blur-sm bg-black/30">
           <div className="bg-white rounded-lg max-w-md w-full p-6">
             <h3 className="text-lg font-semibold text-gray-900 mb-4">Delete Package</h3>
             <p className="text-gray-600 mb-6">

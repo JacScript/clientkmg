@@ -47,7 +47,7 @@ const TopBar = () => {
   }, [locations.length]);
 
   return (
-    <header className="w-full h-40 fixed top-0 left-0 right-0 z-90 bg-white">
+    <header className="w-full h-40 fixed top-0 left-0 right-0 z-20 bg-white">
       {/* Top of the nav bar */}
       <div className="w-full h-1/3 bg-blue-400 ">
         {/* Dot grid background */}
@@ -90,7 +90,7 @@ const TopBar = () => {
           </div>
 
           {/* Right side of the top of the nav bar */}
-          <div className="flex text-white items-center justify-center gap-4 z-40 ">
+          <div className="flex text-white items-center justify-center gap-4 ">
            
               <a 
                 href="https://wa.me/33771948786?text=Good day, I am interested in booking travel arrangements and would like to inquire about your available tour packages." 

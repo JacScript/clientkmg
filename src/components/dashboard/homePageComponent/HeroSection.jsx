@@ -1,315 +1,288 @@
-import React, { useState, useCallback, useRef } from 'react';
-import { useSnackbar } from 'notistack';
+import React, { useState } from 'react';
+import { Plus, Trash2, Upload, Loader } from 'lucide-react';
+import { enqueueSnackbar } from 'notistack';
 
-const HeroSection = ({ heroSection, handleInputChange, addImage, removeImage, onImageUploaded }) => {
-  const { enqueueSnackbar } = useSnackbar();
+const CLOUDINARY_UPLOAD_PRESET = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
+const CLOUDINARY_CLOUD_NAME = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
 
-  const [draggedOverIndex, setDraggedOverIndex] = useState(null);
+async function uploadToCloudinary(file) {
+  const formData = new FormData();
+  formData.append('file', file);
+  formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+  const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`, {
+    method: 'POST',
+    body: formData,
+  });
+  const data = await res.json();
+  if (!data.secure_url) throw new Error('Upload failed');
+  return data.secure_url;
+}
 
-  const addButtonRef = useRef(null);
-  const removeButtonRefs = useRef({});
-  const lastClickTimeRef = useRef(0);
-
-  const handleFileDrop = useCallback((index, files) => {
-    if (files && files[0]) {
-      const file = files[0];
-
-      if (!file.type.startsWith('image/')) {
-        enqueueSnackbar('Please upload an image file', { variant: 'warning' });
-        return;
-      }
-
-      const reader = new FileReader();
-      reader.onload = () => {
-        uploadToCloudinary(file, index);
-      };
-      reader.readAsDataURL(file);
-    }
-  }, []);
-
-  const uploadToCloudinary = useCallback(async (file, index) => {
-    try {
-      const preset = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
-      const cloudName = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
-
-      if (!preset || !cloudName) {
-        enqueueSnackbar('Cloudinary config missing. Check your .env file and restart the dev server.', { variant: 'error' });
-        return;
-      }
-
-      handleInputChange('heroSection', 'backgroundImage', 'uploading...', index, 'url');
-
-      const formData = new FormData();
-      formData.append('file', file);
-      formData.append('upload_preset', preset);
-
-      const response = await fetch(
-        `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
-        { method: 'POST', body: formData }
-      );
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData?.error?.message || 'Upload failed');
-      }
-
-      const data = await response.json();
-
-      // Update state with the uploaded image URL
-      handleInputChange('heroSection', 'backgroundImage', data.secure_url, index, 'url');
-
-      if (!heroSection.backgroundImage[index]?.title) {
-        const defaultTitle = file.name.split('.').slice(0, -1).join('.');
-        handleInputChange('heroSection', 'backgroundImage', defaultTitle, index, 'title');
-      }
-
-      enqueueSnackbar('Image uploaded successfully! Saving to database...', { variant: 'success' });
-
-      // ✅ Auto-save to DB after successful Cloudinary upload
-      // Small delay (150ms) ensures React has flushed the state updates above
-      // before the mutation reads the latest homeData via the functional setState trick
-      if (onImageUploaded) {
-        setTimeout(() => onImageUploaded(), 150);
-      }
-
-    } catch (error) {
-      enqueueSnackbar(`Failed to upload image: ${error.message}`, { variant: 'error' });
-      handleInputChange('heroSection', 'backgroundImage', '', index, 'url');
-    }
-  }, [handleInputChange, heroSection.backgroundImage, onImageUploaded]);
-
-  const getOptimizedImageUrl = useCallback((url) => {
-    if (!url) return '';
-    if (url.includes('cloudinary.com')) {
-      const urlParts = url.split('/upload/');
-      if (urlParts.length === 2) {
-        return `${urlParts[0]}/upload/c_thumb,w_200,q_auto/${urlParts[1]}`;
-      }
-    }
-    return url;
-  }, []);
-
-  const handleAddImage = useCallback((e) => {
-    e.preventDefault();
-    e.stopPropagation();
-
-    const now = Date.now();
-    const timeSinceLastClick = now - lastClickTimeRef.current;
-
-    if (timeSinceLastClick < 1500) {
-      return;
-    }
-
-    lastClickTimeRef.current = now;
-
-    if (addButtonRef.current) {
-      addButtonRef.current.disabled = true;
-      setTimeout(() => {
-        if (addButtonRef.current) addButtonRef.current.disabled = false;
-      }, 1500);
-    }
-
-    addImage('heroSection', 'backgroundImage');
-  }, [addImage]);
-
-  const handleRemoveImage = useCallback((e, index) => {
-    e.preventDefault();
-    e.stopPropagation();
-
-    const now = Date.now();
-    const buttonId = `remove-${index}`;
-
-    if (removeButtonRefs.current[buttonId] && (now - removeButtonRefs.current[buttonId]) < 1500) {
-      return;
-    }
-
-    removeButtonRefs.current[buttonId] = now;
-
-    const buttonElement = e.target;
-    buttonElement.disabled = true;
-    setTimeout(() => {
-      buttonElement.disabled = false;
-    }, 1500);
-
-    removeImage('heroSection', 'backgroundImage', index);
-    enqueueSnackbar('Image removed', { variant: 'info' });
-  }, [removeImage]);
-
-  const backgroundImages = Array.isArray(heroSection?.backgroundImage) ? heroSection.backgroundImage : [];
+// --- A small reusable editor for an array of plain strings (used for both
+// heading lines and each search-bar field's options list). ---
+const StringListEditor = ({ label, items, onChange, placeholder = '' }) => {
+  const updateItem = (index, value) => {
+    const next = [...items];
+    next[index] = value;
+    onChange(next);
+  };
+  const addItem = () => onChange([...items, '']);
+  const removeItem = (index) => onChange(items.filter((_, i) => i !== index));
 
   return (
-    <div className="space-y-6">
-      <h2 className="text-xl font-semibold">Hero Section</h2>
+    <div>
+      <div className="flex items-center justify-between mb-2">
+        <label className="text-sm font-medium text-gray-700">{label}</label>
+        <button onClick={addItem} className="inline-flex items-center gap-1 text-sm font-medium text-blue-600 hover:text-blue-700">
+          <Plus className="w-4 h-4" /> Add
+        </button>
+      </div>
+      <div className="space-y-2">
+        {items.map((item, index) => (
+          <div key={index} className="flex gap-2 items-center">
+            <input
+              type="text"
+              value={item}
+              onChange={(e) => updateItem(index, e.target.value)}
+              placeholder={placeholder}
+              className="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-1 focus:ring-blue-500"
+            />
+            <button onClick={() => removeItem(index)} className="text-red-500 hover:text-red-600 p-1">
+              <Trash2 className="w-4 h-4" />
+            </button>
+          </div>
+        ))}
+        {items.length === 0 && <p className="text-xs text-gray-400 italic">None yet.</p>}
+      </div>
+    </div>
+  );
+};
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+// --- Editor for one searchBar field (destination or activity): label,
+// placeholder, icon, and its options list. ---
+const SearchFieldEditor = ({ title, field, onChange }) => {
+  const update = (key, value) => onChange({ ...field, [key]: value });
+
+  return (
+    <div className="border border-gray-200 rounded-lg p-4 space-y-3 bg-gray-50">
+      <h4 className="text-sm font-semibold text-gray-800">{title}</h4>
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        <input
+          type="text"
+          value={field.label || ''}
+          onChange={(e) => update('label', e.target.value)}
+          placeholder="Label"
+          className="px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-1 focus:ring-blue-500"
+        />
+        <input
+          type="text"
+          value={field.placeholder || ''}
+          onChange={(e) => update('placeholder', e.target.value)}
+          placeholder="Placeholder"
+          className="px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-1 focus:ring-blue-500"
+        />
+        <input
+          type="text"
+          value={field.icon || ''}
+          onChange={(e) => update('icon', e.target.value)}
+          placeholder="Icon name"
+          className="px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-1 focus:ring-blue-500"
+        />
+      </div>
+      <p className="text-xs text-gray-400">
+        Don't re-add "{field.placeholder || 'the placeholder text'}" as one of the options below — the
+        placeholder already covers the unselected state, and the public form filters out an exact (trimmed)
+        match anyway.
+      </p>
+      <StringListEditor
+        label="Options"
+        items={field.options || []}
+        onChange={(options) => update('options', options)}
+        placeholder="Option text"
+      />
+    </div>
+  );
+};
+
+const HeroSection = ({ heroSection, handleInputChange, addImage, removeImage, onImageUploaded }) => {
+  const [isUploading, setIsUploading] = useState(false);
+  const searchBar = heroSection.searchBar || { destination: {}, activity: {}, contact: {} };
+
+  const updateSearchBarField = (fieldKey, updatedField) => {
+    handleInputChange('heroSection', 'searchBar', { ...searchBar, [fieldKey]: updatedField });
+  };
+
+  const updateContact = (key, value) => {
+    handleInputChange('heroSection', 'searchBar', {
+      ...searchBar,
+      contact: { ...searchBar.contact, [key]: value },
+    });
+  };
+
+  const handleImageUpload = async (e, index) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setIsUploading(true);
+    try {
+      const url = await uploadToCloudinary(file);
+      handleInputChange('heroSection', 'backgroundImage', url, index, 'url');
+      onImageUploaded?.();
+    } catch (err) {
+      enqueueSnackbar('Upload failed: ' + err.message, { variant: 'error' });
+    } finally {
+      setIsUploading(false);
+    }
+  };
+
+  return (
+    <div className="space-y-8">
+      {/* Basic copy */}
+      <div className="space-y-4">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Heading</label>
+          <label className="text-sm font-medium text-gray-700 mb-1 block">Badge</label>
           <input
             type="text"
-            value={heroSection?.heading || ''}
-            onChange={(e) => handleInputChange('heroSection', 'heading', e.target.value)}
-            className="w-full p-2 border border-gray-300 rounded-md"
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Subheading</label>
-          <input
-            type="text"
-            value={heroSection?.subheading || ''}
-            onChange={(e) => handleInputChange('heroSection', 'subheading', e.target.value)}
-            className="w-full p-2 border border-gray-300 rounded-md"
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Button Text</label>
-          <input
-            type="text"
-            value={heroSection?.buttonText || ''}
-            onChange={(e) => handleInputChange('heroSection', 'buttonText', e.target.value)}
-            className="w-full p-2 border border-gray-300 rounded-md"
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Button Link</label>
-          <input
-            type="text"
-            value={heroSection?.buttonLink || ''}
-            onChange={(e) => handleInputChange('heroSection', 'buttonLink', e.target.value)}
-            className="w-full p-2 border border-gray-300 rounded-md"
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Badge Text</label>
-          <input
-            type="text"
-            value={heroSection?.badge || ''}
+            value={heroSection.badge || ''}
             onChange={(e) => handleInputChange('heroSection', 'badge', e.target.value)}
-            className="w-full p-2 border border-gray-300 rounded-md"
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           />
+        </div>
+
+        <StringListEditor
+          label="Heading Lines (each as 'from X to Y')"
+          items={heroSection.heading || []}
+          onChange={(lines) => handleInputChange('heroSection', 'heading', lines)}
+          placeholder="from Tanzania to France"
+        />
+
+        <div>
+          <label className="text-sm font-medium text-gray-700 mb-1 block">Subheading</label>
+          <textarea
+            value={heroSection.subheading || ''}
+            onChange={(e) => handleInputChange('heroSection', 'subheading', e.target.value)}
+            rows={2}
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-none"
+          />
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label className="text-sm font-medium text-gray-700 mb-1 block">Button Text</label>
+            <input
+              type="text"
+              value={heroSection.buttonText || ''}
+              onChange={(e) => handleInputChange('heroSection', 'buttonText', e.target.value)}
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            />
+          </div>
+          <div>
+            <label className="text-sm font-medium text-gray-700 mb-1 block">Button Link</label>
+            <input
+              type="text"
+              value={heroSection.buttonLink || ''}
+              onChange={(e) => handleInputChange('heroSection', 'buttonLink', e.target.value)}
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            />
+          </div>
         </div>
       </div>
 
-      <div className="mt-8">
-        <div className="flex justify-between items-center mb-4">
-          <h3 className="text-lg font-medium">Background Images ({backgroundImages.length})</h3>
+      {/* Search bar — destination, activity, contact */}
+      <div className="space-y-4">
+        <h3 className="text-lg font-semibold text-gray-900">Search Bar</h3>
+        <SearchFieldEditor
+          title="Destination"
+          field={searchBar.destination || {}}
+          onChange={(updated) => updateSearchBarField('destination', updated)}
+        />
+        <SearchFieldEditor
+          title="Activity"
+          field={searchBar.activity || {}}
+          onChange={(updated) => updateSearchBarField('activity', updated)}
+        />
+        <div className="border border-gray-200 rounded-lg p-4 space-y-3 bg-gray-50">
+          <h4 className="text-sm font-semibold text-gray-800">Contact Icon</h4>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <input
+              type="text"
+              value={searchBar.contact?.icon || ''}
+              onChange={(e) => updateContact('icon', e.target.value)}
+              placeholder="Icon name (e.g. mail)"
+              className="px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-1 focus:ring-blue-500"
+            />
+            <input
+              type="text"
+              value={searchBar.contact?.link || ''}
+              onChange={(e) => updateContact('link', e.target.value)}
+              placeholder="Link (e.g. #homecontact)"
+              className="px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-1 focus:ring-blue-500"
+            />
+          </div>
+          <p className="text-xs text-gray-400">
+            Heads up: nothing in the current Hero or SendRequestForm components actually renders this contact
+            icon/link yet — it's stored but inert, same situation as a few other "exists in the schema but not
+            wired up visually" fields elsewhere in this project.
+          </p>
+        </div>
+      </div>
+
+      {/* Background images */}
+      <div>
+        <div className="flex items-center justify-between mb-2">
+          <label className="text-sm font-medium text-gray-700">Background Images</label>
           <button
-            ref={addButtonRef}
-            type="button"
-            onClick={handleAddImage}
-            className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
+            onClick={() => addImage('heroSection', 'backgroundImage')}
+            className="inline-flex items-center gap-1 text-sm font-medium text-blue-600 hover:text-blue-700"
           >
-            Add Image
+            <Plus className="w-4 h-4" /> Add Image
           </button>
         </div>
-
-        <div className="space-y-6">
-          {[...backgroundImages].reverse().map((image, reversedIndex) => {
-            const originalIndex = backgroundImages.length - 1 - reversedIndex;
-            return (
-              <div key={`image-${originalIndex}-${image?.url || 'empty'}`} className="p-4 border border-gray-200 rounded-md">
-                <div className="flex justify-between items-center mb-3">
-                  <h4 className="font-medium">
-                    Image {originalIndex + 1}{reversedIndex === 0 && backgroundImages.length > 1 ? ' (Latest)' : ''}
-                  </h4>
-                  <button
-                    type="button"
-                    onClick={(e) => handleRemoveImage(e, originalIndex)}
-                    className="text-red-600 hover:text-red-800 disabled:opacity-50 disabled:cursor-not-allowed"
-                  >
-                    Remove
-                  </button>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  {/* Image Preview/Upload - Column 1 */}
-                  <div className="md:row-span-2">
-                    <div
-                      className={`border-2 border-dashed rounded-md p-4 flex flex-col items-center justify-center h-40 transition-colors cursor-pointer ${
-                        draggedOverIndex === originalIndex
-                          ? 'border-blue-500 bg-blue-50'
-                          : image?.url
-                            ? 'border-gray-200 bg-gray-50'
-                            : 'border-gray-300 bg-gray-100'
-                      }`}
-                      onDragOver={(e) => { e.preventDefault(); setDraggedOverIndex(originalIndex); }}
-                      onDragLeave={() => setDraggedOverIndex(null)}
-                      onDrop={(e) => {
-                        e.preventDefault();
-                        setDraggedOverIndex(null);
-                        handleFileDrop(originalIndex, e.dataTransfer.files);
-                      }}
-                      onClick={() => {
-                        const input = document.createElement('input');
-                        input.type = 'file';
-                        input.accept = 'image/*';
-                        input.onchange = (e) => handleFileDrop(originalIndex, e.target.files);
-                        input.click();
-                      }}
-                    >
-                      {image?.url === 'uploading...' ? (
-                        <div className="flex flex-col items-center">
-                          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mb-2"></div>
-                          <span className="text-sm text-gray-500">Uploading...</span>
-                        </div>
-                      ) : image?.url ? (
-                        <>
-                          <img
-                            src={getOptimizedImageUrl(image.url)}
-                            alt={image.title || `Image ${originalIndex + 1}`}
-                            className="max-w-full max-h-24 object-contain mb-2"
-                            onError={(e) => {
-                              e.target.onerror = null;
-                              e.target.src = 'https://via.placeholder.com/150x100?text=Preview';
-                            }}
-                          />
-                          <span className="text-xs text-gray-500">Drag new image or click to replace</span>
-                        </>
-                      ) : (
-                        <>
-                          <svg className="w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                          </svg>
-                          <p className="mt-2 text-sm text-gray-500">Drag image here or click to upload</p>
-                          <p className="text-xs text-gray-400 mt-1">PNG, JPG, GIF up to 5MB</p>
-                        </>
-                      )}
-                    </div>
-                  </div>
-
-                  {/* Form Fields - Columns 2-3 */}
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Title</label>
-                    <input
-                      type="text"
-                      value={image?.title || ''}
-                      onChange={(e) => handleInputChange('heroSection', 'backgroundImage', e.target.value, originalIndex, 'title')}
-                      className="w-full p-2 border border-gray-300 rounded-md"
-                    />
-                  </div>
-
-                  <div className="md:col-span-2">
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
-                    <textarea
-                      value={image?.description || ''}
-                      onChange={(e) => handleInputChange('heroSection', 'backgroundImage', e.target.value, originalIndex, 'description')}
-                      className="w-full p-2 border border-gray-300 rounded-md"
-                      rows="2"
-                    />
-                  </div>
-                </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {(heroSection.backgroundImage || []).map((img, index) => (
+            <div key={index} className="border border-gray-200 rounded-lg p-3 space-y-2">
+              <div className="relative h-40 bg-gray-100 rounded-lg overflow-hidden">
+                {img.url ? (
+                  <img src={img.url} alt={img.title} className="w-full h-full object-cover" />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center text-gray-400 text-xs">No image</div>
+                )}
+                <label className="absolute bottom-2 right-2 inline-flex items-center gap-1.5 bg-white/90 hover:bg-white text-xs font-medium text-blue-600 px-2.5 py-1.5 rounded-lg shadow cursor-pointer">
+                  {isUploading ? <Loader className="w-3.5 h-3.5 animate-spin" /> : <Upload className="w-3.5 h-3.5" />}
+                  {isUploading ? '...' : img.url ? 'Replace' : 'Upload'}
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => handleImageUpload(e, index)}
+                    className="hidden"
+                    disabled={isUploading}
+                  />
+                </label>
               </div>
-            );
-          })}
+              <input
+                type="text"
+                value={img.title || ''}
+                onChange={(e) => handleInputChange('heroSection', 'backgroundImage', e.target.value, index, 'title')}
+                placeholder="Title"
+                className="w-full px-2 py-1.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-1 focus:ring-blue-500"
+              />
+              <input
+                type="text"
+                value={img.description || ''}
+                onChange={(e) => handleInputChange('heroSection', 'backgroundImage', e.target.value, index, 'description')}
+                placeholder="Description"
+                className="w-full px-2 py-1.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-1 focus:ring-blue-500"
+              />
+              <button
+                onClick={() => removeImage('heroSection', 'backgroundImage', index)}
+                className="inline-flex items-center gap-1 text-xs text-red-500 hover:text-red-600"
+              >
+                <Trash2 className="w-3.5 h-3.5" /> Remove
+              </button>
+            </div>
+          ))}
         </div>
-
-        {backgroundImages.length === 0 && (
-          <div className="text-center py-8 text-gray-500">
-            No background images added yet. Click "Add Image" to get started.
-          </div>
+        {(heroSection.backgroundImage || []).length === 0 && (
+          <p className="text-sm text-gray-400 italic">No images yet — the hero carousel needs at least one.</p>
         )}
       </div>
     </div>
@@ -317,355 +290,3 @@ const HeroSection = ({ heroSection, handleInputChange, addImage, removeImage, on
 };
 
 export default HeroSection;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// import React, { useState, useCallback, useRef } from 'react';
-// import { useSnackbar } from 'notistack';
-
-// const HeroSection = ({ heroSection, handleInputChange, addImage, removeImage }) => {
-//   const { enqueueSnackbar } = useSnackbar();
-
-//   const [draggedOverIndex, setDraggedOverIndex] = useState(null);
-
-//   const addButtonRef = useRef(null);
-//   const removeButtonRefs = useRef({});
-//   const lastClickTimeRef = useRef(0);
-
-//   const handleFileDrop = useCallback((index, files) => {
-//     if (files && files[0]) {
-//       const file = files[0];
-
-//       if (!file.type.startsWith('image/')) {
-//         enqueueSnackbar('Please upload an image file', { variant: 'warning' });
-//         return;
-//       }
-
-//       const reader = new FileReader();
-//       reader.onload = () => {
-//         uploadToCloudinary(file, index);
-//       };
-//       reader.readAsDataURL(file);
-//     }
-//   }, []);
-
-//   const uploadToCloudinary = useCallback(async (file, index) => {
-//     try {
-//       const preset = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
-//       const cloudName = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
-
-//       // console.log('ENV CHECK:', { preset, cloudName });
-
-//       if (!preset || !cloudName) {
-//         enqueueSnackbar('Cloudinary config missing. Check your .env file and restart the dev server.', { variant: 'error' });
-//         return;
-//       }
-
-//       handleInputChange('heroSection', 'backgroundImage', 'uploading...', index, 'url');
-
-//       const formData = new FormData();
-//       formData.append('file', file);
-//       formData.append('upload_preset', preset);
-
-//       const response = await fetch(
-//         `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
-//         { method: 'POST', body: formData }
-//       );
-
-//       if (!response.ok) {
-//         const errorData = await response.json();
-//         // console.error('Cloudinary rejected:', JSON.stringify(errorData, null, 2));
-//         throw new Error(errorData?.error?.message || 'Upload failed');
-//       }
-
-//       const data = await response.json();
-//       handleInputChange('heroSection', 'backgroundImage', data.secure_url, index, 'url');
-
-//       if (!heroSection.backgroundImage[index]?.title) {
-//         const defaultTitle = file.name.split('.').slice(0, -1).join('.');
-//         handleInputChange('heroSection', 'backgroundImage', defaultTitle, index, 'title');
-//       }
-
-//       enqueueSnackbar('Image uploaded successfully!', { variant: 'success' });
-
-//     } catch (error) {
-//       // console.error('Cloudinary upload error:', error);
-//       enqueueSnackbar(`Failed to upload image: ${error.message}`, { variant: 'error' });
-//       handleInputChange('heroSection', 'backgroundImage', '', index, 'url');
-//     }
-//   }, [handleInputChange, heroSection.backgroundImage]);
-
-//   const getOptimizedImageUrl = useCallback((url) => {
-//     if (!url) return '';
-//     if (url.includes('cloudinary.com')) {
-//       const urlParts = url.split('/upload/');
-//       if (urlParts.length === 2) {
-//         return `${urlParts[0]}/upload/c_thumb,w_200,q_auto/${urlParts[1]}`;
-//       }
-//     }
-//     return url;
-//   }, []);
-
-//   const handleAddImage = useCallback((e) => {
-//     e.preventDefault();
-//     e.stopPropagation();
-
-//     const now = Date.now();
-//     const timeSinceLastClick = now - lastClickTimeRef.current;
-
-//     if (timeSinceLastClick < 1500) {
-//       // console.log('Add button click ignored - too rapid');
-//       return;
-//     }
-
-//     lastClickTimeRef.current = now;
-
-//     if (addButtonRef.current) {
-//       addButtonRef.current.disabled = true;
-//       setTimeout(() => {
-//         if (addButtonRef.current) addButtonRef.current.disabled = false;
-//       }, 1500);
-//     }
-
-//     // console.log('Add button clicked - calling addImage');
-//     addImage('heroSection', 'backgroundImage');
-//   }, [addImage]);
-
-//   const handleRemoveImage = useCallback((e, index) => {
-//     e.preventDefault();
-//     e.stopPropagation();
-
-//     const now = Date.now();
-//     const buttonId = `remove-${index}`;
-
-//     if (removeButtonRefs.current[buttonId] && (now - removeButtonRefs.current[buttonId]) < 1500) {
-//       // console.log(`Remove button ${index} click ignored - too rapid`);
-//       return;
-//     }
-
-//     removeButtonRefs.current[buttonId] = now;
-
-//     const buttonElement = e.target;
-//     buttonElement.disabled = true;
-//     setTimeout(() => {
-//       buttonElement.disabled = false;
-//     }, 1500);
-
-//     // console.log(`Remove button ${index} clicked - calling removeImage`);
-//     removeImage('heroSection', 'backgroundImage', index);
-//     enqueueSnackbar('Image removed', { variant: 'info' });
-//   }, [removeImage]);
-
-//   const backgroundImages = Array.isArray(heroSection?.backgroundImage) ? heroSection.backgroundImage : [];
-
-//   return (
-//     <div className="space-y-6">
-//       <h2 className="text-xl font-semibold">Hero Section</h2>
-
-//       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-//         <div>
-//           <label className="block text-sm font-medium text-gray-700 mb-1">Heading</label>
-//           <input
-//             type="text"
-//             value={heroSection?.heading || ''}
-//             onChange={(e) => handleInputChange('heroSection', 'heading', e.target.value)}
-//             className="w-full p-2 border border-gray-300 rounded-md"
-//           />
-//         </div>
-
-//         <div>
-//           <label className="block text-sm font-medium text-gray-700 mb-1">Subheading</label>
-//           <input
-//             type="text"
-//             value={heroSection?.subheading || ''}
-//             onChange={(e) => handleInputChange('heroSection', 'subheading', e.target.value)}
-//             className="w-full p-2 border border-gray-300 rounded-md"
-//           />
-//         </div>
-
-//         <div>
-//           <label className="block text-sm font-medium text-gray-700 mb-1">Button Text</label>
-//           <input
-//             type="text"
-//             value={heroSection?.buttonText || ''}
-//             onChange={(e) => handleInputChange('heroSection', 'buttonText', e.target.value)}
-//             className="w-full p-2 border border-gray-300 rounded-md"
-//           />
-//         </div>
-
-//         <div>
-//           <label className="block text-sm font-medium text-gray-700 mb-1">Button Link</label>
-//           <input
-//             type="text"
-//             value={heroSection?.buttonLink || ''}
-//             onChange={(e) => handleInputChange('heroSection', 'buttonLink', e.target.value)}
-//             className="w-full p-2 border border-gray-300 rounded-md"
-//           />
-//         </div>
-
-//         <div>
-//           <label className="block text-sm font-medium text-gray-700 mb-1">Badge Text</label>
-//           <input
-//             type="text"
-//             value={heroSection?.badge || ''}
-//             onChange={(e) => handleInputChange('heroSection', 'badge', e.target.value)}
-//             className="w-full p-2 border border-gray-300 rounded-md"
-//           />
-//         </div>
-//       </div>
-
-//       <div className="mt-8">
-//         <div className="flex justify-between items-center mb-4">
-//           <h3 className="text-lg font-medium">Background Images ({backgroundImages.length})</h3>
-//           <button
-//             ref={addButtonRef}
-//             type="button"
-//             onClick={handleAddImage}
-//             className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
-//           >
-//             Add Image
-//           </button>
-//         </div>
-
-//         <div className="space-y-6">
-//           {[...backgroundImages].reverse().map((image, reversedIndex) => {
-//             const originalIndex = backgroundImages.length - 1 - reversedIndex;
-//             return (
-//               <div key={`image-${originalIndex}-${image?.url || 'empty'}`} className="p-4 border border-gray-200 rounded-md">
-//                 <div className="flex justify-between items-center mb-3">
-//                   <h4 className="font-medium">
-//                     Image {originalIndex + 1}{reversedIndex === 0 && backgroundImages.length > 1 ? ' (Latest)' : ''}
-//                   </h4>
-//                   <button
-//                     type="button"
-//                     onClick={(e) => handleRemoveImage(e, originalIndex)}
-//                     className="text-red-600 hover:text-red-800 disabled:opacity-50 disabled:cursor-not-allowed"
-//                   >
-//                     Remove
-//                   </button>
-//                 </div>
-
-//                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-//                   {/* Image Preview/Upload - Column 1 */}
-//                   <div className="md:row-span-2">
-//                     <div
-//                       className={`border-2 border-dashed rounded-md p-4 flex flex-col items-center justify-center h-40 transition-colors cursor-pointer ${
-//                         draggedOverIndex === originalIndex
-//                           ? 'border-blue-500 bg-blue-50'
-//                           : image?.url
-//                             ? 'border-gray-200 bg-gray-50'
-//                             : 'border-gray-300 bg-gray-100'
-//                       }`}
-//                       onDragOver={(e) => { e.preventDefault(); setDraggedOverIndex(originalIndex); }}
-//                       onDragLeave={() => setDraggedOverIndex(null)}
-//                       onDrop={(e) => {
-//                         e.preventDefault();
-//                         setDraggedOverIndex(null);
-//                         handleFileDrop(originalIndex, e.dataTransfer.files);
-//                       }}
-//                       onClick={() => {
-//                         const input = document.createElement('input');
-//                         input.type = 'file';
-//                         input.accept = 'image/*';
-//                         input.onchange = (e) => handleFileDrop(originalIndex, e.target.files);
-//                         input.click();
-//                       }}
-//                     >
-//                       {image?.url === 'uploading...' ? (
-//                         <div className="flex flex-col items-center">
-//                           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mb-2"></div>
-//                           <span className="text-sm text-gray-500">Uploading...</span>
-//                         </div>
-//                       ) : image?.url ? (
-//                         <>
-//                           <img
-//                             src={getOptimizedImageUrl(image.url)}
-//                             alt={image.title || `Image ${originalIndex + 1}`}
-//                             className="max-w-full max-h-24 object-contain mb-2"
-//                             onError={(e) => {
-//                               e.target.onerror = null;
-//                               e.target.src = 'https://via.placeholder.com/150x100?text=Preview';
-//                             }}
-//                           />
-//                           <span className="text-xs text-gray-500">Drag new image or click to replace</span>
-//                         </>
-//                       ) : (
-//                         <>
-//                           <svg className="w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-//                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-//                           </svg>
-//                           <p className="mt-2 text-sm text-gray-500">Drag image here or click to upload</p>
-//                           <p className="text-xs text-gray-400 mt-1">PNG, JPG, GIF up to 5MB</p>
-//                         </>
-//                       )}
-//                     </div>
-//                   </div>
-
-//                   {/* Form Fields - Columns 2-3 */}
-//                   <div>
-//                     <label className="block text-sm font-medium text-gray-700 mb-1">Title</label>
-//                     <input
-//                       type="text"
-//                       value={image?.title || ''}
-//                       onChange={(e) => handleInputChange('heroSection', 'backgroundImage', e.target.value, originalIndex, 'title')}
-//                       className="w-full p-2 border border-gray-300 rounded-md"
-//                     />
-//                   </div>
-
-//                   <div className="md:col-span-2">
-//                     <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
-//                     <textarea
-//                       value={image?.description || ''}
-//                       onChange={(e) => handleInputChange('heroSection', 'backgroundImage', e.target.value, originalIndex, 'description')}
-//                       className="w-full p-2 border border-gray-300 rounded-md"
-//                       rows="2"
-//                     />
-//                   </div>
-//                 </div>
-//               </div>
-//             );
-//           })}
-//         </div>
-
-//         {backgroundImages.length === 0 && (
-//           <div className="text-center py-8 text-gray-500">
-//             No background images added yet. Click "Add Image" to get started.
-//           </div>
-//         )}
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default HeroSection;

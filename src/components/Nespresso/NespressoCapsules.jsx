@@ -3,87 +3,15 @@ import { motion } from "framer-motion";
 import { useCart } from "../../context/CartContext";
 import { formatTZS } from "../../utils/currency";
 
-// import ristrettoImg from "../../assets/capsules/ristretto.png";
-// import vollutoImg from "../../assets/capsules/volluto.png";
-// import kazaarImg from "../../assets/capsules/kazaar.png";
-// import napoliImg from "../../assets/capsules/napoli.png";
-// import capriccioImg from "../../assets/capsules/capriccio.png";
-// import stockholmLungoImg from "../../assets/capsules/stockholm-lungo.png";
-// import indiaImg from "../../assets/capsules/india.png";
-// import hawaiiKonaImg from "../../assets/capsules/hawaii-kona.png";
-
 const capsuleBowlImage =
   "https://images.unsplash.com/photo-1514212586585-6a0e1838e7bf?auto=format&fit=crop&w=1200&q=80";
 
 const MAX_INTENSITY = 13;
 
-// Flavors, intensities, serving sizes, and retail prices (TZS) per KM Group's
-// NESPRESSO Café Catalog and Price List, 13 May 2026.
-const flavors = [
-  {
-    id: "capsule-ristretto",
-    name: "Ristretto",
-    intensity: 10,
-    servings: ["Ristretto (25ml)", "Espresso (40ml)"],
-    image: capsuleBowlImage,
-    price: 38000,
-  },
-  {
-    id: "capsule-volluto",
-    name: "Volluto",
-    intensity: 4,
-    servings: ["Espresso (40ml)"],
-    image: capsuleBowlImage,
-    price: 38000,
-  },
-  {
-    id: "capsule-kazaar",
-    name: "Kazaar",
-    intensity: 12,
-    servings: ["Ristretto (25ml)", "Espresso (40ml)"],
-    image: capsuleBowlImage,
-    price: 38000,
-  },
-  {
-    id: "capsule-napoli",
-    name: "Napoli",
-    intensity: 13,
-    servings: ["Ristretto (25ml)", "Espresso (40ml)"],
-    image: capsuleBowlImage,
-    price: 38000,
-  },
-  {
-    id: "capsule-capriccio",
-    name: "Capriccio",
-    intensity: 5,
-    servings: ["Espresso (40ml)"],
-    image: capsuleBowlImage,
-    price: 38000,
-  },
-  {
-    id: "capsule-stockholm-lungo",
-    name: "Stockholm Lungo",
-    intensity: 8,
-    servings: ["Lungo (110ml)"],
-    image: capsuleBowlImage,
-    price: 45000,
-  },
-  {
-    id: "capsule-india",
-    name: "India",
-    intensity: 11,
-    servings: ["Espresso (40ml)", "Lungo (110ml)"],
-    image: capsuleBowlImage,
-    price: 45000,
-  },
-  {
-    id: "capsule-hawaii-kona",
-    name: "Hawaii Kona",
-    intensity: 5,
-    servings: ["Espresso (40ml)"],
-    image: capsuleBowlImage,
-    price: 45000,
-  },
+// Fallback content shown if no capsules are linked on the backend yet.
+const DEFAULT_CAPSULES = [
+  { _id: "capsule-ristretto", name: "Ristretto", intensity: 10, servings: ["Ristretto (25ml)", "Espresso (40ml)"], image: capsuleBowlImage, price: 38000 },
+  { _id: "capsule-volluto", name: "Volluto", intensity: 4, servings: ["Espresso (40ml)"], image: capsuleBowlImage, price: 38000 },
 ];
 
 const container = {
@@ -124,8 +52,15 @@ const IntensityBars = ({ intensity, max = MAX_INTENSITY }) => (
   </div>
 );
 
-const NespressoCapsules = () => {
+const NespressoCapsules = ({
+  capsules = DEFAULT_CAPSULES,
+  eyebrow = "Capsules",
+  heading = "A world of coffee, one capsule at a time.",
+  subheading = "From bold Ristretto to delicate Hawaii Kona, each blend is roasted and sealed at peak freshness, capturing the aroma of single-origin farms in every cup.",
+}) => {
   const { addToCart } = useCart();
+
+  if (!capsules.length) return null;
 
   return (
     <section id="capsules" className="bg-[#0F0C09] px-6 py-20 text-white lg:px-12">
@@ -141,15 +76,13 @@ const NespressoCapsules = () => {
               variants={item}
               className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-[#C9A24B]"
             >
-              Capsules
+              {eyebrow}
             </motion.p>
             <motion.h2 variants={item} className="text-3xl font-bold sm:text-4xl">
-              A world of coffee, one capsule at a time.
+              {heading}
             </motion.h2>
             <motion.p variants={item} className="mt-4 max-w-md text-gray-400">
-              From bold Ristretto to delicate Hawaii Kona, each blend is
-              roasted and sealed at peak freshness, capturing the aroma of
-              single-origin farms in every cup.
+              {subheading}
             </motion.p>
           </motion.div>
 
@@ -175,48 +108,50 @@ const NespressoCapsules = () => {
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
         >
-          {flavors.map((flavor) => (
+          {capsules.map((capsule) => (
             <motion.div
-              key={flavor.id}
+              key={capsule._id}
               variants={item}
               whileHover={{ y: -6 }}
-              className="flex flex-col items-center rounded-2xl bg-[#1B1410] p-6 text-center"
+              className="overflow-hidden rounded-2xl bg-[#1B1410] text-center"
             >
-              <div className="mb-4 flex h-20 w-20 items-center justify-center overflow-hidden rounded-full bg-[#F5EFE6]">
+              <div className="aspect-[4/3] overflow-hidden">
                 <img
-                  src={flavor.image}
-                  alt={`${flavor.name} capsule`}
-                  className="h-16 w-16 object-contain"
+                  src={capsule.image}
+                  alt={`${capsule.name} capsule`}
+                  className="h-full w-full object-fit transition duration-500 hover:scale-105"
                 />
               </div>
 
-              <h3 className="font-semibold">{flavor.name}</h3>
+              <div className="p-6">
+                <h3 className="font-semibold">{capsule.name}</h3>
 
-              <IntensityBars intensity={flavor.intensity} />
+                <IntensityBars intensity={capsule.intensity} />
 
-              <p className="mt-2 text-xs text-gray-400">
-                {flavor.servings.join(" · ")}
-              </p>
+                <p className="mt-2 text-xs text-gray-400">
+                  {(capsule.servings || []).join(" · ")}
+                </p>
 
-              <span className="mt-3 text-sm font-bold text-[#C9A24B]">
-                {formatTZS(flavor.price)} / sleeve
-              </span>
+                <span className="mt-3 block text-sm font-bold text-[#C9A24B]">
+                  {formatTZS(capsule.price)} / sleeve
+                </span>
 
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.96 }}
-                onClick={() =>
-                  addToCart({
-                    id: flavor.id,
-                    name: flavor.name,
-                    price: flavor.price,
-                    image: flavor.image,
-                  })
-                }
-                className="mt-4 w-full rounded-full border border-[#C9A24B] py-2 text-sm font-semibold text-[#C9A24B] transition hover:bg-[#C9A24B] hover:text-[#15110D]"
-              >
-                Add to Cart
-              </motion.button>
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.96 }}
+                  onClick={() =>
+                    addToCart({
+                      id: capsule._id,
+                      name: capsule.name,
+                      price: capsule.price,
+                      image: capsule.image,
+                    })
+                  }
+                  className="mt-4 w-full rounded-full border border-[#C9A24B] py-2 text-sm font-semibold text-[#C9A24B] transition hover:bg-[#C9A24B] hover:text-[#15110D]"
+                >
+                  Add to Cart
+                </motion.button>
+              </div>
             </motion.div>
           ))}
         </motion.div>

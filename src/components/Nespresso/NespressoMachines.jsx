@@ -3,22 +3,10 @@ import { motion } from "framer-motion";
 import { useCart } from "../../context/CartContext";
 import { formatTZS } from "../../utils/currency";
 
-const machineImage =
-  "https://images.unsplash.com/photo-1637029967725-b64c1a7449ff?auto=format&fit=crop&w=900&q=80";
-const machineImageAlt =
-  "https://images.unsplash.com/photo-1560885521-4e61e9bc1631?auto=format&fit=crop&w=900&q=80";
-const mokaImage =
-  "https://images.unsplash.com/photo-1572119243889-4939ec2ced2c?auto=format&fit=crop&w=900&q=80";
-
-// Retail prices (TZS) per KM Group's NESPRESSO Products Price List, 13 May 2026.
-const machines = [
-  { id: "machine-inissia", name: "Inissia", tagline: "Compact and effortless, the everyday espresso.", price: 550000, image: machineImage },
-  { id: "machine-essenza-mini", name: "Essenza Mini", tagline: "Nespresso's smallest machine, full-size flavor.", price: 550000, image: machineImageAlt },
-  { id: "machine-pixie", name: "Pixie", tagline: "Compact design with a fast heat-up time.", price: 650000, image: machineImage },
-  { id: "machine-citiz", name: "CiTiZ", tagline: "A design icon with a built-in cup warmer.", price: 700000, image: machineImageAlt },
-  { id: "machine-creatista", name: "Creatista", tagline: "Barista-grade milk texturing, built in.", price: 2800000, image: machineImage },
-  { id: "machine-latissima-one", name: "Latissima One", tagline: "One-touch lattes and cappuccinos.", price: 1500000, image: machineImageAlt },
-  { id: "machine-moka-pot", name: "Italian Moka Pot", tagline: "The classic stovetop ritual, no capsules needed.", price: 120000, image: mokaImage },
+// Fallback content shown if no machines are linked on the backend yet.
+const DEFAULT_MACHINES = [
+  { _id: "machine-inissia", name: "Inissia", tagline: "Compact and effortless, the everyday espresso.", price: 550000, image: "https://images.unsplash.com/photo-1637029967725-b64c1a7449ff?auto=format&fit=crop&w=900&q=80" },
+  { _id: "machine-essenza-mini", name: "Essenza Mini", tagline: "Nespresso's smallest machine, full-size flavor.", price: 550000, image: "https://images.unsplash.com/photo-1560885521-4e61e9bc1631?auto=format&fit=crop&w=900&q=80" },
 ];
 
 const container = {
@@ -40,8 +28,14 @@ const item = {
   },
 };
 
-const NespressoMachines = () => {
+const NespressoMachines = ({
+  machines = DEFAULT_MACHINES,
+  eyebrow = "Machines",
+  heading = "Designed to fit your kitchen, built to fit your ritual.",
+}) => {
   const { addToCart } = useCart();
+
+  if (!machines.length) return null;
 
   return (
     <section id="machines" className="bg-[#1B1410] px-6 py-20 text-white lg:px-12">
@@ -57,10 +51,10 @@ const NespressoMachines = () => {
             variants={item}
             className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-[#C9A24B]"
           >
-            Machines
+            {eyebrow}
           </motion.p>
           <motion.h2 variants={item} className="text-3xl font-bold sm:text-4xl">
-            Designed to fit your kitchen, built to fit your ritual.
+            {heading}
           </motion.h2>
         </motion.div>
 
@@ -73,7 +67,7 @@ const NespressoMachines = () => {
         >
           {machines.map((machine) => (
             <motion.div
-              key={machine.id}
+              key={machine._id}
               variants={item}
               whileHover={{ y: -6 }}
               className="group overflow-hidden rounded-2xl bg-[#241B14]"
@@ -97,7 +91,7 @@ const NespressoMachines = () => {
                     whileTap={{ scale: 0.96 }}
                     onClick={() =>
                       addToCart({
-                        id: machine.id,
+                        id: machine._id,
                         name: machine.name,
                         price: machine.price,
                         image: machine.image,
