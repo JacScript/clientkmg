@@ -1,3 +1,10 @@
+
+
+
+
+
+
+
 import React from "react";
 import { motion } from "framer-motion";
 import { useCart } from "../../context/CartContext";
@@ -115,11 +122,11 @@ const NespressoCapsules = ({
               whileHover={{ y: -6 }}
               className="overflow-hidden rounded-2xl bg-[#1B1410] text-center"
             >
-              <div className="aspect-[4/3] overflow-hidden">
+              <div className="aspect-[4/3] overflow-hidden bg-white">
                 <img
                   src={capsule.image}
                   alt={`${capsule.name} capsule`}
-                  className="h-full w-full object-fit transition duration-500 hover:scale-105"
+                  className="h-full w-full object-cover transition duration-500 hover:scale-105"
                 />
               </div>
 

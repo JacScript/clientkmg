@@ -109,7 +109,7 @@ const NespressoHero = ({
       </AnimatePresence>
 
       {/* ── Gradient overlay ── */}
-      <div className="absolute inset-0 bg-gradient-to-r from-[#15110D] via-[#15110D]/70 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-r from-[#15110D] via-[#15110D]/40 to-transparent" />
 
       {/* ── Hero copy ── */}
       <motion.div
@@ -191,7 +191,7 @@ const NespressoHero = ({
 
       {/* ── Dot indicators (hidden when only one image) ── */}
       {slides.length > 1 && (
-        <div className="absolute bottom-8 left-1/2 z-20 flex -translate-x-1/2 gap-2">
+        <div className="absolute bottom-8 left-1/2 z-10 flex -translate-x-1/2 gap-2">
           {slides.map((_, i) => (
             <button
               key={i}
