@@ -6,7 +6,7 @@ import { formatTZS } from "../utils/currency";
 import { createOrder, markOrderSent } from "../http";
 
 // Same WhatsApp number used by the Nespresso Accessories "Enquire" button.
-const WHATSAPP_NUMBER = "255764437845";
+const WHATSAPP_NUMBER = "33771948786";
 
 const CartDrawer = ({ isOpen, onClose }) => {
   const { items, removeFromCart, updateQty, totalPrice, clearCart } = useCart();
