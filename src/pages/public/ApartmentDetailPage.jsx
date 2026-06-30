@@ -1,32 +1,19 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useParams, Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
+import { useQuery } from "@tanstack/react-query";
 import {
-  MapPin,
-  Users,
-  ArrowLeft,
-  CheckCircle2,
-  XCircle,
-  ChevronLeft,
-  ChevronRight,
-  Wifi,
-  Snowflake,
-  ChefHat,
-  Waves,
-  Mountain,
-  Check,
-  MessageCircle,
-  ShieldCheck,
-  Megaphone,
-  X,
+  MapPin, Users, ArrowLeft, CheckCircle2, XCircle,
+  ChevronLeft, ChevronRight, Wifi, Snowflake, ChefHat,
+  Waves, Mountain, Check, MessageCircle, ShieldCheck,
+  Megaphone, X,
 } from "lucide-react";
-import { apartments } from "../../data/apartments";
+import { getApartmentBySlug } from "../../http";
 import { formatTZS } from "../../utils/currency";
 
 const WHATSAPP_LINK = "https://wa.me/33771948786";
 const AUTOPLAY_MS = 5000;
 
-// Maps known feature labels to an icon; anything unrecognized falls back to Check.
 const FEATURE_ICONS = {
   "Free WiFi": Wifi,
   "Air Conditioning": Snowflake,
@@ -37,25 +24,26 @@ const FEATURE_ICONS = {
 
 const container = {
   hidden: {},
-  visible: {
-    transition: { staggerChildren: 0.12, delayChildren: 0.1 },
-  },
+  visible: { transition: { staggerChildren: 0.12, delayChildren: 0.1 } },
 };
 
 const item = {
   hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.55, ease: "easeOut" },
-  },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: "easeOut" } },
 };
 
 const ApartmentDetailPage = () => {
   const { slug } = useParams();
-  const apartment = apartments.find((a) => a.slug === slug);
 
-  const total = apartment?.images.length ?? 0;
+  const { data: resData, isLoading, isError } = useQuery({
+    queryKey: ["apartment", slug],
+    queryFn: () => getApartmentBySlug(slug),
+    enabled: !!slug,
+  });
+
+  const apartment = resData?.data?.data;
+
+  const total = apartment?.images?.length ?? 0;
   const [current, setCurrent] = useState(0);
   const [paused, setPaused] = useState(false);
   const [showAnnouncement, setShowAnnouncement] = useState(true);
@@ -71,18 +59,30 @@ const ApartmentDetailPage = () => {
     return () => clearInterval(id);
   }, [apartment, current, paused, total, goTo]);
 
-  if (!apartment) {
+  // Reset carousel + announcement when navigating between apartments
+  useEffect(() => {
+    setCurrent(0);
+    setShowAnnouncement(true);
+  }, [slug]);
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-[80vh]">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-4 border-blue-600" />
+      </div>
+    );
+  }
+
+  if (isError || !apartment) {
     return (
       <motion.div
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="mx-auto max-w-3xl px-6 py-32 text-center"
+        className="mx-auto max-w-3xl px-6 py-32 text-center h-[74dvh] mt-44"
       >
         <h1 className="text-2xl font-bold text-gray-900">Apartment not found</h1>
-        <p className="mt-3 text-gray-500">
-          We couldn't find a listing at this address.
-        </p>
+        <p className="mt-3 text-gray-500">We couldn't find a listing at this address.</p>
         <Link to="/holiday-home" className="mt-6 inline-block font-semibold text-blue-600">
           ← Back to all apartments
         </Link>
@@ -90,50 +90,39 @@ const ApartmentDetailPage = () => {
     );
   }
 
-  const {
-    title,
-    description,
-    location,
-    guests,
-    images,
-    features,
-    availability,
-    availableFrom,
-    price,
-  } = apartment;
+  const { title, description, location, guests, images, features, availability, availableFrom, price } = apartment;
 
   return (
     <main className="relative top-44 bg-white">
-      {/* Announcement — sits between the navbar and the hero section */}
-       <AnimatePresence>
-  {!availability && availableFrom && showAnnouncement && (
-    <motion.div
-      initial={{ height: 0, opacity: 0 }}
-      animate={{ height: "auto", opacity: 1 }}
-      exit={{ height: 0, opacity: 0 }}
-      transition={{ duration: 0.35, ease: "easeOut" }}
-      className="overflow-hidden bg-amber-50"
-    >
-      <div className="mx-auto flex w-full flex-col items-start gap-3 px-4 py-3 sm:w-[90%] sm:flex-row sm:items-center sm:justify-between sm:gap-4 sm:px-6 md:w-[85%] lg:w-[80%] xl:w-[75%] 2xl:w-[70%]">
-        <div className="flex items-start gap-2 text-xs font-medium text-amber-800 sm:items-center sm:text-sm">
-          <Megaphone size={16} className="mt-0.5 shrink-0 sm:mt-0" />
-          <span>
-            {title} isn't bookable yet — it opens for stays starting{" "}
-            {availableFrom}.
-          </span>
-        </div>
-        <button
-          type="button"
-          onClick={() => setShowAnnouncement(false)}
-          aria-label="Dismiss announcement"
-          className="shrink-0 self-end rounded-full p-1 text-amber-700 transition hover:bg-amber-100 sm:self-auto"
-        >
-          <X size={16} />
-        </button>
-      </div>
-    </motion.div>
-  )}
-</AnimatePresence>
+      {/* Announcement banner */}
+      <AnimatePresence>
+        {!availability && availableFrom && showAnnouncement && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.35, ease: "easeOut" }}
+            className="overflow-hidden bg-amber-50"
+          >
+            <div className="mx-auto flex w-full flex-col items-start gap-3 px-4 py-3 sm:w-[90%] sm:flex-row sm:items-center sm:justify-between sm:gap-4 sm:px-6 md:w-[85%] lg:w-[80%] xl:w-[75%] 2xl:w-[70%]">
+              <div className="flex items-start gap-2 text-xs font-medium text-amber-800 sm:items-center sm:text-sm">
+                <Megaphone size={16} className="mt-0.5 shrink-0 sm:mt-0" />
+                <span>
+                  {title} isn't bookable yet — it opens for stays starting {availableFrom}.
+                </span>
+              </div>
+              <button
+                type="button"
+                onClick={() => setShowAnnouncement(false)}
+                aria-label="Dismiss announcement"
+                className="shrink-0 self-end rounded-full p-1 text-amber-700 transition hover:bg-amber-100 sm:self-auto"
+              >
+                <X size={16} />
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Hero carousel */}
       <section
@@ -193,36 +182,18 @@ const ApartmentDetailPage = () => {
           variants={container}
           initial="hidden"
           animate="visible"
-          className=" absolute inset-x-0 top-1/2 z-10 flex flex-col gap-5 px-6 pb-10 sm:px-10 sm:pb-12 mx-4 sm:mx-8 md:mx-16 lg:mx-32 xl:mx-80"
+          className="absolute inset-x-0 top-1/2 z-10 flex flex-col gap-5 px-6 pb-10 sm:px-10 sm:pb-12 mx-4 sm:mx-8 md:mx-16 lg:mx-32 xl:mx-80"
         >
-          <motion.p
-            variants={item}
-            className="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-blue-300"
-          >
+          <motion.p variants={item} className="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-blue-300">
             Holiday Home
           </motion.p>
-          <motion.h1
-            variants={item}
-            className="max-w-2xl text-3xl font-bold leading-tight sm:text-4xl md:text-5xl"
-          >
+          <motion.h1 variants={item} className="max-w-2xl text-3xl font-bold leading-tight sm:text-4xl md:text-5xl">
             {title}
           </motion.h1>
-          <motion.div
-            variants={item}
-            className="mt-3 flex flex-wrap items-center gap-4 text-sm text-gray-200"
-          >
-            <span className="flex items-center gap-1">
-              <MapPin size={15} /> {location}
-            </span>
-            <span className="flex items-center gap-1">
-              <Users size={15} /> {guests} guests
-            </span>
-            <span
-              className={
-                "flex items-center gap-1 font-semibold " +
-                (availability ? "text-emerald-300" : "text-red-300")
-              }
-            >
+          <motion.div variants={item} className="mt-3 flex flex-wrap items-center gap-4 text-sm text-gray-200">
+            <span className="flex items-center gap-1"><MapPin size={15} /> {location}</span>
+            <span className="flex items-center gap-1"><Users size={15} /> {guests} guests</span>
+            <span className={"flex items-center gap-1 font-semibold " + (availability ? "text-emerald-300" : "text-red-300")}>
               {availability ? <CheckCircle2 size={15} /> : <XCircle size={15} />}
               {availability ? "Available now" : "Not available"}
             </span>
@@ -242,9 +213,7 @@ const ApartmentDetailPage = () => {
                 aria-label={`Go to photo ${i + 1}`}
                 className={
                   "h-16 w-24 flex-shrink-0 overflow-hidden rounded-lg border-2 transition " +
-                  (i === current
-                    ? "border-blue-600"
-                    : "border-transparent opacity-70 hover:opacity-100")
+                  (i === current ? "border-blue-600" : "border-transparent opacity-70 hover:opacity-100")
                 }
               >
                 <img src={src} alt="" className="h-full w-full object-cover" />
@@ -254,6 +223,7 @@ const ApartmentDetailPage = () => {
         </div>
       )}
 
+      {/* Main content */}
       <div className="mx-auto max-w-5xl px-6 pb-20 pt-4 lg:px-12">
         <div className="grid gap-10 lg:grid-cols-3">
           <motion.div
@@ -263,24 +233,15 @@ const ApartmentDetailPage = () => {
             whileInView="visible"
             viewport={{ once: true, amount: 0.2 }}
           >
-            <motion.h2 variants={item} className="text-lg font-semibold text-gray-900">
-              About this place
-            </motion.h2>
-            <motion.p variants={item} className="mt-3 leading-relaxed text-gray-600">
-              {description}
-            </motion.p>
+            <motion.h2 variants={item} className="text-lg font-semibold text-gray-900">About this place</motion.h2>
+            <motion.p variants={item} className="mt-3 leading-relaxed text-gray-600">{description}</motion.p>
 
-            <motion.h2 variants={item} className="mt-10 text-lg font-semibold text-gray-900">
-              What's included
-            </motion.h2>
+            <motion.h2 variants={item} className="mt-10 text-lg font-semibold text-gray-900">What's included</motion.h2>
             <motion.div variants={item} className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3">
-              {features.map((feature) => {
+              {(features || []).map((feature) => {
                 const Icon = FEATURE_ICONS[feature] || Check;
                 return (
-                  <div
-                    key={feature}
-                    className="flex items-center gap-2 rounded-xl border border-gray-100 px-3 py-2.5 text-sm text-gray-700"
-                  >
+                  <div key={feature} className="flex items-center gap-2 rounded-xl border border-gray-100 px-3 py-2.5 text-sm text-gray-700">
                     <Icon size={16} className="text-blue-600" />
                     {feature}
                   </div>
@@ -303,20 +264,13 @@ const ApartmentDetailPage = () => {
               <span className="text-sm text-gray-400">/ night</span>
             </div>
 
-            <span
-              className={
-                "mt-3 flex items-center gap-1 text-sm font-semibold " +
-                (availability ? "text-emerald-600" : "text-red-500")
-              }
-            >
+            <span className={"mt-3 flex items-center gap-1 text-sm font-semibold " + (availability ? "text-emerald-600" : "text-red-500")}>
               {availability ? <CheckCircle2 size={16} /> : <XCircle size={16} />}
               {availability ? "Available now" : "Not available"}
             </span>
 
             {!availability && availableFrom && (
-              <p className="mt-2 text-xs font-medium text-amber-600">
-                Available starting from {availableFrom}
-              </p>
+              <p className="mt-2 text-xs font-medium text-amber-600">Available starting from {availableFrom}</p>
             )}
 
             <div className="mt-4 flex items-center gap-2 text-sm text-gray-500">
@@ -337,9 +291,7 @@ const ApartmentDetailPage = () => {
               {availability ? `Book ${title} Now` : "Not Available"}
             </motion.button>
 
-            <p className="mt-3 text-center text-xs text-gray-400">
-              You won't be charged yet
-            </p>
+            <p className="mt-3 text-center text-xs text-gray-400">You won't be charged yet</p>
 
             <div className="mt-5 flex items-center gap-2 border-t border-gray-100 pt-4 text-xs text-gray-500">
               <ShieldCheck size={15} className="text-blue-600" />

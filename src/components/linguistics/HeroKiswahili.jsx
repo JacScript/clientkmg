@@ -61,7 +61,7 @@ const HeroKiswahili = ({
           src={image.url}
           alt={image.alt || `Slide ${idx + 1}`}
           className={
-            "absolute inset-0 h-full w-full object-cover z-0 transition-opacity duration-1000 " +
+            "absolute inset-0 h-full w-full object-cover -z-20 transition-opacity duration-1000 " +
             (idx === currentIndex ? "opacity-100" : "opacity-0")
           }
         />
@@ -71,7 +71,7 @@ const HeroKiswahili = ({
       {total > 1 && (
         <button
           onClick={toggleAutoplay}
-          className="absolute top-6 right-6 z-30 bg-black/50 hover:bg-black/70 text-white rounded-full p-3 transition-all duration-300 hover:scale-110"
+          className="absolute top-6 right-6 z-10 bg-black/50 hover:bg-black/70 text-white rounded-full p-3 transition-all duration-300 hover:scale-110"
           aria-label={isPlaying ? "Pause carousel" : "Play carousel"}
         >
           {isPlaying ? (
@@ -84,7 +84,7 @@ const HeroKiswahili = ({
 
       {/* Dot Navigation */}
       {total > 1 && (
-        <div className="absolute bottom-6 left-1/2 z-30 flex -translate-x-1/2 items-center gap-2">
+        <div className="absolute bottom-6 left-1/2 z-10 flex -translate-x-1/2 items-center gap-2">
           {images.map((_, idx) => (
             <button
               key={idx}
@@ -100,10 +100,10 @@ const HeroKiswahili = ({
       )}
 
       {/* Gradient Overlay for better text readability */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/20 to-black/70 z-10" />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/20 to-black/70 -z-10" />
 
       {/* Main content container */}
-      <div className="relative isolate px-6 lg:px-8 z-20 w-full"> 
+      <div className="relative isolate px-6 lg:px-8 z-10 w-full"> 
 
         {/* Top decorative blob with warmer colors for language learning */}
         <div
@@ -201,7 +201,7 @@ const HeroKiswahili = ({
         {/* Bottom decorative element */}
         <div
           aria-hidden="true"
-          className="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]"
+          className="absolute inset-x-0 top-[calc(100%-13rem)] -z-30 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]"
         >
           <div
             style={{

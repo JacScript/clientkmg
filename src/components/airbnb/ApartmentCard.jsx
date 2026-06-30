@@ -58,7 +58,7 @@ const ApartmentCard = ({ apartment }) => {
       >
         {images.map((src, i) => (
           <img
-            key={src}
+            key={i}
             src={src}
             alt={`${title} photo ${i + 1}`}
             className={
@@ -92,7 +92,7 @@ const ApartmentCard = ({ apartment }) => {
         <Link
           to={`/apartments/${slug}`}
           aria-label={`Open ${title} full page`}
-          className="absolute top-3 right-3 z-20 flex h-9 w-9 items-center justify-center rounded-full bg-white/90 text-gray-800 shadow-md transition hover:scale-105 hover:bg-white"
+          className="absolute top-3 right-3 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-white/90 text-gray-800 shadow-md transition hover:scale-105 hover:bg-white"
         >
           <ArrowUpRight size={18} />
         </Link>

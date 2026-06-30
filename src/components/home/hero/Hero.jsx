@@ -138,7 +138,7 @@ export default function Hero({ res }) {
       </button>
       <button
         onClick={nextSlide}
-        className="absolute right-4 top-1/2 transform -translate-y-1/2 z-30 bg-black/30 hover:bg-black/50 text-white p-2 rounded-full transition-all duration-300 group-hover:opacity-100 opacity-0 md:opacity-100"
+        className="absolute right-4 top-1/2 transform -translate-y-1/2 z-40 bg-black/30 hover:bg-black/50 text-white p-2 rounded-full transition-all duration-300 group-hover:opacity-100 opacity-0 md:opacity-100"
         aria-label="Next slide"
       >
         <IoIosArrowForward size={24} />
@@ -159,7 +159,7 @@ export default function Hero({ res }) {
       </div>
 
       {/* Hero Content */}
-      <div className="relative z-20 h-full flex items-center lg:items-start pt-60 justify-center px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10 h-full flex items-center lg:items-start pt-60 justify-center px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-4xl mx-auto flex flex-col items-center justify-center">
 
           {/* Tour & Travel Badge */}

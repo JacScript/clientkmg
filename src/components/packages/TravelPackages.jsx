@@ -209,7 +209,7 @@ const TravelPackages = () => {
                     {/* Price and CTA */}
                     <div className="flex items-center justify-between pt-6 border-t border-gray-200">
                       <div>
-                        <span className={`text-4xl font-bold bg-gradient-to-r ${pkg.color} bg-clip-text text-transparent`}>
+                        <span className={`text-medium md:text-4xl font-bold bg-gradient-to-r ${pkg.color} bg-clip-text text-transparent`}>
                           €{pkg.price}
                         </span>
                         <span className="text-gray-500 ml-2">{pkg.priceNote}</span>
@@ -218,7 +218,7 @@ const TravelPackages = () => {
                         href={`https://wa.me/33771948786?text=Hi! I'm interested in booking the ${pkg.title} - ${pkg.subtitle} ${pkg.duration ? `(${pkg.duration})` : ''} for €${pkg.price}${pkg.priceNote}. Can you please provide more details?`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className={`bg-gradient-to-r ${pkg.color} text-white px-8 py-4 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 flex items-center gap-2 text-center`}
+                        className={`bg-gradient-to-r ${pkg.color} text-white lg:px-6 lg:py-3 px-4 py-2 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 text-xs lg:text-base transform hover:scale-105 flex items-center gap-2 text-center`}
                       >
                         Book Now
                         <FaAngleRight className="w-5 h-5" />
@@ -349,7 +349,7 @@ const TravelPackages = () => {
         </div>
 
         {/* Call to Action */}
-        <div className="text-center mt-16">
+        {/* <div className="text-center mt-16">
           <div className="bg-white rounded-3xl shadow-xl p-8 max-w-2xl mx-auto">
             <h3 className="text-2xl font-bold text-gray-900 mb-4">
               Ready for Your French Adventure?
@@ -366,7 +366,7 @@ const TravelPackages = () => {
               </button>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </section>
   );

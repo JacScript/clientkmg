@@ -69,14 +69,14 @@ export default function VillaHero({
       className="font-body relative h-[100vh] w-full overflow-hidden text-white outline-none"
     >
       <motion.div
-        className="absolute inset-0"
+        className="absolute inset-0 -z-20"
         initial={{ scale: 1.12, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 1.4, ease: "easeOut" }}
       >
         {images.map((img, i) => (
           <img
-            key={img.url}
+            key={i}
             src={img.url}
             alt={img.alt}
             className={
@@ -88,7 +88,7 @@ export default function VillaHero({
       </motion.div>
 
       <motion.div
-        className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/30 to-transparent"
+        className="absolute inset-0 -z-10 bg-gradient-to-t from-slate-950/90 via-slate-950/30 to-transparent"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1, delay: 0.2 }}
@@ -116,7 +116,7 @@ export default function VillaHero({
       </motion.button>
 
       <motion.div
-        className="absolute inset-x-0 top-1/3 z-10 flex flex-col gap-5 px-6 pb-10 sm:px-10 sm:pb-12 mx-4 sm:mx-8 md:mx-16 lg:mx-32 xl:mx-80"
+        className="absolute inset-x-0 top-1/3 -z-10 flex flex-col gap-5 px-6 pb-10 sm:px-10 sm:pb-12 mx-4 sm:mx-8 md:mx-16 lg:mx-32 xl:mx-80"
         variants={container}
         initial="hidden"
         animate="visible"
@@ -136,7 +136,7 @@ export default function VillaHero({
         <motion.div variants={item} className="flex items-center gap-2">
           {images.map((img, i) => (
             <motion.button
-              key={img.url}
+              key={i}
               type="button"
               onClick={() => goTo(i)}
               aria-label={`Go to photo: ${img.label || i + 1}`}
