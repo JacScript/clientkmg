@@ -165,13 +165,14 @@ export default function Hero({ res }) {
           {/* Tour & Travel Badge */}
           <div className="z-30 left-4 sm:left-8 lg:left-12" style={{ top: '90%' }}>
             <div className="bg-orange-500 text-white px-4 py-2 rounded-lg shadow-lg transform -rotate-2 hover:rotate-0 transition-transform duration-300">
-              <span className="text-sm sm:text-base lg:text-lg font-bold uppercase tracking-wide">
-                {res?.badge || "Travel And Tours"}
-              </span>
+              <p className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-7xl font-bold uppercase tracking-wide">
+                KM GROUP
+                {/* {res?.badge || "Travel And Tours"} */}
+              </p>
             </div>
           </div>
 
-          <Reveal delay={0.2}>
+          {/* <Reveal delay={0.2}>
             <h1 className="mt-4 text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-7xl capitalize font-semibold font-roboto text-white leading-tight break-words">
               {fullHeading !== null ? (
                 <span style={{ ...wordStyle, color: "#eeeeee" }}>{fullHeading}</span>
@@ -184,9 +185,9 @@ export default function Hero({ res }) {
                 </>
               )}
             </h1>
-          </Reveal>
+          </Reveal> */}
 
-          <Reveal>
+          {/* <Reveal>
             <p className="text-sm sm:text-base lg:text-lg font-medium text-white/90 capitalize font-serif">
               {res?.subheading ? (
                 res.subheading
@@ -200,7 +201,7 @@ export default function Hero({ res }) {
                 </>
               )}
             </p>
-          </Reveal>
+          </Reveal> */}
 
           <div className="mt-6 sm:mt-8 flex justify-center">
             <Link
